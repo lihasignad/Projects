@@ -63,7 +63,7 @@ export class TokenService {
     };
     const token = this.jwt.sign(payload, {
       secret: this.cfg.accessSecret,
-      expiresIn: this.cfg.accessTtl,
+      expiresIn: this.cfg.refreshTtl as any,
       issuer: this.cfg.issuer,
       audience: this.cfg.audience,
     });
@@ -85,7 +85,7 @@ export class TokenService {
     };
     const token = this.jwt.sign(payload, {
       secret: this.cfg.refreshSecret,
-      expiresIn: this.cfg.refreshTtl,
+      expiresIn: this.cfg.refreshTtl as any,
       issuer: this.cfg.issuer,
       audience: this.cfg.audience,
     });
@@ -125,7 +125,7 @@ export class TokenService {
   ttlToSeconds(ttl: string): number {
     const m = /^(\d+)\s*(s|m|h|d)?$/i.exec(ttl.trim());
     if (!m) throw new Error(`Invalid TTL: ${ttl}`);
-    const n = parseInt(m[1], 10);
+    const n = parseInt(m[1]!, 10);
     switch ((m[2] ?? 's').toLowerCase()) {
       case 's': return n;
       case 'm': return n * 60;

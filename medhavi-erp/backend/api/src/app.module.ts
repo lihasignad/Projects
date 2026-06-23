@@ -1,3 +1,4 @@
+import { AuthModule } from './modules/auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './infrastructure/prisma/prisma.module';
@@ -11,14 +12,20 @@ import { validateEnv } from './config/env.validation';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true, load: [configuration], validate: validateEnv }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration],
+      validate: validateEnv,
+    }),
+
     PrismaModule,
     MongoModule,
     RedisModule,
     QueueModule,
     TenantModule,
     HealthModule,
-    // Domain modules are registered here in later phases (Auth, Student, Faculty, ...)
+
+    AuthModule, 
   ],
 })
 export class AppModule {}

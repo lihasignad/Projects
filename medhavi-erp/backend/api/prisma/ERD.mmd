@@ -1,0 +1,2708 @@
+erDiagram
+    institutes {
+        string id PK
+        string code
+        string name
+        string legalName
+        string domain
+        string logoFileId
+        string timezone
+        string locale
+        string status
+        string contactEmail
+        string contactPhone
+        string addressLine1
+        string addressLine2
+        string city
+        string state
+        string country
+        string postalCode
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    campuses {
+        string id PK
+        string instituteId
+        string code
+        string name
+        boolean isMain
+        string addressLine1
+        string addressLine2
+        string city
+        string state
+        string country
+        string postalCode
+        float latitude
+        float longitude
+        string status
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    schools {
+        string id PK
+        string instituteId
+        string campusId
+        string code
+        string name
+        string shortName
+        string deanUserId
+        string status
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    departments {
+        string id PK
+        string instituteId
+        string campusId
+        string schoolId
+        string code
+        string name
+        string shortName
+        string hodUserId
+        string status
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    users {
+        string id PK
+        string instituteId
+        string email
+        datetime emailVerifiedAt
+        string phone
+        datetime phoneVerifiedAt
+        string firstName
+        string middleName
+        string lastName
+        string displayName
+        string gender
+        datetime dateOfBirth
+        string avatarFileId
+        string status
+        datetime lockedUntil
+        int failedLoginCount
+        datetime lastLoginAt
+        string lastLoginIp
+        boolean mfaEnabled
+        boolean mustChangePassword
+        string preferredLanguage
+        string timezone
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    roles {
+        string id PK
+        string instituteId
+        string key
+        string name
+        string description
+        string kind
+        string defaultScope
+        int rank
+        boolean isAssignable
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    permissions {
+        string id PK
+        string key
+        string module
+        string action
+        string description
+        boolean isSensitive
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    role_permissions {
+        string roleId
+        string permissionId
+        datetime grantedAt
+    }
+
+    user_roles {
+        string id PK
+        string userId
+        string roleId
+        string scopeType
+        string scopeId
+        string instituteId
+        boolean isPrimary
+        datetime validFrom
+        datetime validUntil
+        string grantedById
+        string grantReason
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    user_scopes {
+        string id PK
+        string userId
+        string scopeType
+        string scopeId
+        string instituteId
+        string reason
+        datetime validFrom
+        datetime validUntil
+        string grantedById
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    auth_credentials {
+        string id PK
+        string userId
+        string passwordHash
+        string algorithm
+        datetime rotatedAt
+        datetime expiresAt
+        boolean isCurrent
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    sessions {
+        string id PK
+        string userId
+        string refreshTokenHash
+        string refreshFamilyId
+        string deviceId
+        string deviceName
+        string userAgent
+        string ipAddress
+        string geoCountry
+        string geoCity
+        string status
+        datetime issuedAt
+        datetime lastSeenAt
+        datetime expiresAt
+        datetime revokedAt
+        string revokedReason
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    login_attempts {
+        string id PK
+        string userId
+        string emailTried
+        string result
+        string reason
+        string ipAddress
+        string userAgent
+        string geoCountry
+        datetime attemptedAt
+    }
+
+    mfa_factors {
+        string id PK
+        string userId
+        string type
+        string label
+        string secret
+        string phoneNumber
+        string email
+        string status
+        datetime lastUsedAt
+        datetime verifiedAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    password_reset_tokens {
+        string id PK
+        string userId
+        string tokenHash
+        datetime expiresAt
+        datetime consumedAt
+        string requestIp
+        datetime createdAt
+    }
+
+    email_verification_tokens {
+        string id PK
+        string userId
+        string email
+        string tokenHash
+        datetime expiresAt
+        datetime consumedAt
+        datetime createdAt
+    }
+
+    security_events {
+        string id PK
+        string instituteId
+        string userId
+        string eventType
+        string severity
+        string message
+        string ipAddress
+        string userAgent
+        string context
+        datetime occurredAt
+        datetime createdAt
+    }
+
+    audit_logs {
+        string id PK
+        string instituteId
+        string actorUserId
+        string actorRoleKey
+        string action
+        string entityType
+        string entityId
+        string summary
+        string before
+        string after
+        string diff
+        string ipAddress
+        string userAgent
+        string requestId
+        string traceId
+        datetime occurredAt
+        datetime createdAt
+    }
+
+    workflow_definitions {
+        string id PK
+        string instituteId
+        string key
+        string name
+        string description
+        string entityType
+        int version
+        boolean isActive
+        string config
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    workflow_steps {
+        string id PK
+        string workflowId
+        int sequence
+        string name
+        string approverRoleKey
+        string approverScopeType
+        int requiredApprovals
+        int slaHours
+        string escalationRoleKey
+        boolean allowReassign
+        boolean allowReject
+        boolean allowReturn
+        string config
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    workflow_instances {
+        string id PK
+        string instituteId
+        string workflowId
+        string entityType
+        string entityId
+        string initiatorUserId
+        int currentStep
+        string status
+        string context
+        datetime dueAt
+        datetime completedAt
+        datetime cancelledAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    workflow_actions {
+        string id PK
+        string instanceId
+        string stepId
+        int stepSequence
+        string actorUserId
+        string actionType
+        string comment
+        string attachments
+        string metadata
+        datetime performedAt
+        datetime createdAt
+    }
+
+    notification_templates {
+        string id PK
+        string instituteId
+        string key
+        string channel
+        string locale
+        string subject
+        string body
+        string variables
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    notifications {
+        string id PK
+        string instituteId
+        string recipientId
+        string eventKey
+        string channel
+        string priority
+        string status
+        string subject
+        string body
+        string payload
+        string relatedEntityType
+        string relatedEntityId
+        string providerMessageId
+        string errorMessage
+        datetime scheduledFor
+        datetime sentAt
+        datetime deliveredAt
+        datetime readAt
+        datetime failedAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    notification_preferences {
+        string userId
+        string eventKey
+        string channel
+        boolean enabled
+        datetime updatedAt
+        datetime createdAt
+    }
+
+    file_objects {
+        string id PK
+        string instituteId
+        string bucket
+        string storageKey
+        string originalName
+        string mimeType
+        int sizeBytes
+        string checksumSha256
+        string uploadedById
+        string visibility
+        string scanStatus
+        string scanResult
+        string relatedEntityType
+        string relatedEntityId
+        string metadata
+        datetime expiresAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    file_access_grants {
+        string id PK
+        string fileId
+        string grantedToId
+        string grantedById
+        string signedUrlHash
+        string permission
+        datetime expiresAt
+        datetime revokedAt
+        int accessCount
+        datetime lastAccessedAt
+        datetime createdAt
+    }
+
+    settings {
+        string id PK
+        string scopeType
+        string scopeId
+        string category
+        string key
+        string valueType
+        string value
+        boolean isSecret
+        boolean isOverridable
+        string description
+        int version
+        string updatedById
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    academic_years {
+        string id PK
+        string instituteId
+        string code
+        string name
+        datetime startDate
+        datetime endDate
+        string status
+        boolean isCurrent
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    terms {
+        string id PK
+        string instituteId
+        string academicYearId
+        string code
+        string name
+        string type
+        int sequence
+        datetime startDate
+        datetime endDate
+        datetime registrationStart
+        datetime registrationEnd
+        datetime classesStart
+        datetime classesEnd
+        datetime examsStart
+        datetime examsEnd
+        datetime resultsDate
+        string status
+        boolean isCurrent
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    programs {
+        string id PK
+        string instituteId
+        string campusId
+        string schoolId
+        string departmentId
+        string code
+        string name
+        string shortName
+        string level
+        string mode
+        float durationYears
+        int totalTerms
+        int totalCredits
+        int minPassCredits
+        string gradingScheme
+        int intakeCapacity
+        string description
+        string accreditation
+        datetime effectiveFrom
+        datetime effectiveTo
+        string status
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    batches {
+        string id PK
+        string instituteId
+        string programId
+        string academicYearId
+        string code
+        string name
+        int intakeYear
+        int expectedGradYear
+        datetime startDate
+        datetime endDate
+        int sanctionedSeats
+        int filledSeats
+        int currentTermSeq
+        string status
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    sections {
+        string id PK
+        string instituteId
+        string batchId
+        string termId
+        string code
+        string name
+        int capacity
+        int enrolledCount
+        string classRepUserId
+        string classAdvisorFacultyId
+        string roomHint
+        string status
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    subjects {
+        string id PK
+        string instituteId
+        string departmentId
+        string programId
+        string code
+        string name
+        string shortName
+        string type
+        int termSequence
+        float credits
+        int lectureHours
+        int tutorialHours
+        int practicalHours
+        int contactHoursWeek
+        string assessmentScheme
+        string gradingScheme
+        int maxMarks
+        int passMarks
+        int internalWeight
+        int externalWeight
+        string syllabusFileId
+        string description
+        string outcomes
+        datetime effectiveFrom
+        datetime effectiveTo
+        boolean isActive
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    subject_prerequisites {
+        string subjectId
+        string prerequisiteId
+        string minGrade
+        boolean isMandatory
+        datetime createdAt
+    }
+
+    subject_offerings {
+        string id PK
+        string instituteId
+        string subjectId
+        string termId
+        string sectionId
+        string programId
+        string departmentId
+        string offeringCode
+        int capacity
+        int enrolledCount
+        int waitlistCount
+        float creditsOverride
+        string gradingScheme
+        datetime registrationStart
+        datetime registrationEnd
+        string status
+        string syllabusFileId
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    faculty {
+        string id PK
+        string instituteId
+        string userId
+        string campusId
+        string schoolId
+        string departmentId
+        string employeeCode
+        string designation
+        string employmentType
+        datetime joinDate
+        datetime confirmationDate
+        datetime exitDate
+        string qualifications
+        string specializations
+        string researchAreas
+        string officeRoom
+        string officeHours
+        int weeklyLoadHours
+        int maxWeeklyLoadHours
+        string reportsToFacultyId
+        boolean isHod
+        boolean isMentor
+        boolean isAdvisor
+        string status
+        string biography
+        string profilePhotoFileId
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    faculty_assignments {
+        string id PK
+        string instituteId
+        string facultyId
+        string subjectOfferingId
+        string role
+        float loadHoursPerWeek
+        float workloadUnits
+        datetime startDate
+        datetime endDate
+        string status
+        string assignedByUserId
+        string approvedByUserId
+        datetime approvedAt
+        string remarks
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    mentorships {
+        string id PK
+        string instituteId
+        string mentorFacultyId
+        string studentId
+        string type
+        string academicYearId
+        datetime startDate
+        datetime endDate
+        string status
+        string goals
+        string meetingCadence
+        datetime lastInteractionAt
+        int interactionCount
+        float rating
+        string feedback
+        string assignedByUserId
+        string closedReason
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    faculty_advisors {
+        string id PK
+        string instituteId
+        string facultyId
+        string role
+        string scopeType
+        string scopeId
+        string academicYearId
+        datetime startDate
+        datetime endDate
+        string status
+        string assignedByUserId
+        string remarks
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    advisor_students {
+        string id PK
+        string instituteId
+        string facultyAdvisorId
+        string advisorFacultyId
+        string studentId
+        string role
+        string academicYearId
+        datetime startDate
+        datetime endDate
+        string status
+        string notes
+        string assignedByUserId
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    students {
+        string id PK
+        string instituteId
+        string userId
+        string enrollmentNo
+        string rollNo
+        string programId
+        string batchId
+        string sectionId
+        datetime admissionDate
+        string status
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    rooms {
+        string id PK
+        string instituteId
+        string campusId
+        string building
+        string code
+        string name
+        string type
+        int capacity
+        int floor
+        boolean hasProjector
+        boolean hasAc
+        boolean isActive
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    labs {
+        string id PK
+        string instituteId
+        string campusId
+        string building
+        string code
+        string name
+        string type
+        int capacity
+        string equipment
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    time_slots {
+        string id PK
+        string instituteId
+        string name
+        string startTime
+        string endTime
+        int durationMin
+        int slotOrder
+        boolean isBreak
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    timetables {
+        string id PK
+        string instituteId
+        string termId
+        string sectionId
+        string name
+        datetime effectiveFrom
+        datetime effectiveTo
+        string status
+        int version
+        datetime publishedAt
+        string publishedById
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    timetable_entries {
+        string id PK
+        string instituteId
+        string timetableId
+        string subjectOfferingId
+        string facultyAssignmentId
+        string primaryFacultyId
+        string dayOfWeek
+        string timeSlotId
+        string roomId
+        string labId
+        string entryType
+        string deliveryMode
+        string meetingUrl
+        string weekParity
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    class_sessions {
+        string id PK
+        string instituteId
+        string timetableEntryId
+        string subjectOfferingId
+        string facultyId
+        string sectionId
+        string roomId
+        string labId
+        datetime sessionDate
+        datetime startAt
+        datetime endAt
+        string entryType
+        string deliveryMode
+        string status
+        string topic
+        string summary
+        string cancellationReason
+        string rescheduledToId
+        string meetingUrl
+        string meetingRecordingUrl
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    faculty_workloads {
+        string id PK
+        string instituteId
+        string facultyId
+        string termId
+        float lectureHoursPlanned
+        float labHoursPlanned
+        float tutorialHoursPlanned
+        float otherHoursPlanned
+        float totalHoursPlanned
+        float lectureHoursActual
+        float labHoursActual
+        float tutorialHoursActual
+        float otherHoursActual
+        float totalHoursActual
+        float maxHoursAllowed
+        string notes
+        datetime lastRecalculatedAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    courses {
+        string id PK
+        string instituteId
+        string subjectOfferingId
+        string termId
+        string ownerFacultyId
+        string code
+        string title
+        string description
+        string coverImageUrl
+        string status
+        boolean isSelfPaced
+        datetime startsAt
+        datetime endsAt
+        string syllabusUrl
+        float estimatedHours
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    course_enrollments {
+        string id PK
+        string instituteId
+        string courseId
+        string studentId
+        datetime enrolledAt
+        datetime completedAt
+        string status
+        float progressPct
+        datetime lastAccessedAt
+        string grade
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    course_modules {
+        string id PK
+        string instituteId
+        string courseId
+        string parentId
+        string title
+        string description
+        int orderIndex
+        string status
+        datetime unlocksAt
+        datetime locksAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    lms_sessions {
+        string id PK
+        string instituteId
+        string moduleId
+        string title
+        string description
+        string type
+        int orderIndex
+        int durationMin
+        datetime scheduledAt
+        string meetingUrl
+        string recordingUrl
+        string contentMarkdown
+        boolean isMandatory
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    resources {
+        string id PK
+        string instituteId
+        string courseId
+        string moduleId
+        string sessionId
+        string title
+        string type
+        string url
+        string fileObjectId
+        int sizeBytes
+        string mimeType
+        string description
+        boolean isDownloadable
+        int orderIndex
+        string createdById
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    discussion_threads {
+        string id PK
+        string instituteId
+        string courseId
+        string authorUserId
+        string title
+        string body
+        string status
+        boolean isAnnouncement
+        int viewCount
+        datetime lastActivityAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    discussion_comments {
+        string id PK
+        string instituteId
+        string threadId
+        string parentId
+        string authorUserId
+        string body
+        boolean isAnswer
+        int upvotes
+        datetime editedAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    attendance_sessions {
+        string id PK
+        string instituteId
+        string classSessionId
+        string subjectOfferingId
+        string sectionId
+        string facultyId
+        datetime sessionDate
+        datetime openedAt
+        datetime closedAt
+        string method
+        string status
+        string qrToken
+        datetime qrExpiresAt
+        float geoLat
+        float geoLng
+        int geoRadiusM
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    attendance_records {
+        string id PK
+        string instituteId
+        string attendanceSessionId
+        string studentId
+        string status
+        datetime markedAt
+        string markedByUserId
+        string method
+        string remark
+        float geoLat
+        float geoLng
+        string deviceFingerprint
+        string ipAddress
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    assignment_categories {
+        string id PK
+        string instituteId
+        string subjectOfferingId
+        string courseId
+        string name
+        float weightPct
+        string description
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    assignments {
+        string id PK
+        string instituteId
+        string courseId
+        string subjectOfferingId
+        string categoryId
+        string createdByFacultyId
+        string title
+        string description
+        string type
+        string status
+        float maxMarks
+        float weightPct
+        datetime publishedAt
+        datetime startsAt
+        datetime dueAt
+        datetime lateUntil
+        float latePenaltyPct
+        boolean allowResubmission
+        int maxAttempts
+        boolean isGroup
+        string attachmentsJson
+        string rubricJson
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    assignment_submissions {
+        string id PK
+        string instituteId
+        string assignmentId
+        string studentId
+        int attemptNumber
+        string status
+        datetime submittedAt
+        boolean isLate
+        string contentText
+        string attachmentsJson
+        float marksAwarded
+        string feedbackText
+        string rubricResultJson
+        datetime gradedAt
+        string gradedByFacultyId
+        float similarityPct
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    quiz_banks {
+        string id PK
+        string instituteId
+        string subjectId
+        string courseId
+        string ownerFacultyId
+        string name
+        string description
+        boolean isShared
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    quiz_questions {
+        string id PK
+        string instituteId
+        string quizBankId
+        string type
+        string difficulty
+        string stemMarkdown
+        string optionsJson
+        string correctJson
+        string explanation
+        float marks
+        float negativeMarks
+        string tags
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    quizzes {
+        string id PK
+        string instituteId
+        string quizBankId
+        string courseId
+        string subjectOfferingId
+        string createdByFacultyId
+        string title
+        string instructions
+        float totalMarks
+        int durationMin
+        datetime startsAt
+        datetime endsAt
+        int maxAttempts
+        boolean shuffleQuestions
+        boolean shuffleOptions
+        boolean showResultsImmediately
+        float passingMarks
+        boolean isProctored
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    quiz_attempts {
+        string id PK
+        string instituteId
+        string quizId
+        string studentId
+        int attemptNumber
+        string status
+        datetime startedAt
+        datetime submittedAt
+        int durationSec
+        string responsesJson
+        string ipAddress
+        string deviceInfo
+        string flagsJson
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    quiz_results {
+        string id PK
+        string instituteId
+        string attemptId
+        float marksAwarded
+        float totalMarks
+        float percentage
+        boolean passed
+        int correctCount
+        int incorrectCount
+        int unansweredCount
+        string perQuestionJson
+        datetime gradedAt
+        string gradedByUserId
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    exams {
+        string id PK
+        string instituteId
+        string termId
+        string programId
+        string name
+        string code
+        string type
+        string status
+        datetime startDate
+        datetime endDate
+        datetime resultPublishedAt
+        string controllerUserId
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    exam_schedules {
+        string id PK
+        string instituteId
+        string examId
+        string subjectOfferingId
+        string sectionId
+        datetime examDate
+        datetime startTime
+        datetime endTime
+        int durationMin
+        float maxMarks
+        float passingMarks
+        string roomId
+        string status
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    invigilation_assignments {
+        string id PK
+        string instituteId
+        string examScheduleId
+        string facultyId
+        string roomId
+        string role
+        datetime reportingAt
+        datetime releasedAt
+        boolean acknowledged
+        datetime acknowledgedAt
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    hall_tickets {
+        string id PK
+        string instituteId
+        string examId
+        string studentId
+        string ticketNumber
+        string status
+        string qrPayload
+        datetime issuedAt
+        string fileObjectId
+        string blockedReason
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    marks_entries {
+        string id PK
+        string instituteId
+        string examId
+        string subjectOfferingId
+        string enteredByFacultyId
+        string status
+        int totalStudents
+        int enteredCount
+        datetime submittedAt
+        datetime approvedAt
+        string approvedByUserId
+        string filePath
+        string remarks
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    moderations {
+        string id PK
+        string instituteId
+        string marksEntryId
+        string moderatorUserId
+        float scalingFactor
+        float graceMarks
+        float cutoffAdjustment
+        string rationale
+        string beforeStatsJson
+        string afterStatsJson
+        datetime moderatedAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    results {
+        string id PK
+        string instituteId
+        string examId
+        string subjectOfferingId
+        string studentId
+        float marksObtained
+        float maxMarks
+        float percentage
+        float gradePoint
+        string gradeLetter
+        float credits
+        float creditPoints
+        string outcome
+        string status
+        datetime publishedAt
+        datetime revisedAt
+        boolean isMakeup
+        string remark
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    transcripts {
+        string id PK
+        string instituteId
+        string studentId
+        string termId
+        boolean isCumulative
+        float totalCreditsEarned
+        float sgpa
+        float cgpa
+        int rank
+        string classification
+        datetime issuedAt
+        string issuedByUserId
+        string fileObjectId
+        string verificationCode
+        string payloadJson
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    revaluation_requests {
+        string id PK
+        string instituteId
+        string examId
+        string resultId
+        string studentId
+        string reason
+        string status
+        float feeAmount
+        datetime feePaidAt
+        string invoiceId
+        float oldMarks
+        float newMarks
+        datetime decidedAt
+        string decidedByUserId
+        string remarks
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    registration_cycles {
+        string id PK
+        string instituteId
+        string termId
+        string name
+        datetime opensAt
+        datetime closesAt
+        datetime addDropClosesAt
+        string status
+        float minCredits
+        float maxCredits
+        string rulesJson
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    course_registrations {
+        string id PK
+        string instituteId
+        string cycleId
+        string studentId
+        string termId
+        string status
+        float totalCredits
+        datetime submittedAt
+        datetime advisorApprovedAt
+        string advisorUserId
+        datetime hodApprovedAt
+        string hodUserId
+        string rejectedReason
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    registration_subjects {
+        string id PK
+        string instituteId
+        string registrationId
+        string subjectOfferingId
+        string status
+        boolean isElective
+        boolean isAudit
+        float credits
+        int preferenceOrder
+        datetime addedAt
+        datetime droppedAt
+        string reason
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    fee_structures {
+        string id PK
+        string instituteId
+        string programId
+        string batchId
+        string academicYearId
+        string termId
+        string name
+        string description
+        float totalAmount
+        string currency
+        string componentsJson
+        datetime dueDate
+        string status
+        datetime effectiveFrom
+        datetime effectiveTo
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    invoices {
+        string id PK
+        string instituteId
+        string studentId
+        string feeStructureId
+        string termId
+        string invoiceNumber
+        string status
+        float subTotal
+        float discountTotal
+        float taxTotal
+        float grandTotal
+        float amountPaid
+        float amountDue
+        string currency
+        datetime issuedAt
+        datetime dueDate
+        datetime paidAt
+        datetime cancelledAt
+        string lineItemsJson
+        string notes
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    payments {
+        string id PK
+        string instituteId
+        string invoiceId
+        string studentId
+        string paymentNumber
+        string method
+        string status
+        float amount
+        string currency
+        string gatewayName
+        string gatewayTxnId
+        string gatewayResponse
+        datetime paidAt
+        datetime refundedAt
+        float refundAmount
+        string receiptUrl
+        string receivedByUserId
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    scholarships {
+        string id PK
+        string instituteId
+        string studentId
+        string academicYearId
+        string name
+        string sponsor
+        float amount
+        string currency
+        string status
+        datetime appliedAt
+        datetime approvedAt
+        string approvedByUserId
+        datetime disbursedAt
+        string disbursementMethod
+        string documentsJson
+        string remarks
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    wallets {
+        string id PK
+        string instituteId
+        string studentId
+        float balance
+        float holdAmount
+        string currency
+        string status
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    wallet_transactions {
+        string id PK
+        string instituteId
+        string walletId
+        string paymentId
+        string type
+        float amount
+        float balanceAfter
+        string reference
+        string description
+        string metadata
+        string createdByUserId
+        datetime createdAt
+        datetime deletedAt
+    }
+
+    fee_waivers {
+        string id PK
+        string instituteId
+        string studentId
+        string invoiceId
+        float amount
+        string reason
+        string status
+        string requestedByUserId
+        string approvedByUserId
+        datetime approvedAt
+        datetime appliedAt
+        string remarks
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    documents {
+        string id PK
+        string instituteId
+        string ownerUserId
+        string category
+        string title
+        string description
+        string fileObjectId
+        boolean isPublic
+        string tags
+        datetime expiresAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    certificates {
+        string id PK
+        string instituteId
+        string studentId
+        string type
+        string status
+        string certificateNumber
+        string verificationCode
+        string purpose
+        datetime requestedAt
+        datetime issuedAt
+        string issuedByUserId
+        string fileObjectId
+        string rejectedReason
+        string payloadJson
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    help_center_articles {
+        string id PK
+        string instituteId
+        string category
+        string slug
+        string title
+        string bodyMarkdown
+        string tags
+        boolean isPublished
+        datetime publishedAt
+        int viewCount
+        int helpfulCount
+        string authorUserId
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    tickets {
+        string id PK
+        string instituteId
+        string ticketNumber
+        string raisedByUserId
+        string studentId
+        string category
+        string priority
+        string status
+        string subject
+        string description
+        string assignedToUserId
+        datetime resolvedAt
+        datetime closedAt
+        datetime slaDueAt
+        string resolutionText
+        string attachmentsJson
+        string threadJson
+        int satisfactionScore
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    books {
+        string id PK
+        string instituteId
+        string isbn
+        string title
+        string subtitle
+        string authors
+        string publisher
+        string edition
+        int publishYear
+        string language
+        string category
+        string subjects
+        string description
+        string coverUrl
+        int totalCopies
+        int availableCopies
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    book_copies {
+        string id PK
+        string instituteId
+        string bookId
+        string accessionNo
+        string shelfLocation
+        datetime acquiredOn
+        float price
+        string status
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    book_issues {
+        string id PK
+        string instituteId
+        string bookCopyId
+        string studentId
+        string borrowerUserId
+        datetime issuedAt
+        datetime dueAt
+        datetime returnedAt
+        string status
+        int renewalCount
+        string issuedByUserId
+        string returnedByUserId
+        float fineAmount
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    book_reservations {
+        string id PK
+        string instituteId
+        string bookId
+        string studentId
+        string reservedByUserId
+        datetime reservedAt
+        datetime expiresAt
+        datetime fulfilledAt
+        string status
+        int queuePosition
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    library_fines {
+        string id PK
+        string instituteId
+        string bookIssueId
+        string studentId
+        string userId
+        float amount
+        string reason
+        boolean paid
+        datetime paidAt
+        string paymentId
+        datetime waivedAt
+        string waivedByUserId
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    hostels {
+        string id PK
+        string instituteId
+        string campusId
+        string code
+        string name
+        string type
+        int totalRooms
+        int totalBeds
+        string wardenUserId
+        string address
+        string amenitiesJson
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    hostel_rooms {
+        string id PK
+        string instituteId
+        string hostelId
+        string roomNumber
+        int floor
+        int capacity
+        int occupied
+        string roomType
+        float monthlyRent
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    hostel_allocations {
+        string id PK
+        string instituteId
+        string hostelId
+        string hostelRoomId
+        string studentId
+        string academicYearId
+        string bedNumber
+        datetime allocatedAt
+        datetime checkedInAt
+        datetime checkedOutAt
+        datetime vacatedAt
+        string status
+        string allocatedByUserId
+        string notes
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    hostel_leave_requests {
+        string id PK
+        string instituteId
+        string hostelId
+        string studentId
+        datetime fromDate
+        datetime toDate
+        string reason
+        string destination
+        string emergencyContact
+        string status
+        string approvedByUserId
+        datetime approvedAt
+        string rejectedReason
+        datetime actualReturnAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    transport_routes {
+        string id PK
+        string instituteId
+        string code
+        string name
+        string origin
+        string destination
+        float distanceKm
+        float feePerTerm
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    transport_vehicles {
+        string id PK
+        string instituteId
+        string routeId
+        string registrationNo
+        string model
+        int capacity
+        string driverName
+        string driverPhone
+        string driverLicense
+        datetime insuranceExpiresOn
+        datetime pollutionExpiresOn
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    transport_stops {
+        string id PK
+        string instituteId
+        string routeId
+        string name
+        int sequence
+        string pickupTime
+        string dropTime
+        float geoLat
+        float geoLng
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    transport_passes {
+        string id PK
+        string instituteId
+        string studentId
+        string routeId
+        string stopId
+        string academicYearId
+        string passNumber
+        datetime validFrom
+        datetime validTo
+        string status
+        boolean feePaid
+        string invoiceId
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    clubs {
+        string id PK
+        string instituteId
+        string code
+        string name
+        string category
+        string description
+        string facultyAdvisorFacultyId
+        string presidentUserId
+        datetime foundedOn
+        string logoUrl
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    club_memberships {
+        string id PK
+        string instituteId
+        string clubId
+        string studentId
+        string role
+        datetime joinedAt
+        datetime leftAt
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    events {
+        string id PK
+        string instituteId
+        string clubId
+        string organizerUserId
+        string title
+        string description
+        string category
+        datetime startAt
+        datetime endAt
+        string venue
+        string roomId
+        string status
+        datetime registrationOpensAt
+        datetime registrationClosesAt
+        int capacity
+        float feeAmount
+        string bannerUrl
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    event_registrations {
+        string id PK
+        string instituteId
+        string eventId
+        string studentId
+        string userId
+        datetime registeredAt
+        boolean attended
+        datetime checkedInAt
+        boolean feePaid
+        datetime cancelledAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    feedback {
+        string id PK
+        string instituteId
+        string submittedByUserId
+        string studentId
+        string targetType
+        string targetId
+        int rating
+        string title
+        string comments
+        boolean isAnonymous
+        string responsesJson
+        string termId
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    companies {
+        string id PK
+        string instituteId
+        string name
+        string legalName
+        string website
+        string industry
+        string size
+        string hqLocation
+        string description
+        string logoUrl
+        string status
+        string primaryContactName
+        string primaryContactEmail
+        string primaryContactPhone
+        datetime mouSignedAt
+        string blacklistReason
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    placement_drives {
+        string id PK
+        string instituteId
+        string companyId
+        string academicYearId
+        string title
+        string description
+        string type
+        string status
+        string jobRole
+        string jobDescription
+        float ctcMin
+        float ctcMax
+        float stipend
+        string currency
+        string locations
+        int bondYears
+        string eligibilityJson
+        float minCgpa
+        int maxBacklogs
+        string eligibleProgramsJson
+        datetime registrationOpensAt
+        datetime registrationClosesAt
+        datetime driveDate
+        int totalSeats
+        string coordinatorUserId
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    placement_applications {
+        string id PK
+        string instituteId
+        string driveId
+        string studentId
+        datetime appliedAt
+        string stage
+        string resumeFileObjectId
+        string coverLetter
+        string testScoresJson
+        string notes
+        datetime rejectedAt
+        string rejectedReason
+        datetime withdrawnAt
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    placement_offers {
+        string id PK
+        string instituteId
+        string driveId
+        string applicationId
+        string companyId
+        string studentId
+        string type
+        string status
+        string jobRole
+        float ctc
+        float baseSalary
+        float stipend
+        string currency
+        string location
+        datetime joiningDate
+        string offerLetterFileObjectId
+        datetime extendedAt
+        datetime responseDeadline
+        datetime acceptedAt
+        datetime declinedAt
+        string declinedReason
+        datetime revokedAt
+        boolean isPrimaryOffer
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    research_projects {
+        string id PK
+        string instituteId
+        string departmentId
+        string principalInvestigatorFacultyId
+        string title
+        string abstract
+        string domain
+        string keywords
+        string status
+        datetime startDate
+        datetime endDate
+        float budgetAmount
+        string currency
+        string fundingSource
+        string collaboratorsJson
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    publications {
+        string id PK
+        string instituteId
+        string projectId
+        string type
+        string title
+        string abstract
+        string authors
+        string primaryAuthorFacultyId
+        string venue
+        string publisher
+        string doi
+        string isbn
+        string issn
+        string volume
+        string issue
+        string pageStart
+        string pageEnd
+        datetime publishedOn
+        string indexingJson
+        float impactFactor
+        int citationCount
+        string url
+        string fileObjectId
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    grants {
+        string id PK
+        string instituteId
+        string projectId
+        string title
+        string fundingAgency
+        string schemeName
+        float amountSanctioned
+        float amountReleased
+        string currency
+        string status
+        datetime appliedOn
+        datetime sanctionedOn
+        datetime startDate
+        datetime endDate
+        string pifacultyId
+        string coPis
+        string referenceNumber
+        string documentsJson
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    patents {
+        string id PK
+        string instituteId
+        string projectId
+        string title
+        string abstract
+        string inventors
+        string primaryInventorFacultyId
+        string applicationNumber
+        string patentNumber
+        string status
+        string jurisdiction
+        datetime filedOn
+        datetime publishedOn
+        datetime grantedOn
+        datetime expiresOn
+        string classification
+        string url
+        string fileObjectId
+        datetime createdAt
+        datetime updatedAt
+        datetime deletedAt
+    }
+
+    IdempotencyKey {
+        string id PK
+        string instituteId
+        string userId
+        string key
+        string route
+        string requestHash
+        string state
+        int responseCode
+        string responseBody
+        datetime completedAt
+        datetime expiresAt
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    FeatureFlag {
+        string id PK
+        string key
+        string description
+        string rolloutType
+        boolean defaultOn
+        string payload
+        string ownerTeam
+        datetime createdAt
+        datetime updatedAt
+        datetime archivedAt
+    }
+
+    InstituteFeatureFlag {
+        string id PK
+        string instituteId
+        string flagId
+        boolean isEnabled
+        string variantJson
+        datetime enabledAt
+        datetime disabledAt
+        string reason
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    ApprovalEscalation {
+        string id PK
+        string instituteId
+        string instanceId
+        int level
+        string state
+        datetime fireAt
+        datetime firedAt
+        datetime resolvedAt
+        string resolvedById
+        string reason
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    MentorAssignment {
+        string id PK
+        string instituteId
+        string mentorId
+        string studentId
+        datetime assignedAt
+        datetime endedAt
+        string reason
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    MentorSession {
+        string id PK
+        string assignmentId
+        string runByMentorId
+        datetime scheduledAt
+        int durationMin
+        string modality
+        string agenda
+        string notes
+        string actionItems
+        datetime followUpAt
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    OnlineExamMedia {
+        string id PK
+        string instituteId
+        string examId
+        string studentId
+        string kind
+        string storageKey
+        string mimeType
+        int bytes
+        datetime capturedAt
+        string metadata
+        datetime createdAt
+    }
+
+    I18nString {
+        string id PK
+        string namespace
+        string key
+        string locale
+        string value
+        string metadata
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    NotificationProviderConfig {
+        string id PK
+        string instituteId
+        string channel
+        string provider
+        string configJson
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    institutes |o--|o file_objects : logoFile
+    campuses }o--|| institutes : institute
+    schools }o--|| institutes : institute
+    schools }o--|| campuses : campus
+    schools |o--|o users : dean
+    departments }o--|| institutes : institute
+    departments }o--|| campuses : campus
+    departments }o--|| schools : school
+    departments |o--|o users : hod
+    users |o--|o institutes : institute
+    users |o--|o file_objects : avatarFile
+    roles |o--|o institutes : institute
+    role_permissions }o--|| roles : role
+    role_permissions }o--|| permissions : permission
+    user_roles }o--|| users : user
+    user_roles }o--|| roles : role
+    user_roles |o--|o users : grantedBy
+    user_scopes }o--|| users : user
+    user_scopes |o--|o users : grantedBy
+    auth_credentials }o--|| users : user
+    sessions }o--|| users : user
+    login_attempts |o--|o users : user
+    mfa_factors }o--|| users : user
+    password_reset_tokens }o--|| users : user
+    email_verification_tokens }o--|| users : user
+    security_events |o--|o users : user
+    audit_logs |o--|o institutes : institute
+    audit_logs |o--|o users : actor
+    workflow_definitions |o--|o institutes : institute
+    workflow_steps }o--|| workflow_definitions : workflow
+    workflow_instances }o--|| workflow_definitions : workflow
+    workflow_instances }o--|| users : initiator
+    workflow_actions }o--|| workflow_instances : instance
+    workflow_actions |o--|o workflow_steps : step
+    workflow_actions }o--|| users : actor
+    notifications }o--|| institutes : institute
+    notifications }o--|| users : recipient
+    notification_preferences }o--|| users : user
+    file_objects |o--|o institutes : institute
+    file_objects |o--|o users : uploadedBy
+    file_access_grants }o--|| file_objects : file
+    file_access_grants |o--|o users : grantedTo
+    file_access_grants }o--|| users : grantedBy
+    settings |o--|o users : updatedBy
+    settings |o--|o institutes : institute
+    academic_years }o--|| institutes : institute
+    terms }o--|| institutes : institute
+    terms }o--|| academic_years : academicYear
+    programs }o--|| institutes : institute
+    programs |o--|o campuses : campus
+    programs }o--|| schools : school
+    programs }o--|| departments : department
+    batches }o--|| institutes : institute
+    batches }o--|| programs : program
+    batches }o--|| academic_years : academicYear
+    sections }o--|| institutes : institute
+    sections }o--|| batches : batch
+    sections }o--|| terms : term
+    sections |o--|o users : classRep
+    sections |o--|o faculty : classAdvisor
+    subjects }o--|| institutes : institute
+    subjects }o--|| departments : department
+    subjects |o--|o programs : program
+    subjects |o--|o file_objects : syllabusFile
+    subject_prerequisites }o--|| subjects : subject
+    subject_prerequisites }o--|| subjects : prerequisite
+    subject_offerings }o--|| institutes : institute
+    subject_offerings }o--|| subjects : subject
+    subject_offerings }o--|| terms : term
+    subject_offerings |o--|o sections : section
+    subject_offerings |o--|o programs : program
+    subject_offerings }o--|| departments : department
+    subject_offerings |o--|o file_objects : syllabusFile
+    faculty }o--|| institutes : institute
+    faculty }o--|| users : user
+    faculty |o--|o campuses : campus
+    faculty }o--|| schools : school
+    faculty }o--|| departments : department
+    faculty |o--|o faculty : reportsTo
+    faculty |o--|o file_objects : profilePhoto
+    faculty_assignments }o--|| institutes : institute
+    faculty_assignments }o--|| faculty : faculty
+    faculty_assignments }o--|| subject_offerings : subjectOffering
+    faculty_assignments |o--|o users : assignedBy
+    faculty_assignments |o--|o users : approvedBy
+    mentorships }o--|| institutes : institute
+    mentorships }o--|| faculty : mentor
+    mentorships |o--|o academic_years : academicYear
+    mentorships |o--|o users : assignedBy
+    mentorships }o--|| students : student
+    faculty_advisors }o--|| institutes : institute
+    faculty_advisors }o--|| faculty : faculty
+    faculty_advisors |o--|o academic_years : academicYear
+    faculty_advisors |o--|o users : assignedBy
+    advisor_students }o--|| institutes : institute
+    advisor_students }o--|| faculty_advisors : facultyAdvisor
+    advisor_students }o--|| faculty : advisorFaculty
+    advisor_students |o--|o academic_years : academicYear
+    advisor_students |o--|o users : assignedBy
+    advisor_students }o--|| students : student
+    students }o--|| institutes : institute
+    students }o--|| users : user
+    students }o--|| programs : program
+    students }o--|| batches : batch
+    students |o--|o sections : section
+    students |o--|o wallets : wallet
+    rooms }o--|| institutes : institute
+    rooms |o--|o campuses : campus
+    labs }o--|| institutes : institute
+    labs |o--|o campuses : campus
+    time_slots }o--|| institutes : institute
+    timetables }o--|| institutes : institute
+    timetables }o--|| terms : term
+    timetables }o--|| sections : section
+    timetables |o--|o users : publishedBy
+    timetable_entries }o--|| institutes : institute
+    timetable_entries }o--|| timetables : timetable
+    timetable_entries }o--|| subject_offerings : subjectOffering
+    timetable_entries |o--|o faculty_assignments : facultyAssignment
+    timetable_entries }o--|| faculty : primaryFaculty
+    timetable_entries }o--|| time_slots : timeSlot
+    timetable_entries |o--|o rooms : room
+    timetable_entries |o--|o labs : lab
+    class_sessions }o--|| institutes : institute
+    class_sessions |o--|o timetable_entries : timetableEntry
+    class_sessions }o--|| subject_offerings : subjectOffering
+    class_sessions }o--|| faculty : faculty
+    class_sessions }o--|| sections : section
+    class_sessions |o--|o rooms : room
+    class_sessions |o--|o labs : lab
+    class_sessions |o--|o class_sessions : rescheduledTo
+    class_sessions |o--|o class_sessions : rescheduledFrom
+    class_sessions |o--|o attendance_sessions : attendanceSession
+    faculty_workloads }o--|| institutes : institute
+    faculty_workloads }o--|| faculty : faculty
+    faculty_workloads }o--|| terms : term
+    courses }o--|| institutes : institute
+    courses |o--|o subject_offerings : subjectOffering
+    courses |o--|o terms : term
+    courses }o--|| faculty : ownerFaculty
+    course_enrollments }o--|| institutes : institute
+    course_enrollments }o--|| courses : course
+    course_enrollments }o--|| students : student
+    course_modules }o--|| institutes : institute
+    course_modules }o--|| courses : course
+    course_modules |o--|o course_modules : parent
+    lms_sessions }o--|| institutes : institute
+    lms_sessions }o--|| course_modules : module
+    resources }o--|| institutes : institute
+    resources |o--|o courses : course
+    resources |o--|o course_modules : module
+    resources |o--|o lms_sessions : session
+    resources |o--|o file_objects : fileObject
+    resources |o--|o users : createdBy
+    discussion_threads }o--|| institutes : institute
+    discussion_threads }o--|| courses : course
+    discussion_threads }o--|| users : author
+    discussion_comments }o--|| institutes : institute
+    discussion_comments }o--|| discussion_threads : thread
+    discussion_comments |o--|o discussion_comments : parent
+    discussion_comments }o--|| users : author
+    attendance_sessions }o--|| institutes : institute
+    attendance_sessions }o--|| class_sessions : classSession
+    attendance_sessions }o--|| subject_offerings : subjectOffering
+    attendance_sessions }o--|| sections : section
+    attendance_sessions }o--|| faculty : faculty
+    attendance_records }o--|| institutes : institute
+    attendance_records }o--|| attendance_sessions : attendanceSession
+    attendance_records }o--|| students : student
+    attendance_records |o--|o users : markedBy
+    assignment_categories }o--|| institutes : institute
+    assignment_categories |o--|o subject_offerings : subjectOffering
+    assignment_categories |o--|o courses : course
+    assignments }o--|| institutes : institute
+    assignments |o--|o courses : course
+    assignments |o--|o subject_offerings : subjectOffering
+    assignments |o--|o assignment_categories : category
+    assignments }o--|| faculty : createdByFaculty
+    assignment_submissions }o--|| institutes : institute
+    assignment_submissions }o--|| assignments : assignment
+    assignment_submissions }o--|| students : student
+    assignment_submissions |o--|o faculty : gradedByFaculty
+    quiz_banks }o--|| institutes : institute
+    quiz_banks |o--|o subjects : subject
+    quiz_banks |o--|o courses : course
+    quiz_banks }o--|| faculty : ownerFaculty
+    quiz_questions }o--|| institutes : institute
+    quiz_questions }o--|| quiz_banks : quizBank
+    quizzes }o--|| institutes : institute
+    quizzes |o--|o quiz_banks : quizBank
+    quizzes |o--|o courses : course
+    quizzes |o--|o subject_offerings : subjectOffering
+    quizzes }o--|| faculty : createdByFaculty
+    quiz_attempts }o--|| institutes : institute
+    quiz_attempts }o--|| quizzes : quiz
+    quiz_attempts }o--|| students : student
+    quiz_attempts |o--|o quiz_results : result
+    quiz_results }o--|| institutes : institute
+    quiz_results }o--|| quiz_attempts : attempt
+    quiz_results |o--|o users : gradedBy
+    exams }o--|| institutes : institute
+    exams }o--|| terms : term
+    exams |o--|o programs : program
+    exams |o--|o users : controller
+    exam_schedules }o--|| institutes : institute
+    exam_schedules }o--|| exams : exam
+    exam_schedules }o--|| subject_offerings : subjectOffering
+    exam_schedules |o--|o sections : section
+    exam_schedules |o--|o rooms : room
+    invigilation_assignments }o--|| institutes : institute
+    invigilation_assignments }o--|| exam_schedules : examSchedule
+    invigilation_assignments }o--|| faculty : faculty
+    invigilation_assignments |o--|o rooms : room
+    hall_tickets }o--|| institutes : institute
+    hall_tickets }o--|| exams : exam
+    hall_tickets }o--|| students : student
+    hall_tickets |o--|o file_objects : fileObject
+    marks_entries }o--|| institutes : institute
+    marks_entries }o--|| exams : exam
+    marks_entries }o--|| subject_offerings : subjectOffering
+    marks_entries }o--|| faculty : enteredByFaculty
+    marks_entries |o--|o users : approvedBy
+    marks_entries |o--|o moderations : moderation
+    moderations }o--|| institutes : institute
+    moderations }o--|| marks_entries : marksEntry
+    moderations }o--|| users : moderator
+    results }o--|| institutes : institute
+    results }o--|| exams : exam
+    results }o--|| subject_offerings : subjectOffering
+    results }o--|| students : student
+    transcripts }o--|| institutes : institute
+    transcripts }o--|| students : student
+    transcripts |o--|o terms : term
+    transcripts |o--|o users : issuedBy
+    transcripts |o--|o file_objects : fileObject
+    revaluation_requests }o--|| institutes : institute
+    revaluation_requests }o--|| exams : exam
+    revaluation_requests }o--|| results : result
+    revaluation_requests }o--|| students : student
+    revaluation_requests |o--|o invoices : invoice
+    revaluation_requests |o--|o users : decidedBy
+    registration_cycles }o--|| institutes : institute
+    registration_cycles }o--|| terms : term
+    course_registrations }o--|| institutes : institute
+    course_registrations }o--|| registration_cycles : cycle
+    course_registrations }o--|| students : student
+    course_registrations }o--|| terms : term
+    course_registrations |o--|o users : advisor
+    course_registrations |o--|o users : hod
+    registration_subjects }o--|| institutes : institute
+    registration_subjects }o--|| course_registrations : registration
+    registration_subjects }o--|| subject_offerings : subjectOffering
+    fee_structures }o--|| institutes : institute
+    fee_structures |o--|o programs : program
+    fee_structures |o--|o batches : batch
+    fee_structures }o--|| academic_years : academicYear
+    fee_structures |o--|o terms : term
+    invoices }o--|| institutes : institute
+    invoices }o--|| students : student
+    invoices |o--|o fee_structures : feeStructure
+    invoices |o--|o terms : term
+    payments }o--|| institutes : institute
+    payments |o--|o invoices : invoice
+    payments }o--|| students : student
+    payments |o--|o users : receivedBy
+    scholarships }o--|| institutes : institute
+    scholarships }o--|| students : student
+    scholarships }o--|| academic_years : academicYear
+    scholarships |o--|o users : approvedBy
+    wallets }o--|| institutes : institute
+    wallets }o--|| students : student
+    wallet_transactions }o--|| institutes : institute
+    wallet_transactions }o--|| wallets : wallet
+    wallet_transactions |o--|o payments : payment
+    wallet_transactions |o--|o users : createdBy
+    fee_waivers }o--|| institutes : institute
+    fee_waivers }o--|| students : student
+    fee_waivers |o--|o invoices : invoice
+    fee_waivers }o--|| users : requestedBy
+    fee_waivers |o--|o users : approvedBy
+    documents }o--|| institutes : institute
+    documents |o--|o users : owner
+    documents }o--|| file_objects : fileObject
+    certificates }o--|| institutes : institute
+    certificates }o--|| students : student
+    certificates |o--|o users : issuedBy
+    certificates |o--|o file_objects : fileObject
+    help_center_articles }o--|| institutes : institute
+    help_center_articles |o--|o users : author
+    tickets }o--|| institutes : institute
+    tickets }o--|| users : raisedBy
+    tickets |o--|o students : student
+    tickets |o--|o users : assignedTo
+    books }o--|| institutes : institute
+    book_copies }o--|| institutes : institute
+    book_copies }o--|| books : book
+    book_issues }o--|| institutes : institute
+    book_issues }o--|| book_copies : bookCopy
+    book_issues |o--|o students : student
+    book_issues }o--|| users : borrower
+    book_issues }o--|| users : issuedBy
+    book_issues |o--|o users : returnedBy
+    book_reservations }o--|| institutes : institute
+    book_reservations }o--|| books : book
+    book_reservations |o--|o students : student
+    book_reservations }o--|| users : reservedBy
+    library_fines }o--|| institutes : institute
+    library_fines |o--|o book_issues : bookIssue
+    library_fines |o--|o students : student
+    library_fines }o--|| users : user
+    library_fines |o--|o users : waivedBy
+    hostels }o--|| institutes : institute
+    hostels |o--|o campuses : campus
+    hostels |o--|o users : warden
+    hostel_rooms }o--|| institutes : institute
+    hostel_rooms }o--|| hostels : hostel
+    hostel_allocations }o--|| institutes : institute
+    hostel_allocations }o--|| hostels : hostel
+    hostel_allocations }o--|| hostel_rooms : hostelRoom
+    hostel_allocations }o--|| students : student
+    hostel_allocations }o--|| academic_years : academicYear
+    hostel_allocations |o--|o users : allocatedBy
+    hostel_leave_requests }o--|| institutes : institute
+    hostel_leave_requests }o--|| hostels : hostel
+    hostel_leave_requests }o--|| students : student
+    hostel_leave_requests |o--|o users : approvedBy
+    transport_routes }o--|| institutes : institute
+    transport_vehicles }o--|| institutes : institute
+    transport_vehicles |o--|o transport_routes : route
+    transport_stops }o--|| institutes : institute
+    transport_stops }o--|| transport_routes : route
+    transport_passes }o--|| institutes : institute
+    transport_passes }o--|| students : student
+    transport_passes }o--|| transport_routes : route
+    transport_passes |o--|o transport_stops : stop
+    transport_passes }o--|| academic_years : academicYear
+    clubs }o--|| institutes : institute
+    clubs |o--|o faculty : advisor
+    clubs |o--|o users : president
+    club_memberships }o--|| institutes : institute
+    club_memberships }o--|| clubs : club
+    club_memberships }o--|| students : student
+    events }o--|| institutes : institute
+    events |o--|o clubs : club
+    events }o--|| users : organizer
+    event_registrations }o--|| institutes : institute
+    event_registrations }o--|| events : event
+    event_registrations |o--|o students : student
+    event_registrations }o--|| users : user
+    feedback }o--|| institutes : institute
+    feedback }o--|| users : submittedBy
+    feedback |o--|o students : student
+    feedback |o--|o terms : term
+    companies }o--|| institutes : institute
+    placement_drives }o--|| institutes : institute
+    placement_drives }o--|| companies : company
+    placement_drives }o--|| academic_years : academicYear
+    placement_drives |o--|o users : coordinator
+    placement_applications }o--|| institutes : institute
+    placement_applications }o--|| placement_drives : drive
+    placement_applications }o--|| students : student
+    placement_applications |o--|o file_objects : resumeFile
+    placement_offers }o--|| institutes : institute
+    placement_offers }o--|| placement_drives : drive
+    placement_offers }o--|| placement_applications : application
+    placement_offers }o--|| companies : company
+    placement_offers }o--|| students : student
+    placement_offers |o--|o file_objects : offerLetterFile
+    research_projects }o--|| institutes : institute
+    research_projects |o--|o departments : department
+    research_projects }o--|| faculty : pi
+    publications }o--|| institutes : institute
+    publications |o--|o research_projects : project
+    publications |o--|o faculty : primaryAuthor
+    publications |o--|o file_objects : fileObject
+    grants }o--|| institutes : institute
+    grants |o--|o research_projects : project
+    grants }o--|| faculty : pi
+    patents }o--|| institutes : institute
+    patents |o--|o research_projects : project
+    patents |o--|o faculty : primaryInventor
+    patents |o--|o file_objects : fileObject
+    IdempotencyKey |o--|o institutes : institute
+    IdempotencyKey }o--|| users : user
+    InstituteFeatureFlag }o--|| institutes : institute
+    InstituteFeatureFlag }o--|| FeatureFlag : flag
+    ApprovalEscalation }o--|| institutes : institute
+    ApprovalEscalation }o--|| workflow_instances : instance
+    ApprovalEscalation |o--|o users : resolvedBy
+    MentorAssignment }o--|| institutes : institute
+    MentorAssignment }o--|| faculty : mentor
+    MentorAssignment }o--|| students : student
+    MentorSession }o--|| MentorAssignment : assignment
+    MentorSession }o--|| faculty : mentor
+    OnlineExamMedia }o--|| institutes : institute
+    OnlineExamMedia }o--|| exams : exam
+    NotificationProviderConfig }o--|| institutes : institute

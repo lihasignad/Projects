@@ -9,12 +9,16 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     super();
   }
 
-  canActivate(ctx: ExecutionContext) {
+  override canActivate(ctx: ExecutionContext): any {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       ctx.getHandler(),
       ctx.getClass(),
     ]);
-    if (isPublic) return true;
+
+    if (isPublic) {
+      return true;
+    }
+
     return super.canActivate(ctx);
   }
 }
