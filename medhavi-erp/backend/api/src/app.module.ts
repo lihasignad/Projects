@@ -12,6 +12,7 @@ import { validateEnv } from './config/env.validation';
 import { InstitutesModule } from './modules/institutes/institutes.module';
 import { CampusesModule } from './modules/campuses/campuses.module';
 import { SchoolsModule } from './modules/schools/schools.module';
+import { DepartmentsModule } from './modules/departments/departments.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { SchoolsModule } from './modules/schools/schools.module';
     InstitutesModule,
     CampusesModule,
     SchoolsModule,
+    DepartmentsModule,
 
     AuthModule, 
   ],
