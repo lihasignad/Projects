@@ -11,7 +11,7 @@ import configuration from './config/configuration';
 import { validateEnv } from './config/env.validation';
 import { InstitutesModule } from './modules/institutes/institutes.module';
 import { CampusesModule } from './modules/campuses/campuses.module';
-
+import { SchoolsModule } from './modules/schools/schools.module';
 
 @Module({
   imports: [
@@ -29,6 +29,7 @@ import { CampusesModule } from './modules/campuses/campuses.module';
     HealthModule,
     InstitutesModule,
     CampusesModule,
+    SchoolsModule,
 
     AuthModule, 
   ],
