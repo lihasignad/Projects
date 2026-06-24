@@ -459,7 +459,7 @@ model AuthCredential {
   createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime  @updatedAt @map("updated_at")
   user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+https://github.com/sahilsaurav99/Projects.git
   @@index([userId, isCurrent])
   @@map("auth_credentials")
 }

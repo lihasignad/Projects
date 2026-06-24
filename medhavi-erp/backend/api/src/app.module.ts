@@ -9,6 +9,7 @@ import { QueueModule } from './queues/queue.module';
 import { TenantModule } from './tenancy/tenant.module';
 import configuration from './config/configuration';
 import { validateEnv } from './config/env.validation';
+import { InstitutesModule } from './modules/institutes/institutes.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { validateEnv } from './config/env.validation';
     QueueModule,
     TenantModule,
     HealthModule,
+    InstitutesModule,
 
     AuthModule, 
   ],

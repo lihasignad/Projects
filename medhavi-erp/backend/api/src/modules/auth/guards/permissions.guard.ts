@@ -26,7 +26,13 @@ export class PermissionsGuard implements CanActivate {
     const user: JwtAccessPayload | undefined = ctx.switchToHttp().getRequest().user;
     if (!user) throw new ForbiddenException('No authenticated user');
 
-    const held = new Set(await this.auth.permissionsForUser(user.sub));
+    const permissions = await this.auth.permissionsForUser(user.sub);
+
+    if (permissions.includes('*')) {
+      return true;
+    }
+
+    const held = new Set(permissions);
     const missing = required.filter((p) => !held.has(p));
     if (missing.length) {
       throw new ForbiddenException(`Missing permissions: ${missing.join(', ')}`);

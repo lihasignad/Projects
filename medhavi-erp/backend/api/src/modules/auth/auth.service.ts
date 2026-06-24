@@ -609,6 +609,11 @@ export class AuthService {
   /** Public helper used by guards to fetch permissions without re-resolving roles. */
   async permissionsForUser(userId: string): Promise<string[]> {
     const { roles } = await this.resolveActiveRoles(userId);
+
+    if (roles.some((r) => r.key === 'SUPER_ADMIN')) {
+      return ['*'];
+    }
+
     return this.resolvePermissions(roles.map((r) => r.roleId));
   }
 
