@@ -14,6 +14,7 @@ import { CampusesModule } from './modules/campuses/campuses.module';
 import { SchoolsModule } from './modules/schools/schools.module';
 import { DepartmentsModule } from './modules/departments/departments.module';
 import { ProgramsModule } from './modules/programs/programs.module';
+import { BatchesModule } from './modules/batches/batches.module';
 
 @Module({
   imports: [
@@ -34,6 +35,8 @@ import { ProgramsModule } from './modules/programs/programs.module';
     SchoolsModule,
     DepartmentsModule,
     ProgramsModule,
+    
+    BatchesModule,
 
     AuthModule, 
   ],
