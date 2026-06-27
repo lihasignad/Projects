@@ -16,6 +16,8 @@ import { DepartmentsModule } from './modules/departments/departments.module';
 import { ProgramsModule } from './modules/programs/programs.module';
 import { AcademicYearsModule } from './modules/academic-years/academic-years.module';
 import { BatchesModule } from './modules/batches/batches.module';
+import { StudentsModule } from './modules/students/students.module';
+import { UsersModule } from './modules/users/users.module';
 
 
 @Module({
@@ -38,6 +40,8 @@ import { BatchesModule } from './modules/batches/batches.module';
     DepartmentsModule,
     ProgramsModule,
     AcademicYearsModule,
+    StudentsModule,
+    UsersModule,
 
     BatchesModule,
 
