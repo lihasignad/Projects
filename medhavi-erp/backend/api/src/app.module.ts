@@ -22,6 +22,7 @@ import { FacultyModule } from './modules/faculty/faculty.module';
 import { SubjectsModule } from './modules/subjects/subjects.module';
 import { TermsModule } from './modules/terms/terms.module';
 import { SectionsModule } from './modules/sections/sections.module';
+import { SubjectOfferingsModule } from './modules/subject-offerings/subject-offerings.module';
 
 
 @Module({
@@ -50,6 +51,7 @@ import { SectionsModule } from './modules/sections/sections.module';
     SubjectsModule,
     TermsModule,
     SectionsModule,
+    SubjectOfferingsModule,
 
     BatchesModule,
 
