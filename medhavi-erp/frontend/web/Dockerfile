@@ -17,5 +17,6 @@ COPY --from=build /repo/frontend/web/.next ./.next
 COPY --from=build /repo/frontend/web/node_modules ./node_modules
 COPY --from=build /repo/frontend/web/package.json ./
 COPY --from=build /repo/frontend/web/public ./public
+COPY --from=build /repo/packages ./packages
 EXPOSE 3000
 CMD ["npm", "start"]

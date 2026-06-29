@@ -26,6 +26,7 @@ import { SubjectOfferingsModule } from './modules/subject-offerings/subject-offe
 import { CoursesModule } from './modules/courses/courses.module';
 import { CourseModulesModule } from './modules/course-modules/course-modules.module';
 import { ResourcesModule } from './modules/resources/resources.module';
+import { DiscussionThreadsModule } from './modules/discussion-threads/discussion-threads.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { ResourcesModule } from './modules/resources/resources.module';
     CoursesModule,
     CourseModulesModule,
     ResourcesModule,
+    DiscussionThreadsModule,
 
     BatchesModule,
 

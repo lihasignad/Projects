@@ -16,4 +16,5 @@ ENV NODE_ENV=production
 COPY --from=build /repo/backend/worker/dist ./dist
 COPY --from=build /repo/backend/worker/node_modules ./node_modules
 COPY --from=build /repo/backend/worker/package.json ./
+COPY --from=build /repo/packages ./packages
 CMD ["node", "dist/main.js"]
