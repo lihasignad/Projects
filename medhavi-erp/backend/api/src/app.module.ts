@@ -29,6 +29,7 @@ import { ResourcesModule } from './modules/resources/resources.module';
 import { DiscussionThreadsModule } from './modules/discussion-threads/discussion-threads.module';
 import { DiscussionCommentsModule } from './modules/discussion-comments/discussion-comments.module';
 import { LmsSessionsModule } from './modules/lms-sessions/lms-sessions.module';
+import { AssignmentCategoriesModule } from './modules/assignment-categories/assignment-categories.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { LmsSessionsModule } from './modules/lms-sessions/lms-sessions.module';
     DiscussionThreadsModule,
     DiscussionCommentsModule,
     LmsSessionsModule,
+    AssignmentCategoriesModule,
 
     BatchesModule,
 
