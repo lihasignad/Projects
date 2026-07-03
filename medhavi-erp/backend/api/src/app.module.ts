@@ -32,7 +32,7 @@ import { LmsSessionsModule } from './modules/lms-sessions/lms-sessions.module';
 import { AssignmentCategoriesModule } from './modules/assignment-categories/assignment-categories.module'
 import { AssignmentsModule } from './modules/assignments/assignments.module';
 import { AssignmentSubmissionsModule } from './modules/assignment-submissions/assignment-submissions.module';
-
+import { QuizQuestionsModule } from './modules/quiz-questions/quiz-questions.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -69,7 +69,7 @@ import { AssignmentSubmissionsModule } from './modules/assignment-submissions/as
     AssignmentCategoriesModule,
     AssignmentsModule,
     AssignmentSubmissionsModule,
-
+    QuizQuestionsModule,
     BatchesModule,
 
     AuthModule, 
