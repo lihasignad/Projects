@@ -34,6 +34,7 @@ import { AssignmentsModule } from './modules/assignments/assignments.module';
 import { AssignmentSubmissionsModule } from './modules/assignment-submissions/assignment-submissions.module';
 import { QuizQuestionsModule } from './modules/quiz-questions/quiz-questions.module';
 import { QuizBanksModule } from './modules/quiz-banks/quiz-banks.module';
+import { QuizzesModule } from './modules/quizzes/quizzes.module';
 
 @Module({
   imports: [
@@ -74,6 +75,7 @@ import { QuizBanksModule } from './modules/quiz-banks/quiz-banks.module';
     QuizQuestionsModule,
     BatchesModule,
     QuizBanksModule,
+    QuizzesModule,
 
     AuthModule, 
   ],
