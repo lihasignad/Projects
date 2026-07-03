@@ -29,7 +29,8 @@ import { ResourcesModule } from './modules/resources/resources.module';
 import { DiscussionThreadsModule } from './modules/discussion-threads/discussion-threads.module';
 import { DiscussionCommentsModule } from './modules/discussion-comments/discussion-comments.module';
 import { LmsSessionsModule } from './modules/lms-sessions/lms-sessions.module';
-import { AssignmentCategoriesModule } from './modules/assignment-categories/assignment-categories.module';
+import { AssignmentCategoriesModule } from './modules/assignment-categories/assignment-categories.module'
+import { AssignmentsModule } from './modules/assignments/assignments.module';
 
 @Module({
   imports: [
@@ -65,6 +66,7 @@ import { AssignmentCategoriesModule } from './modules/assignment-categories/assi
     DiscussionCommentsModule,
     LmsSessionsModule,
     AssignmentCategoriesModule,
+    AssignmentsModule,
 
     BatchesModule,
 
