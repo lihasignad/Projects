@@ -33,6 +33,8 @@ import { AssignmentCategoriesModule } from './modules/assignment-categories/assi
 import { AssignmentsModule } from './modules/assignments/assignments.module';
 import { AssignmentSubmissionsModule } from './modules/assignment-submissions/assignment-submissions.module';
 import { QuizQuestionsModule } from './modules/quiz-questions/quiz-questions.module';
+import { QuizBanksModule } from './modules/quiz-banks/quiz-banks.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -71,6 +73,7 @@ import { QuizQuestionsModule } from './modules/quiz-questions/quiz-questions.mod
     AssignmentSubmissionsModule,
     QuizQuestionsModule,
     BatchesModule,
+    QuizBanksModule,
 
     AuthModule, 
   ],
