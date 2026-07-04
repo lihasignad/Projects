@@ -1,0 +1,313 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import GitActivity from './GitActivity';
+import ProjectArticleViewer from './ProjectArticleViewer';
+import soundManager from '../../utils/soundManager';
+
+const ProjectDetails = ({ project, isVisible, onClose }) => {
+    const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [isClosing, setIsClosing] = useState(false);
+    const [showGitActivity, setShowGitActivity] = useState(false);
+    const [renderGitActivity, setRenderGitActivity] = useState(false);
+    const scrollContainerRef = useRef(null);
+
+    // Reset currentMediaIndex when project changes
+    useEffect(() => {
+        if (project) {
+            setCurrentMediaIndex(0);
+            setSelectedImageIndex(0);
+        }
+    }, [project]);
+
+    // Reset closing state when visibility changes , needs to be refactored but works for now
+    useEffect(() => {
+        if (isVisible) {
+            setIsClosing(false);
+
+            setRenderGitActivity(true);
+            const timer = setTimeout(() => setShowGitActivity(true), 1000);
+            return () => clearTimeout(timer);
+        } else {
+            setShowGitActivity(false);
+            const timer = setTimeout(() => setRenderGitActivity(false), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [isVisible]);
+
+    const handleClose = () => {
+        soundManager.play('modalClose');
+        setIsClosing(true);
+        setShowGitActivity(false);
+        setTimeout(() => {
+            onClose();
+            setIsClosing(false);
+            setRenderGitActivity(false);
+        }, 700);
+    };
+
+    const getYoutubeVideoId = (url) => {
+        if (!url) return null;
+        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+        return match ? match[1] : null;
+    };
+
+    // Combine images and video into a single media array - with safety checks
+    const mediaItems = project ? [
+                    ...(project.images || [project.thumbnail]).filter(Boolean).map(img => ({ type: 'image', src: img })),
+        ...(project.link && getYoutubeVideoId(project.link) ? [{
+            type: 'video',
+            src: `https://www.youtube.com/embed/${getYoutubeVideoId(project.link)}`
+        }] : [])
+    ] : [];
+
+    // Filter only images for the thumbnail selection
+    const imageItems = mediaItems.filter(item => item.type === 'image');
+
+    const handleImageSelect = (index) => {
+        setSelectedImageIndex(index);
+        setCurrentMediaIndex(index);
+    };
+
+    // Get scroll positions for images - can be defined in project data or calculated
+    const getImageScrollPositions = () => {
+        // If project has custom scroll positions defined, use those
+        if (project?.imageScrollPositions && project.imageScrollPositions.length === imageItems.length) {
+            return project.imageScrollPositions;
+        }
+        
+        // Default fallback to equal divisions if no custom positions are defined
+        if (imageItems.length <= 1) return [0];
+        
+        return imageItems.map((_, index) => index / (imageItems.length - 1));
+    };
+
+    // Scroll-based image selection with custom positions
+    useEffect(() => {
+        const scrollContainer = scrollContainerRef.current;
+        if (!scrollContainer || !imageItems.length || !isVisible) return;
+
+        const imageScrollPositions = getImageScrollPositions();
+
+        const handleScroll = () => {
+            const scrollTop = scrollContainer.scrollTop;
+            const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+            const scrollPercentage = scrollTop / scrollHeight;
+
+            // Find the appropriate image index based on custom scroll positions
+            let imageIndex = 0;
+            
+            for (let i = 0; i < imageScrollPositions.length; i++) {
+                if (scrollPercentage >= imageScrollPositions[i]) {
+                    imageIndex = i;
+                } else {
+                    break;
+                }
+            }
+
+            // Only update if the index has changed
+            if (imageIndex !== selectedImageIndex) {
+                setSelectedImageIndex(imageIndex);
+                setCurrentMediaIndex(imageIndex);
+            }
+        };
+
+        scrollContainer.addEventListener('scroll', handleScroll);
+
+        return () => {
+            if (scrollContainer) {
+                scrollContainer.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, [imageItems.length, selectedImageIndex, isVisible, project?.imageScrollPositions]);
+
+    // Manual selection overrides scroll-based selection temporarily
+    const handleManualImageSelect = (index) => {
+        setSelectedImageIndex(index);
+        setCurrentMediaIndex(index);
+        
+        // Scroll to the corresponding position using custom scroll positions
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer && imageItems.length > 1) {
+            const imageScrollPositions = getImageScrollPositions();
+            const scrollPercentage = imageScrollPositions[index] || 0;
+            const targetScrollTop = scrollPercentage * (scrollContainer.scrollHeight - scrollContainer.clientHeight);
+            scrollContainer.scrollTo({
+                top: targetScrollTop,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    /*
+     * IMPORTANT: React Portal Implementation for Modal Rendering
+     * 
+     * This component uses createPortal() to render the modal content directly into document.body
+     * instead of within the component tree. This is necessary because:
+     * 
+     * 1. @react-three/drei ScrollControls Issue:
+     *    - The ProjectsWarehouse component is rendered inside <Scroll html> from @react-three/drei
+     *    - This creates a special rendering context that constrains child elements
+     *    - Even with high z-index values (z-[9999]), modals remain trapped within the scroll container
+     * 
+     * 2. Storybook vs Main App Difference:
+     *    - Storybook renders components in isolation without the drei scroll context
+     *    - Main app renders within ScrollControls/Scroll wrapper, causing modal visibility issues
+     * 
+     * 3. Portal Solution:
+     *    - createPortal(modalContent, document.body) renders the modal at the root DOM level
+     *    - This completely bypasses the drei scroll container constraints
+     *    - Allows the modal to appear above all other content with proper z-index stacking
+     * 
+     * Alternative approaches that were tried but failed:
+     *    - Increasing z-index values (z-[9990], z-[9995], z-[9999])
+     *    - Using different positioning strategies (absolute, fixed)
+     *    - Modifying the drei scroll container styles
+     * 
+     * The portal approach works because it bypasses the drei scroll container constraints and renders the modal at the root DOM level.
+     * This allows the modal to appear above all other content with proper z-index stacking.
+     * 
+     * This is a workaround to fix the issue with the modal not appearing above the drei scroll container.
+     * 
+     */
+
+    // Early return after all hooks - prevents rendering before project is loaded
+    if (!isVisible || !project) {
+        return null;
+    }
+
+    // Safety check for currentMediaIndex
+    const safeMediaIndex = Math.min(currentMediaIndex, mediaItems.length - 1);
+    const currentMedia = mediaItems[safeMediaIndex];
+
+    if (!currentMedia) return null;
+
+    const modalContent = (
+        <>
+            {/* Backdrop with blur effect */}
+            <div 
+                className={`fixed inset-0 bg-black/5 backdrop-blur-[2px] transition-opacity duration-500 z-[9990]
+                    ${isClosing ? 'opacity-0' : 'opacity-100'}`}
+                onClick={handleClose}
+            />
+            
+            {/* Project Details Card */}
+            <div 
+                className={`fixed inset-4 md:right-[300px] md:top-[20px] md:left-auto md:bottom-auto 
+                    md:w-[750px] md:h-[calc(100vh-50px)] w-auto h-auto bg-white/95 backdrop-blur-sm
+                    rounded-2xl shadow-lg transform-gpu flex flex-col z-[9995]
+                    ${isClosing ? 'animate-fold' : 'animate-unfold'}`}
+                style={{
+                    transformOrigin: 'center center'
+                }}
+            >
+                {/* Close button */}
+                <button 
+                    onClick={handleClose}
+                    className="absolute top-7 right-8 text-black hover:text-gray-600 transition-colors z-10"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                {/* Static Header Section */}
+                <div className="flex-shrink-0">
+                    {/* Main media display */}
+                    <div className="p-4 md:p-6 pb-2 relative">
+                        <div className="w-full h-[200px] md:h-[300px] rounded-xl overflow-hidden !shadow-none relative transition-all duration-300">
+                            {currentMedia.type === 'video' ? (
+                                <iframe
+                                    src={currentMedia.src}
+                                    title={project.title}
+                                    className="w-full h-full"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                />
+                            ) : (
+                                <img 
+                                    src={currentMedia.src} 
+                                    alt={`${project.title} - Media ${currentMediaIndex + 1}`}
+                                    className="w-full h-full object-cover"
+                                />
+                            )}
+                        </div>
+                        
+                        {/* Image thumbnails */}
+                        {imageItems.length > 1 && (
+                            <div className="mt-3 flex gap-2 overflow-x-auto">
+                                {imageItems.map((item, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleManualImageSelect(index)}
+                                        className={`flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                                            selectedImageIndex === index 
+                                                ? 'border-blue-400 shadow-lg shadow-blue-400/50 ring-2 ring-blue-400/30' 
+                                                : 'border-gray-300 hover:border-gray-400'
+                                        }`}
+                                    >
+                                        <img 
+                                            src={item.src} 
+                                            alt={`Thumbnail ${index + 1}`}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="px-4 md:px-6 pb-2">
+                        {/* Header with date and links */}
+                        <div className="mb-2 mr-2 flex justify-between items-center">
+                            <div className="text-gray-500 text-xs">{project.date}</div>
+                            <div className="flex gap-3">
+                                {project.github && (
+                                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                                        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+                                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                                        </svg>
+                                    </a>
+                                )}
+                                {project.link && (
+                                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Scrollable Article Content */}
+                <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overscroll-contain px-2 md:px-0">
+                    <ProjectArticleViewer 
+                        project={project} 
+                        onImageSelect={handleManualImageSelect}
+                        selectedImageIndex={selectedImageIndex}
+                        imageItems={imageItems}
+                    />
+                </div>
+            </div>
+            
+            {/* Git Activity - Hidden on mobile */}
+            {renderGitActivity && (
+                <div className="hidden md:block relative z-[9999]">
+                    <GitActivity 
+                        isVisible={true} 
+                        project={project} 
+                        showComponent={showGitActivity}
+                        position={{ right: '50px', top: '20px' }}
+                    />
+                </div>
+            )}
+        </>
+    );
+
+    // Render modal content using a portal to escape the drei scroll context
+    return createPortal(modalContent, document.body);
+};
+
+export default ProjectDetails; 
