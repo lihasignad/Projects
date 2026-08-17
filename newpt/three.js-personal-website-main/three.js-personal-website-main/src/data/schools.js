@@ -1,25 +1,24 @@
 export const schools = [
   {
-    name: "Kalamazoo College",
+    name: "Medhavi Skills University",
     logo: "/images/Education/education-kzoo_logo.webp",
     idImage: "/images/Education/education-kzoo_id.webp",
-    studentId: "269401",
-    years: "2019 - 2023",
+    studentId: "MSU2024",
+    years: "2025 - 2029",
     degrees: [
-      { type: "Bachelor's of Arts", major: "Mathematics" },
-      { type: "Bachelor's of Arts", major: "Economics" }
-    ],
-    minors: ["Computer Science"]
-  },
-  {
-    name: "Yonsei University",
-    logo: "/images/Education/education-yonsei_logo.webp",
-    idImage: "/images/Education/education-yonsei_id.webp",
-    studentId: "760802",
-    years: "Jan 2022 - Jun 2022",
-    degrees: [
-      { type: "Study Abroad Experience", major: "" }
+      { type: "Bachelor of Technology", major: "Computer Science (AI/ML)" }
     ],
     minors: []
   },
-]; 
+  {
+    name: "High School / Secondary",
+    logo: "/images/Education/education-yonsei_logo.webp",
+    idImage: "/images/Education/education-yonsei_id.webp",
+    studentId: "SEC2024",
+    years: "Completed 2024",
+    degrees: [
+      { type: "Higher Secondary Schooling", major: "Science" }
+    ],
+    minors: []
+  }
+];

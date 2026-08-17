@@ -68,7 +68,7 @@ const KombuchaMenu = () => {
           </div>
           <img 
             src="/images/Hobbies/tariqs-booch-lab.webp"
-            alt="Tariq's Booch Lab Logo"
+            alt="Sahil's Booch Lab Logo"
             className="w-24 h-24 md:w-44 md:h-44 object-contain order-1 md:order-2"
           />
         </div>

@@ -43,7 +43,7 @@ const StudentIDCard = ({ school }) => {
       </div>
       <div className="flex-1 text-left">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900 mb-0.5 leading-tight text-[1.1rem]">Tariq Williams</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-0.5 leading-tight text-[1.1rem]">Sahil Saurav Dangi</h2>
         </div>
         <div className="text-gray-700 text-[13px] mb-3 mt-[-2px]">{school.name}</div>
         <div className="mb-1">

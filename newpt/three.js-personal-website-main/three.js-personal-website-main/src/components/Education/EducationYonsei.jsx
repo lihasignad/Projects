@@ -5,7 +5,7 @@ import YonseiDetails from './YonseiDetails'
 import Photodeck from './Photodeck'
 
 const EducationYonsei = () => {
-    const yonseiSchool = schools.find(school => school.name === 'Yonsei University');
+    const yonseiSchool = schools[1] || { degrees: [], minors: [] };
     
     return (
         <>

@@ -37,6 +37,7 @@ import { QuizBanksModule } from './modules/quiz-banks/quiz-banks.module';
 import { QuizzesModule } from './modules/quizzes/quizzes.module';
 import { QuizAttemptsModule } from './modules/quiz-attempts/quiz-attempts.module';
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -78,8 +79,9 @@ import { QuizAttemptsModule } from './modules/quiz-attempts/quiz-attempts.module
     QuizBanksModule,
     QuizzesModule,
     QuizAttemptsModule,
-
     AuthModule, 
   ],
+
+  
 })
 export class AppModule {}

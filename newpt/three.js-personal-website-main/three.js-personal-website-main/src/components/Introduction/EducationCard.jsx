@@ -13,17 +13,14 @@ const EducationCard = () => {
       </div>
 
       <h3 className="text-lg font-bold">
-        B.A. in <span className="text-green-600">Math & Economics</span>, Minor in CS
+        B.Tech in <span className="text-green-600">Computer Science (AI/ML)</span>
       </h3>
-      <p className="text-sm text-gray-600">Kalamazoo College | Sep 2019 - Jun 2023</p>
+      <p className="text-sm text-gray-600">Medhavi Skills University | 2025 - 2029</p>
 
       <p className="text-sm mt-2">
-        I graduated from Kalamazoo College with a double major in{' '}
-        <span className="text-green-600 font-bold">Mathematics</span> and{' '}
-        <span className="text-green-600 font-bold">Economics</span>. Throughout my coursework, I frequently
-        needed to code, which sparked my interest in{' '}
-        <span className="text-green-600 font-bold">Python</span> and ultimately led me to minoring in{' '}
-        <span className="text-green-600 font-bold">Computer Science</span>.
+        I am currently in my 2nd year of a 4-year B.Tech program in{' '}
+        <span className="text-green-600 font-bold">Computer Science and Engineering</span> with a specialization in{' '}
+        <span className="text-green-600 font-bold">Artificial Intelligence and Machine Learning</span> at Medhavi Skills University.
       </p>
     </div>
   );

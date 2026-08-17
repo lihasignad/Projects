@@ -219,7 +219,7 @@ const CreoleLinguisticsArticle = () => {
           >
             <img src="/icons/pdf-doc.svg" alt="PDF Icon" className="w-6 h-6" />
             <span className="text-red-400 hover:text-red-800 font-medium text-sm">
-              Tariq Williams - Creole Linguistics Analysis.pdf
+              Sahil Saurav Dangi - Creole Linguistics Analysis.pdf
             </span>
           </a>
           <a 

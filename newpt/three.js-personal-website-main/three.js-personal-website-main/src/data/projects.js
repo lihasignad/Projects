@@ -20,8 +20,8 @@ export const projects = [
                 demonstrate my ability to work with modern web technologies and 3D graphics. 
                 The site features interactive 3D elements that respond to user interaction, 
                 creating an engaging and memorable experience.`,
-        github: "https://github.com/Tarblux/three.js-personal-website",
-        link: "https://tariqwill.com",
+        github: "https://github.com/lihasignad",
+        link: "",
         articleComponent: "ThreeJsWebsiteArticle"
     },
     {
@@ -44,7 +44,7 @@ export const projects = [
         category: "development",
         technologies: ["Node.js", "Express", "PostgreSQL"],
         story: `Backend for my three.js portfolio website.`,
-        github: "https://github.com/Tarblux/threejs-portfolio-backend",
+        github: "https://github.com/lihasignad",
         articleComponent: "ThreeJsBackendArticle"
     },
     {
@@ -61,8 +61,8 @@ export const projects = [
         category: "development",
         technologies: ["HTML", "CSS", "JavaScript"],
         story: `My original personal website, built with basic html, css, and javascript.`,
-        github: "https://github.com/Tarblux/Personal-Website",
-        link: "https://tarblux.github.io/Personal-Website/",
+        github: "https://github.com/lihasignad",
+        link: "",
         articleComponent: "PersonalWebsiteOldArticle"
     },
     {
@@ -100,7 +100,7 @@ export const projects = [
         category: "development",
         technologies: ["Next.js", "Typescript", "Vercel"],
         story: `API for chess data.`,
-        github: "https://github.com/Tarblux/chess-data-api",
+        github: "https://github.com/lihasignad",
         // link: "https://chess-data-api.vercel.app/",
         articleComponent: "ChessDataApiArticle"
     },
@@ -121,7 +121,7 @@ export const projects = [
                 combining traditional linguistic research methods with modern data analysis 
                 techniques. The study provided valuable insights into language evolution and 
                 cultural preservation.`,
-        github: "https://github.com/Tarblux/Creole-Linguistics-Data-Analytics",
+        github: "https://github.com/lihasignad",
         link: "https://drive.google.com/file/d/1VvQIX4hwmuGBb1aWmFO2kVmFVUvFWfvl/view",
         articleComponent: "CreoleLinguisticsArticle"
     },
@@ -139,7 +139,7 @@ export const projects = [
         category: "development",
         technologies: ["Algorithms", "Data Structures", ],
         story: `A collection of coding practice problems.`,
-        github: "https://github.com/Tarblux/Coding-Practice",
+        github: "https://github.com/lihasignad",
         articleComponent: "CodingPracticeArticle"
     },
     {
@@ -213,7 +213,7 @@ export const projects = [
         category: 'media',
         technologies: ['Blender', '3D Printing'],
         story: `This project is a collection of my Blender models. I've been using Blender for a while now and I've learned a lot about the software. I've also been using 3D printing to print out my models. I've learned a lot about the software and the hardware.`,
-        github: "https://github.com/Tarblux/blender-blems",
+        github: "https://github.com/lihasignad",
         articleComponent: "BlenderModelsArticle"
     }
 ]; 

@@ -14,6 +14,36 @@ export function Downtown(props) {
   const bakedTexture = useSmartTexture('downtown')
   bakedTexture.flipY = false
 
+  React.useEffect(() => {
+    if (nodes.downtown && nodes.downtown.geometry) {
+      const geom = nodes.downtown.geometry;
+      const posAttr = geom.attributes.position;
+      const uvAttr = geom.attributes.uv;
+      if (posAttr && uvAttr) {
+        let count = 0;
+        let minX = Infinity, maxX = -Infinity;
+        let minY = Infinity, maxY = -Infinity;
+        let minZ = Infinity, maxZ = -Infinity;
+        
+        for (let i = 0; i < posAttr.count; i++) {
+          const u = uvAttr.getX(i);
+          const v = uvAttr.getY(i);
+          if (u >= 0.0 && u <= 0.25 && v >= 0.0 && v <= 0.27) {
+            count++;
+            const x = posAttr.getX(i);
+            const y = posAttr.getY(i);
+            const z = posAttr.getZ(i);
+            minX = Math.min(minX, x); maxX = Math.max(maxX, x);
+            minY = Math.min(minY, y); maxY = Math.max(maxY, y);
+            minZ = Math.min(minZ, z); maxZ = Math.max(maxZ, z);
+          }
+        }
+        console.log(`[Downtown Inspect] Vertices in UV range: ${count}`);
+        console.log(`[Downtown Inspect] Bounds: X[${minX}, ${maxX}] Y[${minY}, ${maxY}] Z[${minZ}, ${maxZ}]`);
+      }
+    }
+  }, [nodes]);
+
   // Load stock slider textures
   const sliderTextures = useLoader(TextureLoader, [
     '/textures/stock-slider.webp',

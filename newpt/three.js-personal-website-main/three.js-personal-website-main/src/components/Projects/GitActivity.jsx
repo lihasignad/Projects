@@ -71,13 +71,13 @@ const GitActivity = ({
     
     const API_BASE_URL = process.env.NODE_ENV === 'development' 
         ? 'http://localhost:3000' 
-        : 'https://threejs-backend.tariqwill.com';
+        : 'http://localhost:3000';
 
     // Determine GitHub URL to open on click
     const githubUrl = project?.github
         ? project.github
         : repoName
-            ? `https://github.com/Tarblux/${repoName}`
+            ? `https://github.com/lihasignad/${repoName}`
             : null;
 
     const handleOpenGithub = () => {

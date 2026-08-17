@@ -126,6 +126,11 @@ class TextureManager {
   getTextureAuto(baseName) {
     // Handle special cases with different file extensions
     const specialCases = {
+      'downtown': {
+        webp: `/textures/downtown.webp?v=1`,
+        ktx4k: null,
+        ktx2k: null
+      },
       'language-institute': {
         webp: `/textures/language-institute.jpg`, // Legacy
         ktx4k: `/textures/language-institute4k.ktx2`,

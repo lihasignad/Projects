@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const API_BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://threejs-backend.tariqwill.com';
+    : 'http://localhost:3000';
 
 const FootballWatch = () => {
     const [standings, setStandings] = useState(null);

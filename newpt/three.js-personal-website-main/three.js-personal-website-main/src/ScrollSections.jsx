@@ -11,7 +11,7 @@ const getMobileProps = (desktopTop, desktopFadeInStart, desktopFadeInEnd, deskto
 })
 import WelcomeMessage from "./components/UI/WelcomeMessage.jsx"
 import Introduction from "./components/Introduction/Introduction.jsx"
-import Flextrade from "./components/Career/Flextrade.jsx"
+import Chegg from "./components/Career/Chegg.jsx"
 import EagleMed from "./components/Career/EagleMed.jsx"
 import ProjectsOverview from "./components/Projects/ProjectsOverview.jsx"
 import ProjectsWarehouse from "./components/Projects/ProjectsWarehouse.jsx"
@@ -83,7 +83,7 @@ export default function ScrollSections({ showWelcome, onSelectVideo, onWatchActi
             mobileFadeOutStart={120}
             mobileFadeOutEnd={135}
           >
-            <Flextrade />
+            <Chegg />
           </Section>
 
           <Section 

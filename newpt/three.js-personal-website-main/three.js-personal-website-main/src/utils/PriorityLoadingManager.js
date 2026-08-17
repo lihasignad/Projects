@@ -87,7 +87,7 @@ class PriorityLoadingManager {
           '/textures/projects.webp',
           '/textures/campus.webp',
           '/textures/streetlights.webp',
-          '/textures/downtown.webp',
+          '/textures/downtown.webp?v=1',
           '/textures/stadium.webp',
           '/textures/stock-slider.webp',
           '/textures/stock-slider2.webp',
@@ -125,7 +125,7 @@ class PriorityLoadingManager {
         videos: [
           '/videos/reiss.mp4',
           '/videos/declan.mp4',
-          '/videos/tariq-freekick.mp4'
+          '/videos/sahil-freekick.mp4'
         ]
       },
       low: {
@@ -137,7 +137,7 @@ class PriorityLoadingManager {
         ],
         videos: [
           '/videos/hobbies-solo-dolo.mp4',
-          '/videos/tariq-blooper.mp4',
+          '/videos/sahil-blooper.mp4',
           '/videos/sakaletters.mp4'
         ],
         sounds: [

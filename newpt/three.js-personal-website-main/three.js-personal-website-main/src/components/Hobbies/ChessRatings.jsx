@@ -4,7 +4,7 @@ import ChessRatingCard from './ChessRatingCard';
 const API_BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://threejs-backend.tariqwill.com';
+    : 'http://localhost:3000';
 
 
 

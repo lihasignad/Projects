@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaCheck } from 'react-icons/fa';
 
-const Flextrade = () => {
+const Chegg = () => {
     const calculateDuration = () => {
         const startDate = new Date('2023-07-01');
         const currentDate = new Date();
@@ -21,22 +21,22 @@ const Flextrade = () => {
         <div className="absolute top-0 right-0 z-0 p-4 md:p-8">
             <div className="flex flex-col items-start">
                 <span className="mb-2 bg-white/30 border border-white/30 backdrop-blur-md rounded-md px-3 py-1 shadow-md text-gray-600 text-xs inline-block">
-                    Career | Flextrade
+                    Career | Chegg
                 </span>
                 <div className="bg-white/20 backdrop-blur-md rounded-lg p-2 w-[350px] min-h-[420px] border border-white/30 shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
                     <div className="space-y-4">
-                        {/* Flextrade Experience */}
+                        {/* Chegg Experience */}
                         <div className="bg-white rounded-lg shadow-lg p-3">
                             <div className="flex items-start justify-between mb-3">
                                 <div className="flex items-center gap-2.5">
                                     <img 
-                                        src="/icons/flextrade_logo.webp" 
-                                        alt="Flextrade Systems" 
+                                        src="/icons/chegg_logo.svg" 
+                                        alt="Chegg Inc." 
                                         className="w-8 h-8 rounded-md"
                                     />
                                     <div>
                                         <h3 className="text-xs font-bold">Software Engineer</h3>
-                                        <p className="text-gray-600 text-xs">Flextrade</p>
+                                        <p className="text-gray-600 text-xs">Chegg</p>
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-center">
@@ -180,4 +180,4 @@ const Flextrade = () => {
     );
 };
 
-export default React.memo(Flextrade);
+export default React.memo(Chegg);

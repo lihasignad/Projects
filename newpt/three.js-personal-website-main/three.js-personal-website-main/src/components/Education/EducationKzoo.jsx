@@ -4,7 +4,7 @@ import StudentIDCard from './StudentIDCard'
 import KzooDetails from './KzooDetails'
 
 const EducationKzoo = () => {
-    const kzooSchool = schools.find(school => school.name === 'Kalamazoo College');
+    const kzooSchool = schools[0] || { degrees: [], minors: [] };
     
     return (
         <>

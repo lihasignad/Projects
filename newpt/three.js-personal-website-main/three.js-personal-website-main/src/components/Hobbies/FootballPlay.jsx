@@ -34,8 +34,8 @@ const FootballPlay = () => {
                     <div className="absolute left-1 bottom-1 flex items-center">
                         <img src="/images/Hobbies/hobbies-yaad.webp" alt="Yaad badge" className="w-8 h-8 sm:w-12 sm:h-12 object-contain" />
                         <div className="flex flex-col leading-none mt-2">
-                            <span className="font-bold text-black text-[14px] sm:text-[16px]">Tariq</span>
-                            <span className="font-bold text-green-500 text-lg sm:text-xl -mt-1">Williams</span>
+                            <span className="font-bold text-black text-[14px] sm:text-[16px]">Sahil</span>
+                            <span className="font-bold text-green-500 text-lg sm:text-xl -mt-1">Dangi</span>
                         </div>
                     </div>
                     {/* Headshot/Celebration */}
@@ -133,7 +133,7 @@ const FootballPlay = () => {
                         {/* Highlight 2 */}
                         <div className="flex items-center justify-between bg-white/40 rounded-lg px-2 sm:px-3 py-1 sm:py-2 cursor-pointer border-2 hover:bg-gray-100 transition group"
                             onClick={() => {
-                                setHighlightVideoSrc('/videos/tariq-freekick.mp4');
+                                setHighlightVideoSrc('/videos/sahil-freekick.mp4');
                                 setHighlightModalOpen(true);
                             }}
                         >
@@ -150,7 +150,7 @@ const FootballPlay = () => {
                         {/* Highlight 3 */}
                         <div className="flex items-center justify-between bg-white/40 rounded-lg px-2 sm:px-3 py-1 sm:py-2 cursor-pointer border-2 hover:bg-gray-100 transition group"
                             onClick={() => {
-                                setHighlightVideoSrc('/videos/tariq-blooper.mp4');
+                                setHighlightVideoSrc('/videos/sahil-blooper.mp4');
                                 setHighlightModalOpen(true);
                             }}
                         >

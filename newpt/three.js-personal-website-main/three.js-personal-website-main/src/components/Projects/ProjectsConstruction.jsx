@@ -80,7 +80,7 @@ const ProjectsConstruction = () => {
                             <p className="text-gray-500 text-xs leading-relaxed">
                                 If any of these projects also interest you, just drop me a message on{' '}
                                 <a 
-                                    href="https://www.linkedin.com/in/tariq-williams12/" 
+                                    href="https://www.linkedin.com/in/sahildangi-s99/" 
                                     target="_blank" 
                                     rel="noopener noreferrer"
                                     className="text-blue-400 underline hover:text-blue-600 transition-colors"
@@ -89,7 +89,7 @@ const ProjectsConstruction = () => {
                                 </a>
                                 {' '}or open an issue on{' '}
                                 <a 
-                                    href="https://github.com/Tarblux" 
+                                    href="https://github.com/lihasignad" 
                                     target="_blank" 
                                     rel="noopener noreferrer"
                                     className="text-blue-400 underline hover:text-blue-600 transition-colors"

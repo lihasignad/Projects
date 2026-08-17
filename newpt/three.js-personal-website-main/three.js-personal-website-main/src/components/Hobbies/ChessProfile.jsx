@@ -4,7 +4,7 @@ import 'flag-icons/css/flag-icons.min.css';
 const API_BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://threejs-backend.tariqwill.com';
+    : 'http://localhost:3000';
 
 const ChessProfile = ({ isMobile }) => {
   const [lastOnline, setLastOnline] = useState(null);

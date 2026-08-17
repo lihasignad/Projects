@@ -13,7 +13,7 @@ export const sections = [
 
 export const FREEZE_VH = [
   { id: 'INTRODUCTION', vh: 44 },
-  { id: 'FLEXTRADE', vh: 113 },
+  { id: 'CHEGG', vh: 113 },
   { id: 'EAGLE_MED', vh: 212 },
   { id: 'PROJECTS_OVERVIEW', vh: 291 },
   { id: 'PROJECTS_WAREHOUSE', vh: 373 },

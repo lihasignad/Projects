@@ -23,17 +23,17 @@ const IntroCard = () => {
         <div className="relative w-32 h-32 flex-shrink-0 mb-16">
           {/* This spacer maintains the layout spacing where the image would have been */}
         </div>
-        <h2 className="text-xl font-bold tracking-tight">Tariq Williams</h2>
+        <h2 className="text-xl font-bold tracking-tight">Sahil Saurav Dangi</h2>
         <div className="space-y-0 text-center w-full">
-          <p className="text-green-500 font-bold">Software Engineer</p>
-          <p className="text-black-600 -mt-1 font-medium">at Flextrade</p>
+          <p className="text-green-500 font-bold">B.Tech CS (AI/ML)</p>
+          <p className="text-black-600 -mt-1 font-medium">Student</p>
         </div>
         <hr className="w-3/4 border-gray-300 my-1" />
-        <p className="text-grey-700 text-sm font-thin">Milwaukee, WI</p>
+        <p className="text-grey-700 text-sm font-thin">Gangtok, Sikkim</p>
       </div>
       <div className="flex space-x-3 mt-auto mb-3">
         <a 
-          href="https://github.com/Tarblux" 
+          href="https://github.com/lihasignad" 
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
@@ -42,7 +42,7 @@ const IntroCard = () => {
           <img src="/icons/Github_light.svg" alt="GitHub" className="w-6 h-6" />
         </a>
         <a 
-          href="https://www.linkedin.com/in/tariq-williams12/" 
+          href="https://www.linkedin.com/in/sahildangi-s99/" 
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
@@ -51,13 +51,13 @@ const IntroCard = () => {
           <img src="/icons/linkedin.svg" alt="LinkedIn" className="w-6 h-6" />
         </a>
         <a 
-          href="https://stackoverflow.com/users/30169462/tariq-williams?tab=profile" 
+          href="mailto:sahilsaurav99@gmail.com" 
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="LinkedIn"
+          aria-label="Email"
           className="transform transition-transform hover:scale-110"
         >
-          <img src="/icons/stackoverflow.svg" alt="LinkedIn" className="w-6 h-6" />
+          <img src="/icons/gmail.svg" alt="Email" className="w-6 h-6" />
         </a>
       </div>
     </div>

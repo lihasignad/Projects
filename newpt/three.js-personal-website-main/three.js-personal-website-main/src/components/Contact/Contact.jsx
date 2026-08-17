@@ -71,21 +71,19 @@ const Contact = () => {
                         </div>
                         <div className="flex flex-col justify-center mt-2 ml-3 w-full">
                             <h2 className="text-2xl font-bold mb-1">Get in touch !</h2>
-                            <span className="text-gray-500 text-xs ">tarblux12@gmail.com</span>
+                            <span className="text-gray-500 text-xs ">sahilsaurav99@gmail.com</span>
                             {/* Social Icons */}
                             <div className="flex flex-row gap-3 mt-3 relative z-30">
-                                <a href="https://www.linkedin.com/in/tariq-williams12/" target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:scale-125 hover:rotate-3">
+                                <a href="https://www.linkedin.com/in/sahildangi-s99/" target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:scale-125 hover:rotate-3">
                                     <img src="/icons/linkedin.svg" alt="LinkedIn" className="w-5 h-5" />
                                 </a>
-                                <a href="https://github.com/tarblux" target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:scale-125 hover:rotate-3">
+                                <a href="https://github.com/lihasignad" target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:scale-125 hover:rotate-3">
                                     <img src="/icons/Github_light.svg" alt="GitHub" className="w-5 h-5" />
                                 </a>
-                                <a href="mailto:tarblux12@gmail.com" target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:scale-125 hover:rotate-3">
+                                <a href="mailto:sahilsaurav99@gmail.com" target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:scale-125 hover:rotate-3">
                                     <img src="/icons/gmail.svg" alt="Gmail" className="w-5 h-5" />
                                 </a>
-                                <a href="https://stackoverflow.com/users/30169462/tariq-williams" target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:scale-125 hover:rotate-3">
-                                    <img src="/icons/stackoverflow.svg" alt="Stack Overflow" className="w-5 h-5" />
-                                </a>
+
                             </div>
                         </div>
                     </div>

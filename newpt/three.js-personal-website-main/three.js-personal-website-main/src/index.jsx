@@ -68,8 +68,8 @@ I see you, venting into the source code. That's pretty sus no ?.
 
 Since you've completed your 'Inspect Element' task, here are your next objectives:
 
-  - Check the ship's logs (source code) on GitHub: https://github.com/Tarblux/three.js-personal-website
-  - Report your findings (or just say hi) on LinkedIn: https://www.linkedin.com/in/tariq-williams12/
+  - Check the ship's logs (source code) on GitHub: https://github.com/lihasignad
+  - Report your findings (or just say hi) on LinkedIn: https://www.linkedin.com/in/sahildangi-s99/
 
 Any bugs you find were definitely planted by the *other* imposter. I swear I was in electrical.
 `, easterEgg.main);

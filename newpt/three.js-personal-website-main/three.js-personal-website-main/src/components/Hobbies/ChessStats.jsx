@@ -6,7 +6,7 @@ import CustomSelect from '../UI/CustomSelect';
 const API_BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://threejs-backend.tariqwill.com';
+    : 'http://localhost:3000';
 
 const timeControls = [
   { label: 'Blitz', value: 'blitz', icon: '/images/Hobbies/hobbies-blitz.svg' },

@@ -73,7 +73,7 @@ const Introduction = () => {
           className="rounded shadow-lg object-contain w-[700px] max-h-[90vh]"
         />
         <a
-          href="/docs/Tariq-Williams-Resume.pdf"
+          href="/docs/Sahil-Saurav-Dangi-Resume.pdf"
           download
           className="bg-white text-black py-2 px-6 rounded-lg hover:bg-blue-600 hover:text-white transition-colors duration-300"
         >

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGLTF} from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import { useSmartTexture } from '../hooks/useSmartTexture.js'
 
 export function Campus(props) {
