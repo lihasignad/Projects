@@ -63,6 +63,44 @@ import { RegistrationCyclesModule } from './modules/registration-cycles/registra
 import { CourseRegistrationsModule } from './modules/course-registrations/course-registrations.module';
 import { RegistrationSubjectsModule } from './modules/registration-subjects/registration-subjects.module';
 
+import { FeeStructuresModule } from './modules/fee-structures/fee-structures.module';
+import { InvoicesModule } from './modules/invoices/invoices.module';
+import { PaymentsModule } from './modules/payments/payments.module';
+import { ScholarshipsModule } from './modules/scholarships/scholarships.module';
+import { WalletsModule } from './modules/wallets/wallets.module';
+import { WalletTransactionsModule } from './modules/wallet-transactions/wallet-transactions.module';
+import { FeeWaiversModule } from './modules/fee-waivers/fee-waivers.module';
+import { DocumentsModule } from './modules/documents/documents.module';
+import { CertificatesModule } from './modules/certificates/certificates.module';
+import { HelpCenterArticlesModule } from './modules/help-center-articles/help-center-articles.module';
+import { TicketsModule } from './modules/tickets/tickets.module';
+import { BooksModule } from './modules/books/books.module';
+import { BookCopiesModule } from './modules/book-copies/book-copies.module';
+import { BookIssuesModule } from './modules/book-issues/book-issues.module';
+import { BookReservationsModule } from './modules/book-reservations/book-reservations.module';
+import { LibraryFinesModule } from './modules/library-fines/library-fines.module';
+import { HostelsModule } from './modules/hostels/hostels.module';
+import { HostelRoomsModule } from './modules/hostel-rooms/hostel-rooms.module';
+import { HostelAllocationsModule } from './modules/hostel-allocations/hostel-allocations.module';
+import { HostelLeaveRequestsModule } from './modules/hostel-leave-requests/hostel-leave-requests.module';
+import { TransportRoutesModule } from './modules/transport-routes/transport-routes.module';
+import { TransportVehiclesModule } from './modules/transport-vehicles/transport-vehicles.module';
+import { TransportStopsModule } from './modules/transport-stops/transport-stops.module';
+import { TransportPassesModule } from './modules/transport-passes/transport-passes.module';
+import { ClubsModule } from './modules/clubs/clubs.module';
+import { ClubMembershipsModule } from './modules/club-memberships/club-memberships.module';
+import { EventsModule } from './modules/events/events.module';
+import { EventRegistrationsModule } from './modules/event-registrations/event-registrations.module';
+import { FeedbackModule } from './modules/feedback/feedback.module';
+import { CompaniesModule } from './modules/companies/companies.module';
+import { PlacementDrivesModule } from './modules/placement-drives/placement-drives.module';
+import { PlacementApplicationsModule } from './modules/placement-applications/placement-applications.module';
+import { PlacementOffersModule } from './modules/placement-offers/placement-offers.module';
+import { ResearchProjectsModule } from './modules/research-projects/research-projects.module';
+import { PublicationsModule } from './modules/publications/publications.module';
+import { GrantsModule } from './modules/grants/grants.module';
+import { PatentsModule } from './modules/patents/patents.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -130,6 +168,43 @@ import { RegistrationSubjectsModule } from './modules/registration-subjects/regi
     RegistrationCyclesModule,
     CourseRegistrationsModule,
     RegistrationSubjectsModule,
+    FeeStructuresModule,
+    InvoicesModule,
+    PaymentsModule,
+    ScholarshipsModule,
+    WalletsModule,
+    WalletTransactionsModule,
+    FeeWaiversModule,
+    DocumentsModule,
+    CertificatesModule,
+    HelpCenterArticlesModule,
+    TicketsModule,
+    BooksModule,
+    BookCopiesModule,
+    BookIssuesModule,
+    BookReservationsModule,
+    LibraryFinesModule,
+    HostelsModule,
+    HostelRoomsModule,
+    HostelAllocationsModule,
+    HostelLeaveRequestsModule,
+    TransportRoutesModule,
+    TransportVehiclesModule,
+    TransportStopsModule,
+    TransportPassesModule,
+    ClubsModule,
+    ClubMembershipsModule,
+    EventsModule,
+    EventRegistrationsModule,
+    FeedbackModule,
+    CompaniesModule,
+    PlacementDrivesModule,
+    PlacementApplicationsModule,
+    PlacementOffersModule,
+    ResearchProjectsModule,
+    PublicationsModule,
+    GrantsModule,
+    PatentsModule,
     AuthModule, 
   ],
 })
