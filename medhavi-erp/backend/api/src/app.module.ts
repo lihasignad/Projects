@@ -1,5 +1,7 @@
 import { AuthModule } from './modules/auth/auth.module';
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
+import { TenantMiddleware } from './tenancy/tenant.middleware';
+import { HttpLoggingMiddleware } from './common/middleware/http-logging.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './infrastructure/prisma/prisma.module';
 import { RedisModule } from './infrastructure/redis/redis.module';
@@ -7,6 +9,10 @@ import { MongoModule } from './infrastructure/mongo/mongo.module';
 import { HealthModule } from './infrastructure/health/health.module';
 import { QueueModule } from './queues/queue.module';
 import { TenantModule } from './tenancy/tenant.module';
+import { StorageModule } from './infrastructure/storage/storage.module';
+import { MailerModule } from './infrastructure/mailer/mailer.module';
+import { SmsModule } from './infrastructure/sms/sms.module';
+import { NotificationsModule } from './infrastructure/notifications/notifications.module';
 import configuration from './config/configuration';
 import { validateEnv } from './config/env.validation';
 import { InstitutesModule } from './modules/institutes/institutes.module';
@@ -115,6 +121,10 @@ import { PatentsModule } from './modules/patents/patents.module';
     QueueModule,
     TenantModule,
     HealthModule,
+    StorageModule,
+    MailerModule,
+    SmsModule,
+    NotificationsModule,
     InstitutesModule,
     CampusesModule,
     SchoolsModule,
@@ -208,4 +218,8 @@ import { PatentsModule } from './modules/patents/patents.module';
     AuthModule, 
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(HttpLoggingMiddleware, TenantMiddleware).forRoutes('*');
+  }
+}
