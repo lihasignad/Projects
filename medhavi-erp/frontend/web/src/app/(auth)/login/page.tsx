@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,9 +24,11 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const router = useRouter();
   const setAuth = useAuthStore((state) => state.setAuth);
+  const selectedInstitute = useAuthStore((state) => state.selectedInstitute);
 
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [showSupportModal, setShowSupportModal] = useState(false);
 
   const {
     register,
@@ -74,18 +77,58 @@ export default function LoginPage() {
     }
   };
 
+  const instituteName = selectedInstitute ? selectedInstitute.name.toUpperCase() : 'MEDHAVI SKILLS UNIVERSITY';
+  const instituteLocation = selectedInstitute
+    ? `${selectedInstitute.location.toUpperCase()} • ${selectedInstitute.state.toUpperCase()}`
+    : 'SIKKIM';
+
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-      {/* University Institutional Title Header */}
+      {/* Active University Selector Pill */}
+      <div className="w-full flex items-center justify-between mb-4 px-2">
+        <div className="flex items-center space-x-2">
+          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-black/40 text-white backdrop-blur border border-white/20">
+            {selectedInstitute ? `${selectedInstitute.name} (${selectedInstitute.code})` : 'Medhavi Skills University'}
+          </span>
+          <Link
+            href="/select-institute"
+            className="text-xs font-bold text-amber-300 hover:text-amber-200 underline decoration-amber-400 drop-shadow"
+          >
+            Change University
+          </Link>
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <button
+            type="button"
+            onClick={() => setShowSupportModal(true)}
+            className="text-xs font-semibold px-2.5 py-1 rounded bg-white/20 hover:bg-white/30 text-white transition-colors backdrop-blur flex items-center space-x-1"
+          >
+            <svg className="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.974.551 1.954.819 2.802.819l.006-.002c3.178 0 5.763-2.587 5.764-5.766.001-3.183-2.583-5.804-5.776-5.804zm8.799 5.767c-.002 4.839-3.938 8.775-8.778 8.775-1.503 0-2.973-.393-4.269-1.134l-4.783 1.254 1.277-4.66c-.812-1.348-1.242-2.909-1.244-4.237 0-4.839 3.936-8.775 8.775-8.775 4.842.001 8.822 3.935 8.822 8.777z"/>
+            </svg>
+            <span>Support</span>
+          </button>
+
+          <Link
+            href="/register"
+            className="text-xs font-bold px-3 py-1 rounded bg-amber-500 hover:bg-amber-600 text-slate-900 transition-colors shadow"
+          >
+            Create New ID &rarr;
+          </Link>
+        </div>
+      </div>
+
+      {/* University Institutional Title Header (Dynamic based on selected institute) */}
       <div className="w-full text-left mb-6 sm:mb-8 px-2">
         <div className="text-amber-500 font-extrabold uppercase tracking-wider text-sm sm:text-base md:text-lg drop-shadow-sm">
           WELCOME TO
         </div>
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-[#0284c7] drop-shadow-sm leading-tight">
-          MEDHAVI SKILLS<br />UNIVERSITY
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-[#0284c7] drop-shadow-sm leading-tight max-w-4xl">
+          {instituteName}
         </h1>
         <div className="text-amber-500 font-extrabold uppercase tracking-widest text-xs sm:text-sm md:text-base mt-1 drop-shadow-sm">
-          SIKKIM
+          {instituteLocation}
         </div>
       </div>
 
@@ -108,9 +151,17 @@ export default function LoginPage() {
         {/* Card 1: Primary Sign in here */}
         <div className="flex-1 bg-[#374151]/95 dark:bg-[#1f2937]/95 backdrop-blur-md rounded-2xl p-6 sm:p-7 shadow-2xl border border-white/10 flex flex-col justify-between">
           <div>
-            <h2 className="text-white text-base sm:text-lg font-semibold mb-4 tracking-tight">
-              Sign in here
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-white text-base sm:text-lg font-semibold tracking-tight">
+                Sign in here
+              </h2>
+              <span className="text-xs text-slate-300">
+                New user?{' '}
+                <Link href="/register" className="font-bold text-amber-400 hover:underline">
+                  Create ID
+                </Link>
+              </span>
+            </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
               {/* Dual Side-by-Side Inputs */}
@@ -225,9 +276,13 @@ export default function LoginPage() {
             <a href="/forgot-password" className="hover:underline hover:text-white transition-colors">
               Forgot password?
             </a>
-            <a href="mailto:support@medhavi.edu.in" className="hover:underline hover:text-white transition-colors">
+            <button
+              type="button"
+              onClick={() => setShowSupportModal(true)}
+              className="hover:underline hover:text-white transition-colors font-medium text-amber-300"
+            >
               Need assistance? Get Help Here
-            </a>
+            </button>
           </div>
         </div>
 
@@ -275,6 +330,99 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+
+      {/* Support Desk Modal (Direct WhatsApp + Email) */}
+      {showSupportModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="bg-[#1f2937] border border-white/20 rounded-2xl p-6 sm:p-7 max-w-md w-full text-white shadow-2xl relative">
+            <button
+              onClick={() => setShowSupportModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1"
+              aria-label="Close support dialog"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="flex items-center space-x-2.5 mb-2">
+              <div className="h-8 w-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+                💬
+              </div>
+              <h3 className="text-base font-bold text-white">Institutional Support Desk</h3>
+            </div>
+
+            <p className="text-xs text-slate-300 mb-5 leading-relaxed">
+              If you require assistance with your registration ID, course enrollment, or password recovery for{' '}
+              <span className="font-semibold text-white">{selectedInstitute?.name || 'your institution'}</span>, contact our administrator directly:
+            </p>
+
+            <div className="space-y-3">
+              {/* WhatsApp Direct */}
+              <a
+                href="https://wa.me/917763030866?text=Hello%20Sahil%2C%20I%20need%20assistance%20with%20Medhavi%20Skills%20University%20ERP%20portal"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full flex items-center justify-between p-3.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-white transition-all group"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="h-8 w-8 rounded-lg bg-emerald-500 text-white flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.974.551 1.954.819 2.802.819l.006-.002c3.178 0 5.763-2.587 5.764-5.766.001-3.183-2.583-5.804-5.776-5.804zm8.799 5.767c-.002 4.839-3.938 8.775-8.778 8.775-1.503 0-2.973-.393-4.269-1.134l-4.783 1.254 1.277-4.66c-.812-1.348-1.242-2.909-1.244-4.237 0-4.839 3.936-8.775 8.775-8.775 4.842.001 8.822 3.935 8.822 8.777z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-white group-hover:text-emerald-300">
+                      Chat on WhatsApp
+                    </div>
+                    <div className="text-[11px] text-slate-300 font-mono">
+                      +91 77630 30866
+                    </div>
+                  </div>
+                </div>
+                <span className="text-xs text-emerald-400 font-bold">&rarr;</span>
+              </a>
+
+              {/* Email Direct */}
+              <a
+                href="mailto:sahilsaurav99@gmail.com?subject=Medhavi%20ERP%20Support%20Request"
+                className="w-full flex items-center justify-between p-3.5 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/40 text-white transition-all group"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="h-8 w-8 rounded-lg bg-sky-500 text-white flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-white group-hover:text-sky-300">
+                      Email Helpdesk
+                    </div>
+                    <div className="text-[11px] text-slate-300 font-mono">
+                      sahilsaurav99@gmail.com
+                    </div>
+                  </div>
+                </div>
+                <span className="text-xs text-sky-400 font-bold">&rarr;</span>
+              </a>
+            </div>
+
+            <div className="mt-5 text-center">
+              <button
+                type="button"
+                onClick={() => setShowSupportModal(false)}
+                className="text-xs text-slate-400 hover:text-white"
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

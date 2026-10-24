@@ -2,6 +2,14 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { AuthResponse, AuthUser, AuthRole } from '@/shared/types/auth';
 
+export interface SelectedInstitute {
+  id: string;
+  name: string;
+  code: string;
+  location: string;
+  state: string;
+}
+
 interface AuthState {
   user: AuthUser | null;
   roles: AuthRole[];
@@ -10,9 +18,11 @@ interface AuthState {
   refreshToken: string | null;
   isAuthenticated: boolean;
   activeTenantId: string | null;
+  selectedInstitute: SelectedInstitute | null;
   setAuth: (payload: AuthResponse) => void;
   setTokens: (accessToken: string, refreshToken: string) => void;
   setActiveTenant: (tenantId: string | null) => void;
+  setSelectedInstitute: (institute: SelectedInstitute | null) => void;
   logout: () => void;
   hasPermission: (permission: string) => boolean;
 }
@@ -27,6 +37,13 @@ export const useAuthStore = create<AuthState>()(
       refreshToken: null,
       isAuthenticated: false,
       activeTenantId: null,
+      selectedInstitute: {
+        id: 'msu-sikkim',
+        name: 'Medhavi Skills University',
+        code: 'MSU-SKM',
+        location: 'Bermiok, West Sikkim',
+        state: 'Sikkim',
+      },
       setAuth: (payload) =>
         set({
           user: payload.user,
@@ -40,6 +57,11 @@ export const useAuthStore = create<AuthState>()(
       setTokens: (accessToken, refreshToken) =>
         set({ accessToken, refreshToken, isAuthenticated: true }),
       setActiveTenant: (tenantId) => set({ activeTenantId: tenantId }),
+      setSelectedInstitute: (institute) =>
+        set({
+          selectedInstitute: institute,
+          activeTenantId: institute ? institute.id : null,
+        }),
       logout: () =>
         set({
           user: null,
@@ -66,6 +88,7 @@ export const useAuthStore = create<AuthState>()(
         refreshToken: state.refreshToken,
         isAuthenticated: state.isAuthenticated,
         activeTenantId: state.activeTenantId,
+        selectedInstitute: state.selectedInstitute,
       }),
     }
   )
