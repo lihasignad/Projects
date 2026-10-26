@@ -13,6 +13,7 @@ export function Header({ onOpenSidebar }: HeaderProps) {
   const { theme, setTheme } = useTheme();
   const user = useAuthStore((state) => state.user);
   const roles = useAuthStore((state) => state.roles);
+  const selectedInstitute = useAuthStore((state) => state.selectedInstitute);
   const logout = useAuthStore((state) => state.logout);
 
   const primaryRole = roles.find((r) => r.isPrimary)?.name || roles[0]?.name || 'Staff';
@@ -38,8 +39,8 @@ export function Header({ onOpenSidebar }: HeaderProps) {
         </button>
 
         <div className="flex items-center space-x-2">
-          <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 tracking-tight">
-            Central Institute
+          <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 tracking-tight truncate max-w-[200px] sm:max-w-[320px]">
+            {selectedInstitute?.name || 'Medhavi Skills University'}
           </span>
           <span className="hidden sm:inline-block text-slate-300 dark:text-slate-700">|</span>
           <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
