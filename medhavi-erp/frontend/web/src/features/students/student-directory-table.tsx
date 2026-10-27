@@ -131,14 +131,20 @@ export function StudentDirectoryTable({
       header: 'Actions',
       align: 'right',
       render: (student) => (
-        <div className="flex items-center justify-end space-x-2">
+        <div className="flex items-center justify-end space-x-1.5">
           <button
             type="button"
             onClick={() => onInspectStudent(student)}
-            className="px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-[11px] font-semibold text-slate-700 dark:text-slate-200 transition-colors"
+            className="px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-[11px] font-semibold text-slate-700 dark:text-slate-200 transition-colors"
           >
             Quick View
           </button>
+          <Link
+            href={`/students/${student.id}`}
+            className="px-2.5 py-1 rounded bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900/60 text-[11px] font-semibold transition-colors"
+          >
+            Profile →
+          </Link>
         </div>
       ),
     },
