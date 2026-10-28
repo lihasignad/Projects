@@ -314,14 +314,135 @@ export default function LoginPage() {
                 </button>
               </div>
 
-              {/* Quick 1-Click Demo Login */}
-              <div>
+              {/* Quick 1-Click Persona Logins */}
+              <div className="space-y-1.5 pt-1">
+                <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider text-center">
+                  Instant Portal Access (Demo Mode)
+                </div>
+                <div className="grid grid-cols-2 gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAuth({
+                        accessToken: 'mock-jwt-token-student',
+                        refreshToken: 'mock-refresh-token-student',
+                        tokenType: 'Bearer',
+                        expiresIn: 86400,
+                        user: {
+                          id: 'std-2023-042',
+                          instituteId: selectedInstitute?.id || 'msu-sikkim',
+                          email: 'priya.sharma@msu.edu.in',
+                          firstName: 'Priya',
+                          lastName: 'Sharma',
+                          displayName: 'Priya Sharma',
+                          status: 'ACTIVE',
+                          mfaEnabled: false,
+                          mustChangePassword: false,
+                        },
+                        roles: [{ key: 'student', name: 'Student', scopeType: 'CAMPUS', scopeId: null, isPrimary: true }],
+                        permissions: ['*'],
+                      });
+                      router.push('/portal/student');
+                    }}
+                    className="h-8 rounded bg-brand-600 hover:bg-brand-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center"
+                  >
+                    Student Portal
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAuth({
+                        accessToken: 'mock-jwt-token-faculty',
+                        refreshToken: 'mock-refresh-token-faculty',
+                        tokenType: 'Bearer',
+                        expiresIn: 86400,
+                        user: {
+                          id: 'fac-101',
+                          instituteId: selectedInstitute?.id || 'msu-sikkim',
+                          email: 'arvind.rao@msu.edu.in',
+                          firstName: 'Dr. Arvind',
+                          lastName: 'Rao',
+                          displayName: 'Dr. Arvind Rao',
+                          status: 'ACTIVE',
+                          mfaEnabled: false,
+                          mustChangePassword: false,
+                        },
+                        roles: [{ key: 'faculty', name: 'Associate Professor', scopeType: 'DEPARTMENT', scopeId: null, isPrimary: true }],
+                        permissions: ['*'],
+                      });
+                      router.push('/portal/faculty');
+                    }}
+                    className="h-8 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center"
+                  >
+                    Faculty Portal
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAuth({
+                        accessToken: 'mock-jwt-token-hod',
+                        refreshToken: 'mock-refresh-token-hod',
+                        tokenType: 'Bearer',
+                        expiresIn: 86400,
+                        user: {
+                          id: 'hod-001',
+                          instituteId: selectedInstitute?.id || 'msu-sikkim',
+                          email: 'hod.cse@msu.edu.in',
+                          firstName: 'Dr. Meenakshi',
+                          lastName: 'Sundaram',
+                          displayName: 'Dr. Meenakshi Sundaram',
+                          status: 'ACTIVE',
+                          mfaEnabled: false,
+                          mustChangePassword: false,
+                        },
+                        roles: [{ key: 'hod', name: 'Head of Department', scopeType: 'DEPARTMENT', scopeId: null, isPrimary: true }],
+                        permissions: ['*'],
+                      });
+                      router.push('/portal/hod');
+                    }}
+                    className="h-8 rounded bg-amber-600 hover:bg-amber-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center"
+                  >
+                    HOD Desk (CSE)
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAuth({
+                        accessToken: 'mock-jwt-token-dean',
+                        refreshToken: 'mock-refresh-token-dean',
+                        tokenType: 'Bearer',
+                        expiresIn: 86400,
+                        user: {
+                          id: 'dean-001',
+                          instituteId: selectedInstitute?.id || 'msu-sikkim',
+                          email: 'dean.soe@msu.edu.in',
+                          firstName: 'Prof. Rajeshwar',
+                          lastName: 'Kulkarni',
+                          displayName: 'Prof. Rajeshwar Kulkarni',
+                          status: 'ACTIVE',
+                          mfaEnabled: false,
+                          mustChangePassword: false,
+                        },
+                        roles: [{ key: 'dean', name: 'Dean of Faculty', scopeType: 'SCHOOL', scopeId: null, isPrimary: true }],
+                        permissions: ['*'],
+                      });
+                      router.push('/portal/dean');
+                    }}
+                    className="h-8 rounded bg-purple-600 hover:bg-purple-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center"
+                  >
+                    Dean Office (SoE)
+                  </button>
+                </div>
+
                 <button
                   type="button"
                   onClick={() => {
-                    const demoAuth: AuthResponse = {
-                      accessToken: 'mock-jwt-token-dev',
-                      refreshToken: 'mock-refresh-token-dev',
+                    setAuth({
+                      accessToken: 'mock-jwt-token-admin',
+                      refreshToken: 'mock-refresh-token-admin',
                       tokenType: 'Bearer',
                       expiresIn: 86400,
                       user: {
@@ -335,23 +456,14 @@ export default function LoginPage() {
                         mfaEnabled: false,
                         mustChangePassword: false,
                       },
-                      roles: [
-                        {
-                          key: 'SUPER_ADMIN',
-                          name: 'Super Admin',
-                          scopeType: 'GLOBAL',
-                          scopeId: null,
-                          isPrimary: true,
-                        },
-                      ],
+                      roles: [{ key: 'SUPER_ADMIN', name: 'Super Admin', scopeType: 'GLOBAL', scopeId: null, isPrimary: true }],
                       permissions: ['*'],
-                    };
-                    setAuth(demoAuth);
+                    });
                     router.push('/dashboard');
                   }}
-                  className="w-full h-9 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition-all shadow flex items-center justify-center space-x-1.5"
+                  className="w-full h-8 rounded bg-slate-700 hover:bg-slate-800 text-slate-100 font-semibold text-[11px] transition-all shadow flex items-center justify-center"
                 >
-                  <span>⚡ 1-Click Instant Demo Login (Super Admin)</span>
+                  Super Admin Console
                 </button>
               </div>
             </form>
