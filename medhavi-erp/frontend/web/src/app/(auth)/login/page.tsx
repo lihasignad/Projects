@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { apiClient } from '@/shared/api/client';
 import { useAuthStore } from '@/shared/stores/auth-store';
 import type { AuthResponse } from '@/shared/types/auth';
+import { REGISTERED_ACCOUNTS, type PortalRole } from '@/shared/rbac/portal-rbac';
 
 const loginSchema = z.object({
   identifier: z
@@ -61,31 +62,59 @@ export default function LoginPage() {
         (err as { response?: { status?: number } }).response?.status === undefined;
 
       if (isConnectionError || data.password === 'Admin@123' || data.password.length >= 6) {
-        const rawPrefix = data.identifier.split('@')[0] ?? '';
-        const cleanName = rawPrefix.replace(/[0-9._-]+/g, ' ').trim() || 'Admin';
-        const capitalized = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+        const lower = data.identifier.toLowerCase().trim();
+        const matched = REGISTERED_ACCOUNTS.find((acc) => acc.email.toLowerCase() === lower);
+
+        let role: PortalRole = matched ? matched.role : 'admin';
+        let targetPath = matched ? matched.targetPath : '/dashboard';
+        let name = matched ? matched.name : 'University Administrator';
+        let roleTitle = matched ? matched.roleTitle : 'Super Administrator';
+
+        if (!matched) {
+          if (lower.includes('student') || lower.includes('priya')) {
+            role = 'student';
+            targetPath = '/portal/student';
+            name = 'Priya Sharma';
+            roleTitle = 'Student (2023CSE042)';
+          } else if (lower.includes('faculty') || lower.includes('teacher') || lower.includes('arun') || lower.includes('arvind')) {
+            role = 'faculty';
+            targetPath = '/portal/faculty';
+            name = 'Dr. Arun Sharma';
+            roleTitle = 'Associate Professor';
+          } else if (lower.includes('hod') || lower.includes('rajesh') || lower.includes('meenakshi')) {
+            role = 'hod';
+            targetPath = '/portal/hod';
+            name = 'Prof. Rajesh Verma';
+            roleTitle = 'Head of Department (CSE)';
+          } else if (lower.includes('dean') || lower.includes('menon') || lower.includes('rajeshwar')) {
+            role = 'dean';
+            targetPath = '/portal/dean';
+            name = 'Dr. K. Menon';
+            roleTitle = 'Dean of Faculty';
+          }
+        }
 
         const demoAuth: AuthResponse = {
-          accessToken: 'mock-jwt-token-dev',
-          refreshToken: 'mock-refresh-token-dev',
+          accessToken: 'mock-jwt-token-' + role,
+          refreshToken: 'mock-refresh-token-' + role,
           tokenType: 'Bearer',
           expiresIn: 86400,
           user: {
-            id: 'usr-admin-demo',
+            id: 'usr-' + role + '-id',
             instituteId: selectedInstitute?.id || 'msu-sikkim',
-            email: data.identifier,
-            firstName: capitalized,
-            lastName: 'User',
-            displayName: data.identifier,
+            email: matched?.email || data.identifier,
+            firstName: name.split(' ')[0] ?? name,
+            lastName: name.split(' ').slice(1).join(' ') || null,
+            displayName: name,
             status: 'ACTIVE',
             mfaEnabled: false,
             mustChangePassword: false,
           },
           roles: [
             {
-              key: 'SUPER_ADMIN',
-              name: 'Super Admin',
-              scopeType: 'GLOBAL',
+              key: role,
+              name: roleTitle,
+              scopeType: role === 'dean' ? 'SCHOOL' : role === 'hod' ? 'DEPARTMENT' : 'CAMPUS',
               scopeId: null,
               isPrimary: true,
             },
@@ -94,7 +123,7 @@ export default function LoginPage() {
         };
 
         setAuth(demoAuth);
-        router.push('/dashboard');
+        router.push(targetPath);
         return;
       }
 
@@ -317,7 +346,7 @@ export default function LoginPage() {
               {/* Quick 1-Click Persona Logins */}
               <div className="space-y-1.5 pt-1">
                 <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider text-center">
-                  Instant Portal Access (Demo Mode)
+                  Instant Portal Access (Multi-Role Accounts)
                 </div>
                 <div className="grid grid-cols-2 gap-1.5">
                   <button
@@ -331,7 +360,7 @@ export default function LoginPage() {
                         user: {
                           id: 'std-2023-042',
                           instituteId: selectedInstitute?.id || 'msu-sikkim',
-                          email: 'priya.sharma@msu.edu.in',
+                          email: 'priya.sharma@medhavi.ac.in',
                           firstName: 'Priya',
                           lastName: 'Sharma',
                           displayName: 'Priya Sharma',
@@ -339,14 +368,14 @@ export default function LoginPage() {
                           mfaEnabled: false,
                           mustChangePassword: false,
                         },
-                        roles: [{ key: 'student', name: 'Student', scopeType: 'CAMPUS', scopeId: null, isPrimary: true }],
+                        roles: [{ key: 'student', name: 'Student (2023CSE042)', scopeType: 'CAMPUS', scopeId: null, isPrimary: true }],
                         permissions: ['*'],
                       });
                       router.push('/portal/student');
                     }}
-                    className="h-8 rounded bg-brand-600 hover:bg-brand-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center"
+                    className="h-8 rounded bg-brand-600 hover:bg-brand-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
                   >
-                    Student Portal
+                    Student (Priya Sharma)
                   </button>
 
                   <button
@@ -360,10 +389,10 @@ export default function LoginPage() {
                         user: {
                           id: 'fac-101',
                           instituteId: selectedInstitute?.id || 'msu-sikkim',
-                          email: 'arvind.rao@msu.edu.in',
-                          firstName: 'Dr. Arvind',
-                          lastName: 'Rao',
-                          displayName: 'Dr. Arvind Rao',
+                          email: 'arun.sharma@medhavi.ac.in',
+                          firstName: 'Dr. Arun',
+                          lastName: 'Sharma',
+                          displayName: 'Dr. Arun Sharma',
                           status: 'ACTIVE',
                           mfaEnabled: false,
                           mustChangePassword: false,
@@ -373,9 +402,9 @@ export default function LoginPage() {
                       });
                       router.push('/portal/faculty');
                     }}
-                    className="h-8 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center"
+                    className="h-8 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 active:scale-[0.99]"
                   >
-                    Faculty Portal
+                    Faculty (Dr. Arun Sharma)
                   </button>
 
                   <button
@@ -389,22 +418,22 @@ export default function LoginPage() {
                         user: {
                           id: 'hod-001',
                           instituteId: selectedInstitute?.id || 'msu-sikkim',
-                          email: 'hod.cse@msu.edu.in',
-                          firstName: 'Dr. Meenakshi',
-                          lastName: 'Sundaram',
-                          displayName: 'Dr. Meenakshi Sundaram',
+                          email: 'rajesh.verma@medhavi.ac.in',
+                          firstName: 'Prof. Rajesh',
+                          lastName: 'Verma',
+                          displayName: 'Prof. Rajesh Verma',
                           status: 'ACTIVE',
                           mfaEnabled: false,
                           mustChangePassword: false,
                         },
-                        roles: [{ key: 'hod', name: 'Head of Department', scopeType: 'DEPARTMENT', scopeId: null, isPrimary: true }],
+                        roles: [{ key: 'hod', name: 'Head of Department (CSE)', scopeType: 'DEPARTMENT', scopeId: null, isPrimary: true }],
                         permissions: ['*'],
                       });
                       router.push('/portal/hod');
                     }}
-                    className="h-8 rounded bg-amber-600 hover:bg-amber-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center"
+                    className="h-8 rounded bg-amber-600 hover:bg-amber-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-[0.99]"
                   >
-                    HOD Desk (CSE)
+                    HOD (Prof. Rajesh Verma)
                   </button>
 
                   <button
@@ -418,10 +447,10 @@ export default function LoginPage() {
                         user: {
                           id: 'dean-001',
                           instituteId: selectedInstitute?.id || 'msu-sikkim',
-                          email: 'dean.soe@msu.edu.in',
-                          firstName: 'Prof. Rajeshwar',
-                          lastName: 'Kulkarni',
-                          displayName: 'Prof. Rajeshwar Kulkarni',
+                          email: 'k.menon@medhavi.ac.in',
+                          firstName: 'Dr. K.',
+                          lastName: 'Menon',
+                          displayName: 'Dr. K. Menon',
                           status: 'ACTIVE',
                           mfaEnabled: false,
                           mustChangePassword: false,
@@ -431,9 +460,9 @@ export default function LoginPage() {
                       });
                       router.push('/portal/dean');
                     }}
-                    className="h-8 rounded bg-purple-600 hover:bg-purple-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center"
+                    className="h-8 rounded bg-purple-600 hover:bg-purple-700 text-white font-semibold text-[11px] transition-all shadow flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:scale-[0.99]"
                   >
-                    Dean Office (SoE)
+                    Dean (Dr. K. Menon)
                   </button>
                 </div>
 
@@ -448,22 +477,22 @@ export default function LoginPage() {
                       user: {
                         id: 'usr-admin-demo',
                         instituteId: selectedInstitute?.id || 'msu-sikkim',
-                        email: 'admin@medhavi.local',
-                        firstName: 'Super',
-                        lastName: 'Admin',
-                        displayName: 'Super Admin',
+                        email: 'admin@coachup.dev',
+                        firstName: 'University',
+                        lastName: 'Registrar',
+                        displayName: 'University Registrar',
                         status: 'ACTIVE',
                         mfaEnabled: false,
                         mustChangePassword: false,
                       },
-                      roles: [{ key: 'SUPER_ADMIN', name: 'Super Admin', scopeType: 'GLOBAL', scopeId: null, isPrimary: true }],
+                      roles: [{ key: 'admin', name: 'Super Administrator', scopeType: 'GLOBAL', scopeId: null, isPrimary: true }],
                       permissions: ['*'],
                     });
                     router.push('/dashboard');
                   }}
-                  className="w-full h-8 rounded bg-slate-700 hover:bg-slate-800 text-slate-100 font-semibold text-[11px] transition-all shadow flex items-center justify-center"
+                  className="w-full h-8 rounded bg-slate-700 hover:bg-slate-800 text-slate-100 font-semibold text-[11px] transition-all shadow flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 active:scale-[0.99]"
                 >
-                  Super Admin Console
+                  Super Admin Console (Registrar)
                 </button>
               </div>
             </form>
