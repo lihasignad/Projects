@@ -1,65 +1,78 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-
-interface StudentRosterItem {
-  id: string;
-  rollNo: string;
-  name: string;
-  currentAttendance: number;
-  status: 'present' | 'absent' | 'late' | 'duty_leave';
-}
-
-const INITIAL_ROSTER: StudentRosterItem[] = [
-  { id: '1', rollNo: '2023CSE001', name: 'Aarav Singhania', currentAttendance: 68.4, status: 'duty_leave' },
-  { id: '2', rollNo: '2023CSE002', name: 'Aakash Verma', currentAttendance: 85.2, status: 'present' },
-  { id: '3', rollNo: '2023CSE003', name: 'Ananya Deshmukh', currentAttendance: 92.0, status: 'present' },
-  { id: '4', rollNo: '2023CSE004', name: 'Ayush Patel', currentAttendance: 76.5, status: 'present' },
-  { id: '5', rollNo: '2023CSE011', name: 'Bhavya Nair', currentAttendance: 88.0, status: 'present' },
-  { id: '6', rollNo: '2023CSE018', name: 'Devendra Joshi', currentAttendance: 71.0, status: 'absent' },
-  { id: '7', rollNo: '2023CSE024', name: 'Ishaan Mukhopadhyay', currentAttendance: 94.1, status: 'present' },
-  { id: '8', rollNo: '2023CSE035', name: 'Manish Chhetri', currentAttendance: 82.3, status: 'present' },
-  { id: '9', rollNo: '2023CSE042', name: 'Priya Sharma', currentAttendance: 88.2, status: 'present' },
-  { id: '10', rollNo: '2023CSE048', name: 'Rohan Kulkarni', currentAttendance: 69.8, status: 'absent' },
-  { id: '11', rollNo: '2023CSE055', name: 'Siddharth Roy', currentAttendance: 81.4, status: 'present' },
-  { id: '12', rollNo: '2023CSE062', name: 'Tanvi Agarwal', currentAttendance: 90.6, status: 'present' },
-];
+import { useSearchParams } from 'next/navigation';
+import { usePortalStore, type RosterStudent } from '@/features/portals/portal-store';
 
 /**
  * DESIGN BRIEF: Faculty Roll Call & Attendance Marker
  * - Who uses: Professors at lecture podium recording session attendance within a 2-minute window.
- * - Single most important thing: High-speed, keyboard/touch-friendly toggling between Present/Absent with 1-click bulk shortcuts.
+ * - Single most important thing: High-speed, keyboard/touch-friendly toggling between Present/Absent with 1-click bulk shortcuts and immediate real-time sync across Student, HOD, and Dean dashboards.
  * - Visual direction: Fast, dense attendance ledger with immediate tally counters and definitive save action.
- * - Palette: Slate (`#0F172A`, `#334155`, `#F8FAFC`), Emerald (`#059669` P), Crimson (`#DC2626` A), Amber (`#D97706` L).
+ * - Palette: Slate (`#0F172A`, `#334155`, `#F8FAFC`), Emerald (`#059669` P), Crimson (`#DC2626` A), Blue (`#2563EB` OD).
  * - Spacing & radius: 4px/8px rhythm, rounded-lg and rounded-xl containers.
  */
 
-export default function FacultyAttendanceMarkerPage() {
-  const [roster, setRoster] = useState<StudentRosterItem[]>(INITIAL_ROSTER);
-  const [topic, setTopic] = useState('BCNF Decomposition & Lossless Join Property');
+function AttendanceMarkerContent() {
+  const searchParams = useSearchParams();
+  const queryClassId = searchParams.get('classId');
+
+  const classes = usePortalStore((state) => state.classes);
+  const studentRoster = usePortalStore((state) => state.studentRoster);
+  const markClassAttendance = usePortalStore((state) => state.markClassAttendance);
+
+  const [selectedClassId, setSelectedClassId] = useState<string>(
+    queryClassId || classes[0]?.id || 'cls-501'
+  );
+  const [localRoster, setLocalRoster] = useState<RosterStudent[]>(studentRoster);
+  const [topic, setTopic] = useState('');
+  const [successBanner, setSuccessBanner] = useState<string | null>(null);
   const [isSaved, setIsSaved] = useState(false);
 
-  const handleSetStatus = (id: string, status: StudentRosterItem['status']) => {
-    setRoster((prev) =>
+  const selectedClass = classes.find((c) => c.id === selectedClassId) || classes[0];
+
+  useEffect(() => {
+    if (selectedClass) {
+      setTopic(selectedClass.topic);
+    }
+  }, [selectedClass]);
+
+  useEffect(() => {
+    setLocalRoster(studentRoster);
+  }, [studentRoster]);
+
+  const handleSetStatus = (id: string, status: RosterStudent['status']) => {
+    setLocalRoster((prev) =>
       prev.map((item) => (item.id === id ? { ...item, status } : item))
     );
   };
 
-  const handleMarkAll = (status: StudentRosterItem['status']) => {
-    setRoster((prev) => prev.map((item) => ({ ...item, status })));
+  const handleMarkAll = (status: RosterStudent['status']) => {
+    setLocalRoster((prev) => prev.map((item) => ({ ...item, status })));
   };
 
-  const presentCount = roster.filter((r) => r.status === 'present').length;
-  const absentCount = roster.filter((r) => r.status === 'absent').length;
-  const dutyLeaveCount = roster.filter((r) => r.status === 'duty_leave').length;
+  const presentCount = localRoster.filter((r) => r.status === 'present').length;
+  const absentCount = localRoster.filter((r) => r.status === 'absent').length;
+  const dutyLeaveCount = localRoster.filter((r) => r.status === 'duty_leave').length;
 
   const handleSaveAttendance = () => {
+    if (!selectedClass) return;
     setIsSaved(true);
+
+    markClassAttendance(
+      selectedClass.id,
+      selectedClass.subjectCode,
+      topic || selectedClass.topic,
+      localRoster
+    );
+
     setTimeout(() => {
-      alert(`Attendance recorded successfully for CS501 (${presentCount} Present, ${absentCount} Absent). Synced to Student Portals.`);
       setIsSaved(false);
-    }, 1000);
+      setSuccessBanner(
+        `Attendance recorded successfully for ${selectedClass.subjectCode} (${presentCount} Present, ${absentCount} Absent, ${dutyLeaveCount} Duty Leave). Student profile, HOD attendance audit, and Dean analytics updated in real-time!`
+      );
+    }, 600);
   };
 
   return (
@@ -77,14 +90,14 @@ export default function FacultyAttendanceMarkerPage() {
               </Link>
               <span className="text-slate-300 dark:text-slate-700">|</span>
               <span className="text-xs font-mono text-slate-500">
-                Wednesday, 28 Oct 2026, 11:30 AM
+                {selectedClass?.date || 'Today'} · {selectedClass?.startTime} - {selectedClass?.endTime}
               </span>
             </div>
             <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1">
-              Mark Class Attendance: CS501 DBMS
+              Mark Class Attendance: {selectedClass?.subjectCode} {selectedClass?.subjectName}
             </h1>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Batch: B.Tech CSE Semester 5 (Section A), Room: Lecture Hall LT-2
+              Batch: {selectedClass?.batch} · Room: {selectedClass?.room} · Type: {selectedClass?.type}
             </p>
           </div>
 
@@ -93,26 +106,75 @@ export default function FacultyAttendanceMarkerPage() {
               type="button"
               onClick={handleSaveAttendance}
               disabled={isSaved}
-              className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
+              className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 active:scale-[0.99]"
             >
-              {isSaved ? 'Saving Record...' : 'Save & Lock Attendance'}
+              {isSaved ? 'Synchronizing Attendance...' : 'Save & Lock Attendance'}
             </button>
           </div>
         </div>
 
-        {/* Topic Input Bar */}
-        <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center gap-3">
-          <label className="text-xs font-bold text-slate-500 font-medium whitespace-nowrap">
-            Topic Taught Today:
-          </label>
-          <input
-            type="text"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-            className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs font-medium text-slate-900 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
-          />
+        {/* Class Selection & Topic Input Bar */}
+        <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex items-center space-x-2">
+            <label className="text-xs font-bold text-slate-500 whitespace-nowrap">
+              Select Session:
+            </label>
+            <select
+              value={selectedClassId}
+              onChange={(e) => setSelectedClassId(e.target.value)}
+              className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs font-medium text-slate-900 dark:text-slate-100 font-mono"
+            >
+              {classes.map((cls) => (
+                <option key={cls.id} value={cls.id}>
+                  {cls.subjectCode} - {cls.topic.slice(0, 32)}... ({cls.attendanceMarked ? '✓ Saved' : 'Pending'})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex-1 flex items-center space-x-2">
+            <label className="text-xs font-bold text-slate-500 whitespace-nowrap">
+              Topic Taught:
+            </label>
+            <input
+              type="text"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs font-medium text-slate-900 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
+            />
+          </div>
         </div>
       </div>
+
+      {/* Success Synchronization Banner */}
+      {successBanner && (
+        <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 text-xs space-y-2 shadow-sm">
+          <div className="flex items-center justify-between font-bold">
+            <div className="flex items-center space-x-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-600 animate-ping"></span>
+              <span>Attendance Synchronized Across All Portals</span>
+            </div>
+            <button
+              onClick={() => setSuccessBanner(null)}
+              className="text-emerald-700 dark:text-emerald-300 hover:underline text-[11px]"
+            >
+              Dismiss
+            </button>
+          </div>
+          <p className="text-[11px] text-emerald-800 dark:text-emerald-300">
+            {successBanner}
+          </p>
+          <div className="pt-1 flex items-center space-x-3 text-[11px] font-semibold">
+            <Link href="/portal/student/attendance" className="underline text-brand-700 dark:text-brand-300">
+              View Student Attendance Tracker &rarr;
+            </Link>
+            <span>·</span>
+            <Link href="/portal/hod/attendance-audit" className="underline text-brand-700 dark:text-brand-300">
+              View HOD Attendance Audit &rarr;
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Tally Stats & Quick Bulk Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
@@ -161,75 +223,100 @@ export default function FacultyAttendanceMarkerPage() {
               <tr className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 text-[11px] font-medium text-slate-500 font-semibold">
                 <th className="px-4 py-3">Roll Number</th>
                 <th className="px-4 py-3">Student Name</th>
-                <th className="px-4 py-3 text-right">Historical %</th>
+                <th className="px-4 py-3 text-right">Live Attendance %</th>
                 <th className="px-4 py-3 text-center">Status Selection</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-              {roster.map((student) => (
-                <tr key={student.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors">
-                  <td className="px-4 py-3 font-mono font-bold text-slate-900 dark:text-slate-100">
-                    {student.rollNo}
-                  </td>
-                  <td className="px-4 py-3 font-medium text-slate-800 dark:text-slate-200">
-                    {student.name}
-                  </td>
-                  <td className="px-4 py-3 text-right font-mono font-semibold">
-                    <span
-                      className={
-                        student.currentAttendance >= 75
-                          ? 'text-emerald-600 dark:text-emerald-400'
-                          : 'text-amber-600 dark:text-amber-400'
-                      }
-                    >
-                      {student.currentAttendance}%
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center justify-center space-x-1.5">
-                      <button
-                        type="button"
-                        onClick={() => handleSetStatus(student.id, 'present')}
-                        className={`px-3 py-1 rounded text-xs font-bold transition-all ${
-                          student.status === 'present'
-                            ? 'bg-emerald-600 text-white shadow-sm'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
-                        }`}
+              {localRoster.map((student) => {
+                const isPriya = student.rollNo === '2023CSE042' || student.name.includes('Priya');
+                return (
+                  <tr
+                    key={student.id}
+                    className={`transition-colors ${
+                      isPriya
+                        ? 'bg-brand-50/50 dark:bg-brand-950/20 font-semibold'
+                        : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/40'
+                    }`}
+                  >
+                    <td className="px-4 py-3 font-mono font-bold text-slate-900 dark:text-slate-100">
+                      <div className="flex items-center space-x-1.5">
+                        <span>{student.rollNo}</span>
+                        {isPriya && (
+                          <span className="px-1.5 py-0.2 rounded text-[9px] bg-brand-600 text-white font-normal uppercase">
+                            Active Student
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 font-medium text-slate-800 dark:text-slate-200">
+                      {student.name}
+                    </td>
+                    <td className="px-4 py-3 text-right font-mono font-semibold">
+                      <span
+                        className={
+                          student.currentAttendance >= 75
+                            ? 'text-emerald-600 dark:text-emerald-400'
+                            : 'text-amber-600 dark:text-amber-400'
+                        }
                       >
-                        Present (P)
-                      </button>
+                        {student.currentAttendance}%
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center justify-center space-x-1.5">
+                        <button
+                          type="button"
+                          onClick={() => handleSetStatus(student.id, 'present')}
+                          className={`px-3 py-1 rounded text-xs font-bold transition-all ${
+                            student.status === 'present'
+                              ? 'bg-emerald-600 text-white shadow-sm'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
+                          }`}
+                        >
+                          Present (P)
+                        </button>
 
-                      <button
-                        type="button"
-                        onClick={() => handleSetStatus(student.id, 'absent')}
-                        className={`px-3 py-1 rounded text-xs font-bold transition-all ${
-                          student.status === 'absent'
-                            ? 'bg-rose-600 text-white shadow-sm'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
-                        }`}
-                      >
-                        Absent (A)
-                      </button>
+                        <button
+                          type="button"
+                          onClick={() => handleSetStatus(student.id, 'absent')}
+                          className={`px-3 py-1 rounded text-xs font-bold transition-all ${
+                            student.status === 'absent'
+                              ? 'bg-rose-600 text-white shadow-sm'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
+                          }`}
+                        >
+                          Absent (A)
+                        </button>
 
-                      <button
-                        type="button"
-                        onClick={() => handleSetStatus(student.id, 'duty_leave')}
-                        className={`px-3 py-1 rounded text-xs font-bold transition-all ${
-                          student.status === 'duty_leave'
-                            ? 'bg-blue-600 text-white shadow-sm'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
-                        }`}
-                      >
-                        Duty Leave (OD)
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                        <button
+                          type="button"
+                          onClick={() => handleSetStatus(student.id, 'duty_leave')}
+                          className={`px-3 py-1 rounded text-xs font-bold transition-all ${
+                            student.status === 'duty_leave'
+                              ? 'bg-blue-600 text-white shadow-sm'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
+                          }`}
+                        >
+                          Duty Leave (OD)
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function FacultyAttendanceMarkerPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-xs text-slate-400">Loading Attendance Register...</div>}>
+      <AttendanceMarkerContent />
+    </Suspense>
   );
 }
