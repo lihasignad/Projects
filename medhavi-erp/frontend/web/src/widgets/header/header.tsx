@@ -4,64 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/shared/stores/auth-store';
-
-interface Persona {
-  id: string;
-  name: string;
-  roleTitle: string;
-  department: string;
-  targetPath: string;
-  badge: string;
-  email: string;
-}
-
-const PERSONAS: Persona[] = [
-  {
-    id: 'student',
-    name: 'Priya Sharma',
-    roleTitle: 'Student (2023CSE042)',
-    department: 'B.Tech CSE Sem 5',
-    targetPath: '/portal/student',
-    badge: 'Student',
-    email: 'priya.sharma@msu.edu.in',
-  },
-  {
-    id: 'faculty',
-    name: 'Dr. Arvind Rao',
-    roleTitle: 'Associate Professor',
-    department: 'Computer Science & Engg',
-    targetPath: '/portal/faculty',
-    badge: 'Faculty',
-    email: 'arvind.rao@msu.edu.in',
-  },
-  {
-    id: 'hod',
-    name: 'Dr. Meenakshi Sundaram',
-    roleTitle: 'Head of Department',
-    department: 'Dept of Computer Science',
-    targetPath: '/portal/hod',
-    badge: 'HOD',
-    email: 'hod.cse@msu.edu.in',
-  },
-  {
-    id: 'dean',
-    name: 'Prof. Rajeshwar Kulkarni',
-    roleTitle: 'Dean of Faculty',
-    department: 'School of Engineering & Tech',
-    targetPath: '/portal/dean',
-    badge: 'Dean',
-    email: 'dean.soe@msu.edu.in',
-  },
-  {
-    id: 'admin',
-    name: 'Admin Desk',
-    roleTitle: 'University Registrar / Superadmin',
-    department: 'Central Administration',
-    targetPath: '/dashboard',
-    badge: 'Admin',
-    email: 'admin@medhavi.local',
-  },
-];
+import { getActiveRole, REGISTERED_ACCOUNTS, type UserAccountCredential } from '@/shared/rbac/portal-rbac';
 
 interface HeaderProps {
   onOpenSidebar: () => void;
@@ -76,6 +19,7 @@ export function Header({ onOpenSidebar }: HeaderProps) {
   const logout = useAuthStore((state) => state.logout);
   const setAuth = useAuthStore((state) => state.setAuth);
 
+  const activeRole = getActiveRole(roles);
   const [isPersonaOpen, setIsPersonaOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -90,44 +34,46 @@ export function Header({ onOpenSidebar }: HeaderProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const primaryRole = roles.find((r) => r.isPrimary)?.name || roles[0]?.name || 'Student';
-
-  const handleSelectPersona = (p: Persona) => {
+  const handleSelectAccount = (account: UserAccountCredential) => {
     setIsPersonaOpen(false);
     setAuth({
-      accessToken: 'demo_token_' + p.id,
-      refreshToken: 'demo_refresh_' + p.id,
+      accessToken: 'demo_token_' + account.role,
+      refreshToken: 'demo_refresh_' + account.role,
       tokenType: 'Bearer',
       expiresIn: 3600,
       user: {
-        id: 'usr_' + p.id,
+        id: 'usr_' + account.role,
         instituteId: selectedInstitute?.id || 'msu-sikkim',
-        email: p.email,
-        firstName: p.name.split(' ')[0] ?? p.name,
-        lastName: p.name.split(' ').slice(1).join(' ') || null,
-        displayName: p.name,
+        email: account.email,
+        firstName: account.name.split(' ')[0] ?? account.name,
+        lastName: account.name.split(' ').slice(1).join(' ') || null,
+        displayName: account.name,
         status: 'ACTIVE',
         mfaEnabled: false,
         mustChangePassword: false,
       },
       roles: [
         {
-          key: p.badge.toLowerCase(),
-          name: p.roleTitle,
-          scopeType: p.badge === 'Dean' ? 'SCHOOL' : p.badge === 'HOD' ? 'DEPARTMENT' : 'CAMPUS',
-          scopeId: 'scope_' + p.id,
+          key: account.role,
+          name: account.roleTitle,
+          scopeType: account.role === 'dean' ? 'SCHOOL' : account.role === 'hod' ? 'DEPARTMENT' : 'CAMPUS',
+          scopeId: 'scope_' + account.role,
           isPrimary: true,
         },
       ],
       permissions: ['*'],
     });
-    router.push(p.targetPath);
+    router.push(account.targetPath);
   };
 
   const handleLogout = () => {
     logout();
     router.push('/login');
   };
+
+  const uniquePersonas = REGISTERED_ACCOUNTS.filter(
+    (acc, idx, self) => idx === self.findIndex((a) => a.role === acc.role)
+  );
 
   return (
     <header className="h-14 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
@@ -165,41 +111,67 @@ export function Header({ onOpenSidebar }: HeaderProps) {
             className="flex items-center space-x-1.5 px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500"
             title="Switch portal perspective"
           >
-            <span className="text-brand-600 dark:text-brand-400 font-semibold text-[11px]">Role:</span>
-            <span className="max-w-[100px] truncate">{primaryRole}</span>
+            <span className="px-1.5 py-0.2 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300">
+              {activeRole}
+            </span>
+            <span className="max-w-[120px] truncate font-semibold">
+              {user?.displayName || user?.firstName || 'Select Role'}
+            </span>
             <svg className="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
           {isPersonaOpen && (
-            <div className="absolute right-0 mt-1.5 w-72 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-1.5 z-50">
-              <div className="px-3 py-1.5 border-b border-slate-100 dark:border-slate-800">
+            <div className="absolute right-0 mt-1.5 w-80 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-1.5 z-50">
+              <div className="px-3 py-1.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <div className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                   Switch Portal Perspective
                 </div>
+                <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
+                  Active: {activeRole.toUpperCase()}
+                </span>
               </div>
               <div className="max-h-80 overflow-y-auto py-1">
-                {PERSONAS.map((p) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => handleSelectPersona(p)}
-                    className="w-full text-left px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800/70 flex items-start space-x-2.5 transition-colors"
-                  >
-                    <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 mt-0.5">
-                      {p.badge}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate">
-                        {p.name}
+                {uniquePersonas.map((account) => {
+                  const isCurrent = activeRole === account.role;
+                  return (
+                    <button
+                      key={account.role}
+                      type="button"
+                      onClick={() => handleSelectAccount(account)}
+                      className={`w-full text-left px-3 py-2 flex items-start space-x-2.5 transition-colors ${
+                        isCurrent
+                          ? 'bg-brand-50/70 dark:bg-brand-950/40 border-l-2 border-brand-600'
+                          : 'hover:bg-slate-50 dark:hover:bg-slate-800/70'
+                      }`}
+                    >
+                      <span
+                        className={`px-1.5 py-0.5 text-[10px] font-bold rounded uppercase mt-0.5 font-mono ${
+                          account.role === 'student'
+                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300'
+                            : account.role === 'faculty'
+                            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                            : account.role === 'hod'
+                            ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
+                            : account.role === 'dean'
+                            ? 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300'
+                            : 'bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200'
+                        }`}
+                      >
+                        {account.role}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate">
+                          {account.name}
+                        </div>
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                          {account.roleTitle} · {account.email}
+                        </div>
                       </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                        {p.roleTitle} · {p.department}
-                      </div>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -226,14 +198,14 @@ export function Header({ onOpenSidebar }: HeaderProps) {
         {/* User Pill */}
         <div className="flex items-center pl-2 sm:pl-3 border-l border-slate-200 dark:border-slate-800 space-x-2">
           <div className="h-7 w-7 rounded bg-brand-600 text-white flex items-center justify-center font-bold text-xs uppercase shadow-sm">
-            {user?.firstName?.charAt(0) || 'P'}
+            {user?.firstName?.charAt(0) || activeRole.charAt(0)}
           </div>
           <div className="hidden sm:block text-left">
             <div className="text-xs font-semibold text-slate-900 dark:text-slate-100 leading-tight">
-              {user ? `${user.firstName} ${user.lastName || ''}`.trim() : 'Priya Sharma'}
+              {user ? `${user.firstName} ${user.lastName || ''}`.trim() : 'Active User'}
             </div>
             <div className="text-[10px] text-slate-500 dark:text-slate-400 capitalize">
-              {primaryRole}
+              {activeRole} portal
             </div>
           </div>
 

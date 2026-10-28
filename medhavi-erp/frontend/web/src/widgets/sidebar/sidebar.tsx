@@ -3,23 +3,26 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuthStore } from '@/shared/stores/auth-store';
+import { getActiveRole, type PortalRole } from '@/shared/rbac/portal-rbac';
+import { usePortalStore } from '@/features/portals/portal-store';
 
 interface NavItem {
   label: string;
   href: string;
-  permission?: string;
-  badge?: string;
+  badge?: (store: ReturnType<typeof usePortalStore.getState>) => string | undefined;
   icon: (props: { className?: string }) => JSX.Element;
 }
 
 interface NavSection {
   title: string;
+  roles: PortalRole[];
   items: NavItem[];
 }
 
 const NAV_SECTIONS: NavSection[] = [
   {
     title: 'Student Portal',
+    roles: ['student'],
     items: [
       {
         label: 'Student Overview',
@@ -42,7 +45,10 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Quizzes & Tests',
         href: '/portal/student/quizzes',
-        badge: '1 Active',
+        badge: (s) => {
+          const count = s.quizzes.filter((q) => q.status === 'active').length;
+          return count > 0 ? `${count} Active` : undefined;
+        },
         icon: (props) => (
           <svg className={props.className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -61,7 +67,7 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Attendance Tracker',
         href: '/portal/student/attendance',
-        badge: '84.6%',
+        badge: (s) => `${s.studentProfile.attendancePercentage}%`,
         icon: (props) => (
           <svg className={props.className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -71,7 +77,7 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Results & Marks Card',
         href: '/portal/student/results',
-        badge: 'SGPA 9.12',
+        badge: (s) => `CGPA ${s.studentProfile.cgpa}`,
         icon: (props) => (
           <svg className={props.className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -91,6 +97,7 @@ const NAV_SECTIONS: NavSection[] = [
   },
   {
     title: 'Faculty Desk',
+    roles: ['faculty', 'hod'],
     items: [
       {
         label: 'Faculty Schedule',
@@ -104,7 +111,10 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Mark Attendance',
         href: '/portal/faculty/attendance',
-        badge: 'Next: 11:30',
+        badge: (s) => {
+          const nextCls = s.classes.find((c) => !c.attendanceMarked);
+          return nextCls ? `Next: ${nextCls.startTime}` : 'Completed';
+        },
         icon: (props) => (
           <svg className={props.className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -114,6 +124,7 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Quiz Management',
         href: '/portal/faculty/quizzes',
+        badge: (s) => `${s.quizzes.length} Tests`,
         icon: (props) => (
           <svg className={props.className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -123,6 +134,7 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Assignments & Grading',
         href: '/portal/faculty/assignments',
+        badge: (s) => `${s.quizSubmissions.length} Subs`,
         icon: (props) => (
           <svg className={props.className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -142,6 +154,7 @@ const NAV_SECTIONS: NavSection[] = [
   },
   {
     title: 'HOD Desk (CSE)',
+    roles: ['hod'],
     items: [
       {
         label: 'Department Overview',
@@ -155,7 +168,10 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Faculty Workload Matrix',
         href: '/portal/hod/workload',
-        badge: '1 Overloaded',
+        badge: (s) => {
+          const overloaded = s.facultyWorkload.filter((f) => f.status === 'overloaded').length;
+          return overloaded > 0 ? `${overloaded} Overloaded` : undefined;
+        },
         icon: (props) => (
           <svg className={props.className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -165,7 +181,10 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Attendance Defaulters Audit',
         href: '/portal/hod/attendance-audit',
-        badge: '14 Alerts',
+        badge: (s) => {
+          const deficits = s.studentRoster.filter((r) => r.currentAttendance < 75).length;
+          return `${deficits} Alerts`;
+        },
         icon: (props) => (
           <svg className={props.className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -185,6 +204,7 @@ const NAV_SECTIONS: NavSection[] = [
   },
   {
     title: "Dean's Office (SoE)",
+    roles: ['dean'],
     items: [
       {
         label: 'School Overview',
@@ -198,7 +218,10 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Approvals & Governance',
         href: '/portal/dean/approvals',
-        badge: '3 Pending',
+        badge: (s) => {
+          const pending = s.deanApprovals.filter((a) => a.status === 'PENDING').length;
+          return `${pending} Pending`;
+        },
         icon: (props) => (
           <svg className={props.className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -218,6 +241,7 @@ const NAV_SECTIONS: NavSection[] = [
   },
   {
     title: 'Institutional Administration',
+    roles: ['admin'],
     items: [
       {
         label: 'Executive Dashboard',
@@ -276,12 +300,20 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const roles = useAuthStore((state) => state.roles);
+  const activeRole = getActiveRole(roles);
+  const portalStore = usePortalStore();
+
+  // Strict role-based filtering: Users only see their authorized section!
+  const visibleSections = NAV_SECTIONS.filter((section) =>
+    section.roles.includes(activeRole)
+  );
 
   const navContent = (
     <div className="flex flex-col h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 w-64">
       {/* Brand & Context */}
       <div className="h-14 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4">
-        <Link href="/dashboard" className="flex items-center space-x-2.5 group">
+        <Link href={activeRole === 'student' ? '/portal/student' : activeRole === 'faculty' ? '/portal/faculty' : activeRole === 'hod' ? '/portal/hod' : activeRole === 'dean' ? '/portal/dean' : '/dashboard'} className="flex items-center space-x-2.5 group">
           <div className="h-7 w-7 rounded bg-brand-600 text-white flex items-center justify-center font-bold text-xs tracking-wider shadow-sm group-hover:bg-brand-700 transition-colors">
             M
           </div>
@@ -289,8 +321,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             <div className="font-semibold text-xs tracking-tight text-slate-900 dark:text-slate-100">
               Medhavi ERP
             </div>
-            <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-              Academic Platform
+            <div className="text-[10px] text-brand-600 dark:text-brand-400 font-semibold uppercase tracking-wider">
+              {activeRole} perspective
             </div>
           </div>
         </Link>
@@ -309,7 +341,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       {/* Navigation List */}
       <nav className="flex-1 overflow-y-auto p-3 space-y-5" aria-label="Main Navigation">
-        {NAV_SECTIONS.map((section) => (
+        {visibleSections.map((section) => (
           <div key={section.title} className="space-y-1">
             <div className="px-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
               {section.title}
@@ -324,6 +356,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                     item.href !== '/portal/hod' &&
                     item.href !== '/portal/dean' &&
                     pathname?.startsWith(item.href));
+
+                const badgeText = item.badge ? item.badge(portalStore) : undefined;
 
                 return (
                   <li key={item.href}>
@@ -346,7 +380,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                         />
                         <span className="truncate">{item.label}</span>
                       </div>
-                      {item.badge && (
+                      {badgeText && (
                         <span
                           className={`ml-2 px-1.5 py-0.5 text-[9px] font-medium rounded-full ${
                             isActive
@@ -354,7 +388,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                               : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
                           }`}
                         >
-                          {item.badge}
+                          {badgeText}
                         </span>
                       )}
                     </Link>
@@ -368,11 +402,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       {/* Sidebar Footer / Academic Context */}
       <div className="p-3 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400 bg-slate-50/50 dark:bg-slate-950/30">
-        <div className="font-medium text-slate-800 dark:text-slate-200">
-          Session: Autumn 2025-26
+        <div className="font-semibold text-slate-800 dark:text-slate-200 capitalize">
+          Authorized Role: {activeRole}
         </div>
         <div className="text-[10px] text-slate-500 dark:text-slate-400">
-          Main Campus, West Sikkim
+          Medhavi Skills University · Autumn 2025-26
         </div>
       </div>
     </div>
