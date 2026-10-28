@@ -178,3 +178,21 @@ export interface DeanApprovalRequest {
   status: 'PENDING' | 'APPROVED' | 'REJECTED';
   metadata: Record<string, string | number>;
 }
+
+export interface ScheduledClass {
+  id: string;
+  subjectCode: string;
+  subjectName: string;
+  facultyName: string;
+  facultyId: string;
+  batch: string;
+  room: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  topic: string;
+  type: 'Lecture' | 'Lab' | 'Tutorial';
+  status: 'scheduled' | 'in_progress' | 'completed';
+  attendanceMarked: boolean;
+  studentsCount: number;
+}
