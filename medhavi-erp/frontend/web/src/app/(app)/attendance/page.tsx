@@ -178,9 +178,9 @@ export default function DailyAttendancePage() {
           <button
             type="button"
             onClick={handleExportCSV}
-            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
-            <svg className="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             Export Sheet
@@ -190,13 +190,13 @@ export default function DailyAttendancePage() {
             type="button"
             onClick={handleSaveAttendance}
             disabled={isSubmitting}
-            className="inline-flex items-center px-4 py-2 text-xs font-semibold rounded bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition-colors disabled:opacity-75"
+            className="inline-flex items-center px-4 py-2 text-xs font-semibold rounded bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition-colors disabled:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
             {isSubmitting ? (
               <span>Saving Records...</span>
             ) : (
               <>
-                <svg className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 Lock & Submit Register
@@ -213,7 +213,7 @@ export default function DailyAttendancePage() {
           className="rounded-lg bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 p-3 text-xs flex items-center justify-between"
         >
           <div className="flex items-center space-x-2">
-            <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg aria-hidden="true" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
             <span className="font-semibold">
@@ -251,11 +251,11 @@ export default function DailyAttendancePage() {
             onChange={(e) => setSelectedProgram(e.target.value)}
             className="w-full h-9 px-2.5 text-xs rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
           >
-            <option value="B.Tech CSE - Semester 3">B.Tech CSE — Sem 3 (Section A)</option>
-            <option value="B.Tech CSE - Semester 5">B.Tech CSE — Sem 5 (Section A)</option>
-            <option value="B.Des Industrial - Semester 3">B.Des Industrial Design — Sem 3</option>
-            <option value="MBA Vocational - Semester 1">MBA Vocational — Sem 1</option>
-            <option value="Diploma Hospitality - Semester 2">Diploma Hospitality — Sem 2</option>
+            <option value="B.Tech CSE - Semester 3">B.Tech CSE: Sem 3 (Section A)</option>
+            <option value="B.Tech CSE - Semester 5">B.Tech CSE: Sem 5 (Section A)</option>
+            <option value="B.Des Industrial - Semester 3">B.Des Industrial Design: Sem 3</option>
+            <option value="MBA Vocational - Semester 1">MBA Vocational: Sem 1</option>
+            <option value="Diploma Hospitality - Semester 2">Diploma Hospitality: Sem 2</option>
           </select>
         </div>
 
@@ -271,13 +271,13 @@ export default function DailyAttendancePage() {
             className="w-full h-9 px-2.5 text-xs rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
           >
             <option value="CS301: Data Structures & Algorithms (10:00 AM - 11:00 AM)">
-              CS301: Data Structures & Algorithms (10:00 AM - 11:00 AM) • Lab 3 • Prof. S. Sharma
+              CS301: Data Structures & Algorithms (10:00 AM - 11:00 AM), Lab 3, Prof. S. Sharma
             </option>
             <option value="CS302: Computer Organization (11:15 AM - 12:15 PM)">
-              CS302: Computer Architecture (11:15 AM - 12:15 PM) • Hall 204 • Dr. R. Subba
+              CS302: Computer Architecture (11:15 AM - 12:15 PM), Hall 204, Dr. R. Subba
             </option>
             <option value="CS303: Operating Systems (02:00 PM - 03:00 PM)">
-              CS303: Operating Systems (02:00 PM - 03:00 PM) • Lab 1 • Prof. A. Pradhan
+              CS303: Operating Systems (02:00 PM - 03:00 PM), Lab 1, Prof. A. Pradhan
             </option>
           </select>
         </div>
@@ -286,27 +286,27 @@ export default function DailyAttendancePage() {
       {/* Metrics Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Total Enrolled</div>
+          <div className="text-xs font-semibold text-slate-500 normal-case">Total Enrolled</div>
           <div className="text-xl font-bold font-mono text-slate-900 dark:text-slate-100 mt-1">{metrics.total}</div>
         </div>
         <div className="rounded-lg border border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/60 dark:bg-emerald-950/20 p-3 text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Present</div>
+          <div className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 normal-case">Present</div>
           <div className="text-xl font-bold font-mono text-emerald-700 dark:text-emerald-400 mt-1">{metrics.present}</div>
         </div>
         <div className="rounded-lg border border-rose-200 dark:border-rose-900/60 bg-rose-50/60 dark:bg-rose-950/20 p-3 text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400">Absent</div>
+          <div className="text-xs font-semibold text-rose-700 dark:text-rose-400 normal-case">Absent</div>
           <div className="text-xl font-bold font-mono text-rose-700 dark:text-rose-400 mt-1">{metrics.absent}</div>
         </div>
         <div className="rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/20 p-3 text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">Late (0.5x)</div>
+          <div className="text-xs font-semibold text-amber-700 dark:text-amber-400 normal-case">Late (0.5x)</div>
           <div className="text-xl font-bold font-mono text-amber-700 dark:text-amber-400 mt-1">{metrics.late}</div>
         </div>
         <div className="rounded-lg border border-sky-200 dark:border-sky-900/60 bg-sky-50/60 dark:bg-sky-950/20 p-3 text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-400">Excused</div>
+          <div className="text-xs font-semibold text-sky-700 dark:text-sky-400 normal-case">Excused</div>
           <div className="text-xl font-bold font-mono text-sky-700 dark:text-sky-400 mt-1">{metrics.excused}</div>
         </div>
         <div className="rounded-lg border border-brand-200 dark:border-brand-900/60 bg-brand-50/60 dark:bg-brand-950/20 p-3 text-center">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-brand-700 dark:text-brand-400">Effective Rate</div>
+          <div className="text-xs font-semibold text-brand-700 dark:text-brand-400 normal-case">Effective Rate</div>
           <div className="text-xl font-bold font-mono text-brand-700 dark:text-brand-400 mt-1">{metrics.rate}%</div>
         </div>
       </div>
@@ -347,7 +347,7 @@ export default function DailyAttendancePage() {
         {/* Table Content */}
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 normal-case">
               <tr>
                 <th className="py-2.5 px-3 sm:px-4">#</th>
                 <th className="py-2.5 px-3 sm:px-4">Roll Number</th>
@@ -381,7 +381,7 @@ export default function DailyAttendancePage() {
                             : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'
                         }`}
                       >
-                        {student.historicalAttendance}% {isDefaulter && '⚠️'}
+                        {student.historicalAttendance}% {isDefaulter && '(Warning)'}
                       </span>
                     </td>
                     <td className="py-3 px-3 sm:px-4">
@@ -389,7 +389,7 @@ export default function DailyAttendancePage() {
                         <button
                           type="button"
                           onClick={() => setStudentStatus(student.id, 'PRESENT')}
-                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all ${
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-600 ${
                             student.status === 'PRESENT'
                               ? 'bg-emerald-600 text-white shadow'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-emerald-50'
@@ -400,7 +400,7 @@ export default function DailyAttendancePage() {
                         <button
                           type="button"
                           onClick={() => setStudentStatus(student.id, 'ABSENT')}
-                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all ${
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-600 ${
                             student.status === 'ABSENT'
                               ? 'bg-rose-600 text-white shadow'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-rose-50'
@@ -411,7 +411,7 @@ export default function DailyAttendancePage() {
                         <button
                           type="button"
                           onClick={() => setStudentStatus(student.id, 'LATE')}
-                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all ${
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-600 ${
                             student.status === 'LATE'
                               ? 'bg-amber-600 text-white shadow'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-amber-50'
@@ -422,7 +422,7 @@ export default function DailyAttendancePage() {
                         <button
                           type="button"
                           onClick={() => setStudentStatus(student.id, 'EXCUSED')}
-                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all ${
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-600 ${
                             student.status === 'EXCUSED'
                               ? 'bg-sky-600 text-white shadow'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-sky-50'
