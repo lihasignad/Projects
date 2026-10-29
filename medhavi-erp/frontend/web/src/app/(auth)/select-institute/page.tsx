@@ -6,25 +6,25 @@ import { useAuthStore, SelectedInstitute } from '@/shared/stores/auth-store';
 
 const INSTITUTES: SelectedInstitute[] = [
   {
-    id: 'msu-sikkim',
-    name: 'Medhavi Skills University',
-    code: 'MSU-SKM',
-    location: 'Bermiok, West Sikkim',
-    state: 'Sikkim',
+    id: 'demo-univ',
+    name: 'Demo University',
+    code: 'DEMO-UNIV',
+    location: 'Main Campus',
+    state: 'Demo State',
   },
   {
-    id: 'msu-singtam',
-    name: 'Medhavi Skills University (Singtam Campus)',
-    code: 'MSU-SNG',
-    location: 'Singtam, East Sikkim',
-    state: 'Sikkim',
+    id: 'demo-north',
+    name: 'Demo University (North Campus)',
+    code: 'DEMO-NRTH',
+    location: 'North Campus',
+    state: 'Demo State',
   },
   {
-    id: 'msu-guwahati',
-    name: 'Medhavi Skills University (Assam Centre)',
-    code: 'MSU-GWX',
-    location: 'Guwahati, Kamrup Metro',
-    state: 'Assam',
+    id: 'demo-south',
+    name: 'Demo University (South Centre)',
+    code: 'DEMO-STH',
+    location: 'South Campus',
+    state: 'Demo State',
   },
   {
     id: 'dseu-delhi',
@@ -106,7 +106,7 @@ export default function SelectInstitutePage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by university name, campus location, or code (e.g. MSU-SKM)..."
+              placeholder="Search by university name, campus location, or code (e.g. DEMO-UNIV)..."
               className="w-full h-11 pl-10 pr-4 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-600"
             />
             <svg
@@ -184,7 +184,7 @@ export default function SelectInstitutePage() {
               type="text"
               value={customCode}
               onChange={(e) => setCustomCode(e.target.value)}
-              placeholder="Or enter Institute Code (e.g. MSU-SKM)"
+              placeholder="Or enter Institute Code (e.g. DEMO-UNIV)"
               className="w-full sm:flex-1 h-10 px-3.5 text-xs rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted uppercase font-mono focus:outline-none focus:ring-2 focus:ring-brand-600"
             />
             <button
