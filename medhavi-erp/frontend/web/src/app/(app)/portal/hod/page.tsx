@@ -59,7 +59,7 @@ export default function HodDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Workload Compliance
           </div>
-          <div className="text-2xl font-bold font-mono text-ink mt-1">
+          <div className="text-2xl font-bold tabular-nums text-ink mt-1">
             22 / 24 <span className="text-xs text-ink-muted font-normal">Compliant</span>
           </div>
           <div className="text-xs text-warning mt-1 font-semibold">
@@ -71,7 +71,7 @@ export default function HodDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Student Attendance Deficits
           </div>
-          <div className="text-2xl font-bold font-mono text-danger mt-1">
+          <div className="text-2xl font-bold tabular-nums text-danger mt-1">
             {defaultersCount} Students
           </div>
           <div className="text-xs text-ink-muted mt-1">
@@ -83,7 +83,7 @@ export default function HodDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Department Sessions Today
           </div>
-          <div className="text-2xl font-bold font-mono text-success mt-1">
+          <div className="text-2xl font-bold tabular-nums text-success mt-1">
             {classes.length} Sessions
           </div>
           <div className="text-xs text-ink-muted mt-1">
@@ -95,7 +95,7 @@ export default function HodDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Active Tests &amp; Quizzes
           </div>
-          <div className="text-2xl font-bold font-mono text-ink mt-1">
+          <div className="text-2xl font-bold tabular-nums text-ink mt-1">
             {quizzes.length} Quizzes
           </div>
           <div className="text-xs text-success mt-1 font-semibold">
@@ -153,7 +153,7 @@ export default function HodDashboardPage() {
                       Faculty: <strong className="text-ink font-medium">{cls.facultyName}</strong>, Room: {cls.room}, Topic: {cls.topic}
                     </div>
                   </div>
-                  <div className="text-right font-mono text-xs font-bold text-ink">
+                  <div className="text-right tabular-nums text-xs font-bold text-ink">
                     {cls.startTime}
                   </div>
                 </div>
@@ -169,7 +169,7 @@ export default function HodDashboardPage() {
               <h3 className="text-xs font-semibold text-ink-muted normal-case">
                 Attendance Deficit Watchlist
               </h3>
-              <span className="text-xs font-bold text-danger font-mono">
+              <span className="text-xs font-bold text-danger tabular-nums">
                 {defaultersCount} Students
               </span>
             </div>
@@ -191,7 +191,7 @@ export default function HodDashboardPage() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xs font-mono font-bold text-danger">
+                      <div className="text-xs tabular-nums font-bold text-danger">
                         {def.currentAttendance}%
                       </div>
                       <span className="text-xs font-semibold text-danger bg-red-100 dark:bg-red-950/60 px-1.5 py-0.5 rounded capitalize">
