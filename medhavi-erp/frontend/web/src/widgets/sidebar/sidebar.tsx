@@ -25,7 +25,7 @@ const NAV_SECTIONS: NavSection[] = [
     roles: ['student'],
     items: [
       {
-        label: 'Student Overview',
+        label: 'Home',
         href: '/portal/student',
         icon: (props) => (
           <svg className={props.className} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -34,7 +34,7 @@ const NAV_SECTIONS: NavSection[] = [
         ),
       },
       {
-        label: 'Student 360° Profile',
+        label: 'My profile',
         href: '/portal/student/profile',
         icon: (props) => (
           <svg className={props.className} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,10 +45,6 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Quizzes & Tests',
         href: '/portal/student/quizzes',
-        badge: (s) => {
-          const count = s.quizzes.filter((q) => q.status === 'active').length;
-          return count > 0 ? `${count} Active` : undefined;
-        },
         icon: (props) => (
           <svg className={props.className} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -67,7 +63,6 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Attendance Tracker',
         href: '/portal/student/attendance',
-        badge: (s) => `${s.studentProfile.attendancePercentage}%`,
         icon: (props) => (
           <svg className={props.className} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -75,9 +70,8 @@ const NAV_SECTIONS: NavSection[] = [
         ),
       },
       {
-        label: 'Results & Marks Card',
+        label: 'Results & marks',
         href: '/portal/student/results',
-        badge: (s) => `CGPA ${s.studentProfile.cgpa}`,
         icon: (props) => (
           <svg className={props.className} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -109,11 +103,21 @@ const NAV_SECTIONS: NavSection[] = [
         ),
       },
       {
+        label: 'My Classrooms',
+        href: '/portal/faculty/classrooms',
+        badge: (s) => `${s.courses.length} Classes`,
+        icon: (props) => (
+          <svg className={props.className} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+        ),
+      },
+      {
         label: 'Mark Attendance',
         href: '/portal/faculty/attendance',
         badge: (s) => {
           const nextCls = s.classes.find((c) => !c.attendanceMarked);
-          return nextCls ? `Next: ${nextCls.startTime}` : 'Completed';
+          return nextCls ? nextCls.startTime : 'Done';
         },
         icon: (props) => (
           <svg className={props.className} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -134,7 +138,7 @@ const NAV_SECTIONS: NavSection[] = [
       {
         label: 'Assignments & Grading',
         href: '/portal/faculty/assignments',
-        badge: (s) => `${s.quizSubmissions.length} Subs`,
+        badge: (s) => `${s.quizSubmissions.length} Due`,
         icon: (props) => (
           <svg className={props.className} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -310,16 +314,16 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   );
 
   const navContent = (
-    <div className="flex flex-col h-full bg-paper border-r border-rule w-64">
+    <div className="flex flex-col h-full bg-paper border-r border-rule w-72">
       {/* Brand & Academic Context */}
       <div className="h-14 border-b border-rule flex items-center justify-between px-4">
         <Link href={activeRole === 'student' ? '/portal/student' : activeRole === 'faculty' ? '/portal/faculty' : activeRole === 'hod' ? '/portal/hod' : activeRole === 'dean' ? '/portal/dean' : '/dashboard'} className="flex items-center space-x-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded">
           <div className="h-7 w-7 rounded bg-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-sm group-hover:bg-brand-700 transition-colors">
-            M
+            D
           </div>
           <div>
             <div className="font-semibold text-xs text-ink">
-              Medhavi ERP
+              Demo University ERP
             </div>
             <div className="text-[11px] text-brand-600 font-medium capitalize">
               {activeRole} portal
@@ -364,13 +368,13 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                     <Link
                       href={item.href}
                       onClick={onClose}
-                      className={`flex items-center justify-between px-2.5 py-1.5 rounded text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
+                      className={`flex items-center justify-between gap-2 px-2.5 py-2 rounded text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
                         isActive
                           ? 'bg-brand-50 text-brand-600 font-semibold'
                           : 'text-ink-2 hover:bg-paper-2 font-medium'
                       }`}
                     >
-                      <div className="flex items-center space-x-2.5 min-w-0">
+                      <div className="flex items-center space-x-2.5 min-w-0 flex-1">
                         <item.icon
                           className={`w-4 h-4 flex-shrink-0 ${
                             isActive
@@ -382,7 +386,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                       </div>
                       {badgeText && (
                         <span
-                          className={`ml-2 px-2 py-0.5 text-xs font-medium rounded-full ${
+                          className={`flex-shrink-0 whitespace-nowrap px-2 py-0.5 text-[11px] font-medium rounded-full tabular-nums leading-none ${
                             isActive
                               ? 'bg-brand-100 text-brand-700'
                               : 'bg-paper-3 text-ink-2'
@@ -406,7 +410,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           Authorized Role: {activeRole}
         </div>
         <div className="text-[11px] text-ink-muted mt-0.5">
-          Medhavi Skills University, Autumn 2025-26
+          Demo University, Autumn 2025-26
         </div>
       </div>
     </div>
