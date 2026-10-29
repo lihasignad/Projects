@@ -224,7 +224,7 @@ export default function StudentQuizRunnerPage() {
                     type="button"
                     disabled={isSubmitted}
                     onClick={() => handleSelectOption(currentQ.id, opt.id)}
-                    className={`w-full text-left p-3.5 rounded-lg border text-xs sm:text-sm flex items-start space-x-3 transition-all ${optionStyles}`}
+                    className={`w-full text-left p-3.5 rounded-lg border text-xs sm:text-sm flex items-start space-x-3 transition-colors ${optionStyles}`}
                   >
                     <span className="font-mono font-bold text-slate-400 mt-0.5">
                       {String.fromCharCode(65 + oIdx)}.
@@ -253,18 +253,18 @@ export default function StudentQuizRunnerPage() {
                 type="button"
                 disabled={currentQuestionIndex === 0}
                 onClick={() => setCurrentQuestionIndex((prev) => Math.max(0, prev - 1))}
-                className="px-3.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
+                className="px-3.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
               >
-                &larr; Previous Question
+                Previous question
               </button>
 
               <button
                 type="button"
                 disabled={currentQuestionIndex === quiz.questions.length - 1}
                 onClick={() => setCurrentQuestionIndex((prev) => Math.min(quiz.questions.length - 1, prev + 1))}
-                className="px-3.5 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
+                className="px-3.5 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
               >
-                Next Question &rarr;
+                Next question
               </button>
             </div>
           </div>
@@ -286,7 +286,7 @@ export default function StudentQuizRunnerPage() {
                     key={q.id}
                     type="button"
                     onClick={() => setCurrentQuestionIndex(idx)}
-                    className={`h-9 rounded-lg font-mono text-xs font-bold transition-all ${
+                    className={`h-9 rounded-lg font-mono text-xs font-bold transition-colors ${
                       isCurrent
                         ? 'ring-2 ring-brand-500 bg-brand-600 text-white shadow-sm'
                         : isAnswered
