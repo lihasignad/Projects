@@ -81,7 +81,7 @@ export default function ForgotPasswordPage() {
       {/* Active University Header */}
       <div className="flex items-center justify-between mb-4 px-2">
         <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 border border-brand-200 dark:border-brand-900/60">
-          {selectedInstitute?.name || 'Medhavi Skills University'}
+          {selectedInstitute?.name || 'Demo University'}
         </span>
         <Link
           href="/login"
@@ -137,7 +137,7 @@ export default function ForgotPasswordPage() {
                 required
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
-                placeholder="e.g. MSU/2024/BCSE042 or user@msu.edu.in"
+                placeholder="e.g. DEMO/2024/BCSE042 or user@demouniversity.in"
                 className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-600"
               />
             </div>
@@ -268,7 +268,7 @@ export default function ForgotPasswordPage() {
               </svg>
             </div>
             <p className="text-xs text-ink-muted leading-relaxed">
-              Your password has been changed. You can now log into your Medhavi ERP dashboard.
+              Your password has been changed. You can now log into your Demo University ERP dashboard.
             </p>
             <button
               type="button"
