@@ -3,8 +3,8 @@ import { AppProviders } from '@/providers/app-providers';
 import './globals.css';
 
 export const metadata = {
-  title: 'Medhavi Skills University ERP',
-  description: 'Enterprise Resource Planning for Medhavi Skills University',
+  title: 'Demo University ERP',
+  description: 'Enterprise Resource Planning for Demo University',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
