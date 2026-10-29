@@ -22,10 +22,10 @@ interface FacultyMember {
 const INITIAL_FACULTY: FacultyMember[] = [
   {
     id: 'fac-1',
-    empId: 'MSU/FAC/001',
+    empId: 'DEMO/FAC/001',
     name: 'Dr. Ramesh Sharma',
-    email: 'ramesh.sharma@msu.edu.in',
-    phone: '9841234567',
+    email: 'ramesh.sharma@demouniversity.in',
+    phone: '9876500101',
     department: 'School of Computing & AI',
     designation: 'Professor',
     qualification: 'Ph.D in Distributed Computing (IIT Kharagpur)',
@@ -37,10 +37,10 @@ const INITIAL_FACULTY: FacultyMember[] = [
   },
   {
     id: 'fac-2',
-    empId: 'MSU/FAC/004',
+    empId: 'DEMO/FAC/004',
     name: 'Prof. Sonam Bhutia',
-    email: 'sonam.bhutia@msu.edu.in',
-    phone: '9845678901',
+    email: 'sonam.bhutia@demouniversity.in',
+    phone: '9876500102',
     department: 'School of Design & Creative Arts',
     designation: 'Associate Professor',
     qualification: 'M.Des Industrial Design (NID Ahmedabad)',
@@ -52,10 +52,10 @@ const INITIAL_FACULTY: FacultyMember[] = [
   },
   {
     id: 'fac-3',
-    empId: 'MSU/FAC/008',
+    empId: 'DEMO/FAC/008',
     name: 'Dr. Anandita Roy',
-    email: 'anandita.roy@msu.edu.in',
-    phone: '9876543210',
+    email: 'anandita.roy@demouniversity.in',
+    phone: '9876500103',
     department: 'School of Management & Enterprise',
     designation: 'Professor',
     qualification: 'Ph.D in Entrepreneurial Finance (IIM Calcutta)',
@@ -67,10 +67,10 @@ const INITIAL_FACULTY: FacultyMember[] = [
   },
   {
     id: 'fac-4',
-    empId: 'MSU/FAC/012',
+    empId: 'DEMO/FAC/012',
     name: 'Dr. Rupak Subba',
-    email: 'rupak.subba@msu.edu.in',
-    phone: '9734123456',
+    email: 'rupak.subba@demouniversity.in',
+    phone: '9876500104',
     department: 'School of Computing & AI',
     designation: 'Associate Professor',
     qualification: 'Ph.D in Microprocessor Systems (NIT Silchar)',
@@ -82,10 +82,10 @@ const INITIAL_FACULTY: FacultyMember[] = [
   },
   {
     id: 'fac-5',
-    empId: 'MSU/FAC/019',
+    empId: 'DEMO/FAC/019',
     name: 'Chef Karma Lepcha',
-    email: 'karma.lepcha@msu.edu.in',
-    phone: '9812345678',
+    email: 'karma.lepcha@demouniversity.in',
+    phone: '9876500105',
     department: 'School of Hospitality Services',
     designation: 'Lecturer',
     qualification: 'M.Sc Hotel Management (IHM Pusa)',
@@ -97,10 +97,10 @@ const INITIAL_FACULTY: FacultyMember[] = [
   },
   {
     id: 'fac-6',
-    empId: 'MSU/FAC/025',
+    empId: 'DEMO/FAC/025',
     name: 'Prof. Anish Pradhan',
-    email: 'anish.pradhan@msu.edu.in',
-    phone: '9832145670',
+    email: 'anish.pradhan@demouniversity.in',
+    phone: '9876500106',
     department: 'School of Computing & AI',
     designation: 'Assistant Professor',
     qualification: 'M.Tech Computer Science (Jadavpur University)',
@@ -212,7 +212,7 @@ export default function FacultyDirectoryPage() {
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Teaching roster, designations, department appointments, and weekly workload for {selectedInstitute?.name || 'Medhavi Skills University'}
+            Teaching roster, designations, department appointments, and weekly workload for {selectedInstitute?.name || 'Demo University'}
           </p>
         </div>
 
@@ -515,7 +515,7 @@ export default function FacultyDirectoryPage() {
                     required
                     value={newEmpId}
                     onChange={(e) => setNewEmpId(e.target.value)}
-                    placeholder="e.g. MSU/FAC/030"
+                    placeholder="e.g. DEMO/FAC/030"
                     className="w-full h-9 px-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 uppercase font-mono focus:outline-none focus:ring-2 focus:ring-brand-500"
                   />
                 </div>
@@ -544,7 +544,7 @@ export default function FacultyDirectoryPage() {
                     required
                     value={newEmail}
                     onChange={(e) => setNewEmail(e.target.value)}
-                    placeholder="preeti.tamang@msu.edu.in"
+                    placeholder="preeti.tamang@demouniversity.in"
                     className="w-full h-9 px-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-brand-500"
                   />
                 </div>
