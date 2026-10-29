@@ -20,3 +20,4 @@ coverage/
 prisma/migrations/dev.db*
 uploads/
 tmp/
+.hallmark/
