@@ -47,7 +47,7 @@ export default function StudentCoursesPage() {
               key={course.id}
               type="button"
               onClick={() => setSelectedCourseId(course.id)}
-              className={`px-4 py-2.5 rounded-lg border text-xs font-medium whitespace-nowrap transition-all flex items-center space-x-2 ${
+              className={`px-4 py-2.5 rounded-lg border text-xs font-medium whitespace-nowrap transition-colors flex items-center space-x-2 ${
                 isSelected
                   ? 'border-brand-600 bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 font-semibold shadow-sm'
                   : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50'
