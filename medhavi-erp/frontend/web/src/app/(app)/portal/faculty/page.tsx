@@ -14,7 +14,7 @@ export default function FacultyDashboardPage() {
   const [showClassModal, setShowClassModal] = useState(false);
   const [subjectCode, setSubjectCode] = useState('CS501');
   const [topic, setTopic] = useState('');
-  const [date, setDate] = useState('2026-10-28');
+  const [date, setDate] = useState<string>(() => new Date().toISOString().split('T')[0] ?? '2026-10-29');
   const [startTime, setStartTime] = useState('11:30 AM');
   const [endTime, setEndTime] = useState('12:30 PM');
   const [room, setRoom] = useState('Lecture Hall LT-2');
@@ -72,15 +72,21 @@ export default function FacultyDashboardPage() {
               Welcome, {user?.displayName || 'Dr. Arun Sharma'}
             </h1>
             <p className="text-xs text-ink-muted mt-0.5">
-              Associate Professor, Medhavi Skills University Academic Console
+              Associate Professor, Demo University Academic Console
             </p>
           </div>
 
           <div className="flex items-center gap-2.5">
+            <Link
+              href="/portal/faculty/classrooms"
+              className="px-4 py-2 rounded-md bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 whitespace-nowrap"
+            >
+              My Classrooms
+            </Link>
             <button
               type="button"
               onClick={() => setShowClassModal(true)}
-              className="px-4 py-2 rounded-md bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 whitespace-nowrap"
+              className="px-3.5 py-2 rounded-md border border-rule bg-paper hover:bg-paper-2 text-ink text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 whitespace-nowrap"
             >
               + Schedule Class
             </button>
@@ -92,7 +98,7 @@ export default function FacultyDashboardPage() {
             </Link>
             <Link
               href="/portal/faculty/quizzes"
-              className="px-3.5 py-2 rounded-md border border-rule bg-paper hover:bg-paper-2 dark:bg-paper-2 text-ink text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 whitespace-nowrap"
+              className="px-3.5 py-2 rounded-md border border-rule bg-paper hover:bg-paper-2 dark:bg-paper-2 text-ink text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 whitespace-nowrap hidden sm:inline-block"
             >
               Quizzes &amp; Tests
             </Link>
@@ -115,7 +121,7 @@ export default function FacultyDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Teaching workload
           </div>
-          <div className="text-2xl font-bold font-mono text-ink mt-1">
+          <div className="text-2xl font-bold tabular-nums text-ink mt-1">
             14 <span className="text-xs text-ink-muted font-normal">hrs / week</span>
           </div>
           <div className="text-xs text-success mt-1 font-semibold">
@@ -127,7 +133,7 @@ export default function FacultyDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Active classes &amp; labs
           </div>
-          <div className="text-2xl font-bold font-mono text-brand-600 mt-1">
+          <div className="text-2xl font-bold tabular-nums text-brand-600 mt-1">
             {classes.length} Sessions
           </div>
           <div className="text-xs text-ink-muted mt-1">
@@ -139,7 +145,7 @@ export default function FacultyDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Quiz submissions received
           </div>
-          <div className="text-2xl font-bold font-mono text-warning mt-1">
+          <div className="text-2xl font-bold tabular-nums text-warning mt-1">
             {quizSubmissions.length} Submissions
           </div>
           <div className="text-xs text-ink-muted mt-1">
@@ -151,7 +157,7 @@ export default function FacultyDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Mentees / Advisees
           </div>
-          <div className="text-2xl font-bold font-mono text-ink mt-1">
+          <div className="text-2xl font-bold tabular-nums text-ink mt-1">
             24 Students
           </div>
           <div className="text-xs text-ink-muted mt-1">
@@ -191,7 +197,7 @@ export default function FacultyDashboardPage() {
                     key={cls.id}
                     className={`p-4 rounded-md border flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors ${
                       isPending
-                        ? 'border-emerald-200 dark:border-emerald-900/40 dark:border-emerald-900/40 bg-success-soft/60 dark:bg-emerald-950/40/30'
+                        ? 'border-emerald-200 dark:border-emerald-900/40 bg-success-soft/60 dark:bg-emerald-950/40'
                         : 'border-rule bg-paper'
                     }`}
                   >
@@ -217,22 +223,30 @@ export default function FacultyDashboardPage() {
                         Topic: <strong className="text-ink-2">{cls.topic}</strong>
                       </div>
                     </div>
-                    <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center">
-                      <div className="font-mono text-xs font-bold text-ink">
+                    <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-1.5">
+                      <div className="tabular-nums text-xs font-bold text-ink">
                         {cls.startTime} - {cls.endTime}
                       </div>
-                      {isPending ? (
+                      <div className="flex items-center space-x-1.5 mt-1">
                         <Link
-                          href={`/portal/faculty/attendance?classId=${cls.id}&subjectCode=${cls.subjectCode}`}
-                          className="mt-1 px-3.5 py-1.5 rounded-md bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 whitespace-nowrap"
+                          href={`/portal/faculty/classrooms/course-${cls.subjectCode.toLowerCase()}`}
+                          className="px-2.5 py-1 rounded border border-rule bg-paper hover:bg-paper-2 text-ink text-xs font-medium transition-colors whitespace-nowrap"
                         >
-                          Mark Roll Call
+                          Classroom
                         </Link>
-                      ) : (
-                        <span className="mt-1 text-xs text-ink-muted font-medium">
-                          Attendance Locked
-                        </span>
-                      )}
+                        {isPending ? (
+                          <Link
+                            href={`/portal/faculty/attendance?classId=${cls.id}&subjectCode=${cls.subjectCode}`}
+                            className="px-3 py-1 rounded bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 whitespace-nowrap"
+                          >
+                            Roll Call
+                          </Link>
+                        ) : (
+                          <span className="text-xs text-ink-muted font-medium">
+                            Locked
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 );
@@ -248,7 +262,10 @@ export default function FacultyDashboardPage() {
               Assigned subjects this semester
             </h3>
             <div className="space-y-3">
-              <div className="p-3 rounded-md border border-rule bg-paper dark:bg-paper-2">
+              <Link
+                href="/portal/faculty/classrooms/course-cs501"
+                className="block p-3 rounded-md border border-rule bg-paper hover:border-brand-600/50 transition-colors dark:bg-paper-2"
+              >
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-mono font-bold text-brand-600">CS501</span>
                   <span className="text-xs text-ink-muted">4 Credits, 64 Students</span>
@@ -256,12 +273,33 @@ export default function FacultyDashboardPage() {
                 <div className="text-xs font-semibold text-ink mt-1">
                   Database Management Systems
                 </div>
-                <div className="text-xs text-ink-muted mt-0.5">
-                  Syllabus: 68% Completed (Unit 3 of 5)
+                <div className="text-xs text-ink-muted mt-0.5 flex items-center justify-between">
+                  <span>Syllabus: 68% Completed</span>
+                  <span className="text-brand-600 font-semibold text-[11px]">Enter &rarr;</span>
                 </div>
-              </div>
+              </Link>
 
-              <div className="p-3 rounded-md border border-rule bg-paper dark:bg-paper-2">
+              <Link
+                href="/portal/faculty/classrooms/course-cs502"
+                className="block p-3 rounded-md border border-rule bg-paper hover:border-brand-600/50 transition-colors dark:bg-paper-2"
+              >
+                <div className="flex justify-between items-center text-xs">
+                  <span className="font-mono font-bold text-brand-600">CS502</span>
+                  <span className="text-xs text-ink-muted">4 Credits, 60 Students</span>
+                </div>
+                <div className="text-xs font-semibold text-ink mt-1">
+                  Operating Systems
+                </div>
+                <div className="text-xs text-ink-muted mt-0.5 flex items-center justify-between">
+                  <span>Syllabus: 40% Completed</span>
+                  <span className="text-brand-600 font-semibold text-[11px]">Enter &rarr;</span>
+                </div>
+              </Link>
+
+              <Link
+                href="/portal/faculty/classrooms/course-cs505"
+                className="block p-3 rounded-md border border-rule bg-paper hover:border-brand-600/50 transition-colors dark:bg-paper-2"
+              >
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-mono font-bold text-brand-600">CS505</span>
                   <span className="text-xs text-ink-muted">2 Credits, 32 Students</span>
@@ -269,23 +307,18 @@ export default function FacultyDashboardPage() {
                 <div className="text-xs font-semibold text-ink mt-1">
                   Database Systems Lab
                 </div>
-                <div className="text-xs text-ink-muted mt-0.5">
-                  Experiments: 7 of 10 Completed
+                <div className="text-xs text-ink-muted mt-0.5 flex items-center justify-between">
+                  <span>Experiments: 7 of 10 Completed</span>
+                  <span className="text-brand-600 font-semibold text-[11px]">Enter &rarr;</span>
                 </div>
-              </div>
+              </Link>
 
-              <div className="p-3 rounded-md border border-rule bg-paper dark:bg-paper-2">
-                <div className="flex justify-between items-center text-xs">
-                  <span className="font-mono font-bold text-brand-600">CS702</span>
-                  <span className="text-xs text-ink-muted">3 Credits, 52 Students</span>
-                </div>
-                <div className="text-xs font-semibold text-ink mt-1">
-                  Cloud Infrastructure Architecture
-                </div>
-                <div className="text-xs text-ink-muted mt-0.5">
-                  Elective Course, Final Year
-                </div>
-              </div>
+              <Link
+                href="/portal/faculty/classrooms"
+                className="block text-center py-2 text-xs font-semibold text-brand-600 hover:underline pt-1"
+              >
+                View All Assigned Classrooms
+              </Link>
             </div>
           </div>
         </div>
@@ -371,7 +404,7 @@ export default function FacultyDashboardPage() {
                     type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    className="w-full p-2 rounded-md border border-rule bg-paper text-ink font-mono"
+                    className="w-full p-2 rounded-md border border-rule bg-paper text-ink tabular-nums"
                   />
                 </div>
                 <div>
@@ -382,7 +415,7 @@ export default function FacultyDashboardPage() {
                     type="text"
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
-                    className="w-full p-2 rounded-md border border-rule bg-paper text-ink font-mono"
+                    className="w-full p-2 rounded-md border border-rule bg-paper text-ink tabular-nums"
                   />
                 </div>
                 <div>
@@ -393,7 +426,7 @@ export default function FacultyDashboardPage() {
                     type="text"
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
-                    className="w-full p-2 rounded-md border border-rule bg-paper text-ink font-mono"
+                    className="w-full p-2 rounded-md border border-rule bg-paper text-ink tabular-nums"
                   />
                 </div>
               </div>
