@@ -258,9 +258,9 @@ export default function TimetablesPage() {
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
-            <svg className="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
             </svg>
             Print Schedule
@@ -269,9 +269,9 @@ export default function TimetablesPage() {
           <button
             type="button"
             onClick={() => setIsAddSlotOpen(true)}
-            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition-colors"
+            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
-            <svg className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
             Add Class Slot
@@ -291,10 +291,10 @@ export default function TimetablesPage() {
             onChange={(e) => setSelectedCohort(e.target.value)}
             className="h-9 px-3 text-xs rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 font-semibold text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500"
           >
-            <option value="B.Tech CSE - Semester 3 (Section A)">B.Tech CSE — Semester 3 (Section A)</option>
-            <option value="B.Tech CSE - Semester 5 (Section A)">B.Tech CSE — Semester 5 (Section A)</option>
-            <option value="B.Des Product - Semester 3">B.Des Industrial Design — Semester 3</option>
-            <option value="MBA Vocational - Semester 1">MBA Vocational — Semester 1</option>
+            <option value="B.Tech CSE - Semester 3 (Section A)">B.Tech CSE: Semester 3 (Section A)</option>
+            <option value="B.Tech CSE - Semester 5 (Section A)">B.Tech CSE: Semester 5 (Section A)</option>
+            <option value="B.Des Product - Semester 3">B.Des Industrial Design: Semester 3</option>
+            <option value="MBA Vocational - Semester 1">MBA Vocational: Semester 1</option>
           </select>
         </div>
 
@@ -318,7 +318,7 @@ export default function TimetablesPage() {
       <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
-            <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 normal-case">
               <tr>
                 <th className="py-3 px-3 w-28 border-r border-slate-200 dark:border-slate-800 text-center">
                   Time Slot
@@ -353,7 +353,7 @@ export default function TimetablesPage() {
                         >
                           {slot ? (
                             <div
-                              className={`h-full p-2 rounded border text-left flex flex-col justify-between transition-transform hover:scale-[1.02] shadow-xs ${
+                              className={`h-full p-2 rounded border text-left flex flex-col justify-between transition-colors ${
                                 slot.type === 'THEORY'
                                   ? 'bg-sky-50 dark:bg-sky-950/40 border-sky-200 dark:border-sky-800/60 text-sky-950 dark:text-sky-200'
                                   : slot.type === 'LAB'
@@ -373,7 +373,7 @@ export default function TimetablesPage() {
                                 </div>
                               </div>
                               <div className="text-[10px] opacity-80 mt-1 truncate">
-                                👨‍🏫 {slot.instructor}
+                                Instructor: {slot.instructor}
                               </div>
                             </div>
                           ) : (
