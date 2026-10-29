@@ -62,7 +62,7 @@ export default function DeanDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Pending Dean Approvals
           </div>
-          <div className="text-2xl font-bold font-mono text-danger mt-1">
+          <div className="text-2xl font-bold tabular-nums text-danger mt-1">
             {pendingCount} Requests
           </div>
           <div className="text-xs text-ink-muted mt-1">
@@ -74,7 +74,7 @@ export default function DeanDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Average Attendance (SoE)
           </div>
-          <div className="text-2xl font-bold font-mono text-success mt-1">
+          <div className="text-2xl font-bold tabular-nums text-success mt-1">
             {studentProfile.attendancePercentage}%
           </div>
           <div className="text-xs text-ink-muted mt-1">
@@ -86,7 +86,7 @@ export default function DeanDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Lectures Conducted Today
           </div>
-          <div className="text-2xl font-bold font-mono text-brand-600 mt-1">
+          <div className="text-2xl font-bold tabular-nums text-brand-600 mt-1">
             {conductedToday} / {classes.length}
           </div>
           <div className="text-xs text-ink-muted mt-1">
@@ -98,7 +98,7 @@ export default function DeanDashboardPage() {
           <div className="text-xs font-medium text-ink-muted">
             Department Assessments Active
           </div>
-          <div className="text-2xl font-bold font-mono text-ink mt-1">
+          <div className="text-2xl font-bold tabular-nums text-ink mt-1">
             {quizzes.length} Quizzes
           </div>
           <div className="text-xs text-success mt-1 font-semibold">
@@ -142,7 +142,7 @@ export default function DeanDashboardPage() {
                       <span className="text-xs font-semibold px-2 py-0.5 rounded bg-danger-soft text-danger dark:bg-red-950/40 dark:text-red-400 capitalize">
                         {req.urgency} priority, {req.category}
                       </span>
-                      <span className="text-xs text-ink-muted font-mono">{req.submittedDate}</span>
+                      <span className="text-xs text-ink-muted tabular-nums">{req.submittedDate}</span>
                     </div>
                     <div className="text-xs font-semibold text-ink">
                       {req.title}
@@ -175,7 +175,7 @@ export default function DeanDashboardPage() {
               <div className="p-3 rounded-md border border-rule bg-paper dark:bg-paper-2">
                 <div className="flex justify-between items-center font-semibold text-ink">
                   <span>Computer Science &amp; Engg</span>
-                  <span className="text-success font-mono">NBA Tier-1</span>
+                  <span className="text-success font-medium">NBA Tier-1</span>
                 </div>
                 <div className="text-xs text-ink-muted mt-1">
                   Faculty: 24, Students: 480, Attendance: {studentProfile.attendancePercentage}%
@@ -185,7 +185,7 @@ export default function DeanDashboardPage() {
               <div className="p-3 rounded-md border border-rule bg-paper dark:bg-paper-2">
                 <div className="flex justify-between items-center font-semibold text-ink">
                   <span>Electronics &amp; Comm Engg</span>
-                  <span className="text-success font-mono">NBA Tier-1</span>
+                  <span className="text-success font-medium">NBA Tier-1</span>
                 </div>
                 <div className="text-xs text-ink-muted mt-1">
                   Faculty: 18, Students: 360, Attendance: 84.1%
@@ -195,7 +195,7 @@ export default function DeanDashboardPage() {
               <div className="p-3 rounded-md border border-rule bg-paper dark:bg-paper-2">
                 <div className="flex justify-between items-center font-semibold text-ink">
                   <span>Mechanical &amp; Robotics Engg</span>
-                  <span className="text-warning font-mono">NBA Renewal</span>
+                  <span className="text-warning font-medium">NBA Renewal</span>
                 </div>
                 <div className="text-xs text-ink-muted mt-1">
                   Faculty: 16, Students: 310, Attendance: 80.4%
