@@ -215,20 +215,20 @@ export default function AcademicsPage() {
         <div className="flex items-center space-x-2">
           <Link
             href="/academics/timetables"
-            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
-            <svg className="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            Weekly Timetable Matrix &rarr;
+            Weekly Timetable Matrix
           </Link>
 
           <button
             type="button"
             onClick={() => setIsAddProgramOpen(true)}
-            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition-colors"
+            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
-            <svg className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
             New Degree Program
@@ -313,15 +313,15 @@ export default function AcademicsPage() {
 
                 <div className="grid grid-cols-3 gap-2 text-xs border-t border-slate-100 dark:border-slate-800 pt-3 mt-4">
                   <div>
-                    <span className="block text-[10px] font-semibold text-slate-400 uppercase">Duration</span>
+                    <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">Duration</span>
                     <span className="font-semibold text-slate-800 dark:text-slate-200">{prog.durationYears} Years</span>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-semibold text-slate-400 uppercase">Credits</span>
+                    <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">Credits</span>
                     <span className="font-semibold text-slate-800 dark:text-slate-200">{prog.totalCredits} Cr</span>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-semibold text-slate-400 uppercase">Enrollment</span>
+                    <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">Enrollment</span>
                     <span className="font-semibold text-slate-800 dark:text-slate-200">{prog.totalStudents} Students</span>
                   </div>
                 </div>
@@ -333,9 +333,9 @@ export default function AcademicsPage() {
                 </span>
                 <Link
                   href="/academics/timetables"
-                  className="font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                  className="font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400 focus-visible:outline-none focus-visible:underline"
                 >
-                  View Schedule &rarr;
+                  View Schedule
                 </Link>
               </div>
             </div>
@@ -348,7 +348,7 @@ export default function AcademicsPage() {
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 normal-case">
                 <tr>
                   <th className="py-2.5 px-3 sm:px-4">Course Code</th>
                   <th className="py-2.5 px-3 sm:px-4">Subject Name</th>
@@ -401,25 +401,25 @@ export default function AcademicsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
             <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-400">Term Duration</span>
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">Term Duration</span>
               <div className="font-bold text-sm text-slate-900 dark:text-slate-100 mt-1">
-                July 15, 2025 &mdash; Dec 20, 2025
+                July 15, 2025 to Dec 20, 2025
               </div>
               <p className="text-slate-500 text-[11px] mt-1">18 Teaching Weeks + 2 Examination Weeks</p>
             </div>
 
             <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-400">Mid-Term Assessment</span>
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">Mid-Term Assessment</span>
               <div className="font-bold text-sm text-amber-600 dark:text-amber-400 mt-1">
-                Sept 22, 2025 &mdash; Sept 30, 2025
+                Sept 22, 2025 to Sept 30, 2025
               </div>
               <p className="text-slate-500 text-[11px] mt-1">Continuous internal evaluation window</p>
             </div>
 
             <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-              <span className="text-[10px] uppercase font-bold text-slate-400">End-Term Final Examinations</span>
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">End-Term Final Examinations</span>
               <div className="font-bold text-sm text-emerald-600 dark:text-emerald-400 mt-1">
-                Dec 01, 2025 &mdash; Dec 18, 2025
+                Dec 01, 2025 to Dec 18, 2025
               </div>
               <p className="text-slate-500 text-[11px] mt-1">Practical jury, theory papers & result publication</p>
             </div>
@@ -430,17 +430,17 @@ export default function AcademicsPage() {
       {/* Modal: Add Program */}
       {isAddProgramOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
           role="dialog"
           aria-modal="true"
         >
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 max-w-lg w-full text-slate-900 dark:text-slate-100 shadow-2xl relative">
             <button
               onClick={() => setIsAddProgramOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
               aria-label="Close dialog"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg aria-hidden="true" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
