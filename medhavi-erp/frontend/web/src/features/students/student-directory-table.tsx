@@ -104,8 +104,8 @@ export function StudentDirectoryTable({
               <span className="inline-flex items-center w-max px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-900">
                 Installment Due
               </span>
-              <span className="font-mono text-[10px] text-rose-600 dark:text-rose-400 font-semibold mt-0.5">
-                ₹{student.feeDueAmount.toLocaleString('en-IN')} pending
+              <span className="text-xs text-danger font-semibold mt-0.5">
+                <span className="font-mono">₹{student.feeDueAmount.toLocaleString('en-IN')}</span> pending
               </span>
             </>
           )}
@@ -116,11 +116,11 @@ export function StudentDirectoryTable({
       key: 'phone',
       header: 'Contact / Guardian',
       render: (student) => (
-        <div className="flex flex-col text-[11px]">
+        <div className="flex flex-col text-xs">
           <span className="font-mono text-slate-700 dark:text-slate-300">
             +91 {student.phone}
           </span>
-          <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
+          <span className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Guardian: {student.guardianName}
           </span>
         </div>
@@ -135,15 +135,15 @@ export function StudentDirectoryTable({
           <button
             type="button"
             onClick={() => onInspectStudent(student)}
-            className="px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-[11px] font-semibold text-slate-700 dark:text-slate-200 transition-colors"
+            className="px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
             Quick View
           </button>
           <Link
             href={`/students/${student.id}`}
-            className="px-2.5 py-1 rounded bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900/60 text-[11px] font-semibold transition-colors"
+            className="px-2.5 py-1 rounded bg-brand-50 text-brand-600 hover:bg-brand-100 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
-            Profile →
+            View profile
           </Link>
         </div>
       ),
