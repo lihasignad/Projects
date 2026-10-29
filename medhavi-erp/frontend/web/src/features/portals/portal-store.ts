@@ -348,7 +348,7 @@ export const usePortalStore = create<PortalState>()(
       },
     }),
     {
-      name: 'medhavi-unified-portal-storage',
+      name: 'demo-unified-portal-storage',
       storage: createJSONStorage(() => localStorage),
     }
   )
