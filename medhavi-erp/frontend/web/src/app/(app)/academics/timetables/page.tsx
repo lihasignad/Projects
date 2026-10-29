@@ -242,7 +242,7 @@ export default function TimetablesPage() {
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Master teaching timetable, lecture halls, and laboratory allocations for {selectedInstitute?.name || 'Medhavi Skills University'}
+            Master teaching timetable, lecture halls, and laboratory allocations for {selectedInstitute?.name || 'Demo University'}
           </p>
         </div>
 

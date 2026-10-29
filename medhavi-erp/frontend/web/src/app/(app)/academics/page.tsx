@@ -207,7 +207,7 @@ export default function AcademicsPage() {
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Degree programs, semester course catalogs and academic structure for {selectedInstitute?.name || 'Medhavi Skills University'}
+            Degree programs, semester course catalogs and academic structure for {selectedInstitute?.name || 'Demo University'}
           </p>
         </div>
 
@@ -395,7 +395,7 @@ export default function AcademicsPage() {
               Active University Academic Term: Monsoon Session 2025-2026
             </h3>
             <p className="text-xs text-slate-500">
-              Authorized under Academic Council Order AC/2025/R-04 for Medhavi Skills University
+              Authorized under Academic Council Order AC/2025/R-04 for Demo University
             </p>
           </div>
 
