@@ -52,7 +52,18 @@ export default function LoginPage() {
       });
 
       setAuth(response.data);
-      router.push('/dashboard');
+      const primaryRole = response.data.roles?.[0]?.key?.toLowerCase() || '';
+      if (primaryRole.includes('student')) {
+        router.push('/portal/student');
+      } else if (primaryRole.includes('faculty') || primaryRole.includes('teacher')) {
+        router.push('/portal/faculty');
+      } else if (primaryRole.includes('hod')) {
+        router.push('/portal/hod');
+      } else if (primaryRole.includes('dean')) {
+        router.push('/portal/dean');
+      } else {
+        router.push('/dashboard');
+      }
     } catch (err: unknown) {
       // If server is unreachable or offline in development, authenticate via demo profile
       const isConnectionError =
@@ -101,7 +112,7 @@ export default function LoginPage() {
           expiresIn: 86400,
           user: {
             id: 'usr-' + role + '-id',
-            instituteId: selectedInstitute?.id || 'msu-sikkim',
+            instituteId: selectedInstitute?.id || 'demo-univ',
             email: matched?.email || data.identifier,
             firstName: name.split(' ')[0] ?? name,
             lastName: name.split(' ').slice(1).join(' ') || null,
@@ -151,35 +162,21 @@ export default function LoginPage() {
     }
   };
 
-  const instituteName = selectedInstitute ? selectedInstitute.name : 'Medhavi Skills University';
-  const instituteLocation = selectedInstitute
-    ? `${selectedInstitute.location}, ${selectedInstitute.state}`
-    : 'Sikkim Campus';
+  const instituteName = 'Demo University';
+  const instituteLocation = 'Campus Academic & Operations ERP';
 
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-      {/* Active University Selector Pill */}
-      <div className="w-full flex items-center justify-between mb-4 px-2">
-        <div className="flex items-center space-x-2">
-          <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-900/80 text-white border border-slate-700/50">
-            {selectedInstitute ? `${selectedInstitute.name} (${selectedInstitute.code})` : 'Medhavi Skills University'}
-          </span>
-          <Link
-            href="/select-institute"
-            className="text-xs font-semibold text-brand-600 hover:text-brand-700 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
-          >
-            Change University
-          </Link>
-        </div>
-
+      {/* Top Utility Bar (Support & Account Registration) */}
+      <div className="w-full flex items-center justify-end mb-4 px-2">
         <div className="flex items-center space-x-2">
           <button
             type="button"
             onClick={() => setShowSupportModal(true)}
-            className="text-xs font-semibold px-2.5 py-1 rounded bg-slate-900/80 hover:bg-slate-900 text-white transition-colors flex items-center space-x-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            className="text-xs font-semibold px-2.5 py-1 rounded border border-rule bg-paper hover:bg-paper-2 text-ink transition-colors flex items-center space-x-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
-            <svg aria-hidden="true" className="w-3.5 h-3.5 text-success" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.974.551 1.954.819 2.802.819l.006-.002c3.178 0 5.763-2.587 5.764-5.766.001-3.183-2.583-5.804-5.776-5.804zm8.799 5.767c-.002 4.839-3.938 8.775-8.778 8.775-1.503 0-2.973-.393-4.269-1.134l-4.783 1.254 1.277-4.66c-.812-1.348-1.242-2.909-1.244-4.237 0-4.839 3.936-8.775 8.775-8.775 4.842.001 8.822 3.935 8.822 8.777z"/>
+            <svg aria-hidden="true" className="w-3.5 h-3.5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
             <span>Support</span>
           </button>
@@ -193,13 +190,18 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* University Title Header */}
-      <div className="w-full text-left mb-6 sm:mb-8 px-2">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-ink leading-tight max-w-4xl">
-          {instituteName}
-        </h1>
-        <div className="text-muted text-sm sm:text-base mt-1">
-          {instituteLocation}
+      {/* University Title Header with Logo Badge */}
+      <div className="w-full text-left mb-6 sm:mb-8 px-2 flex items-center space-x-3.5">
+        <div className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg sm:text-xl shadow-sm flex-shrink-0">
+          D
+        </div>
+        <div>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-ink leading-tight">
+            {instituteName}
+          </h1>
+          <div className="text-muted text-xs sm:text-sm mt-0.5">
+            {instituteLocation}
+          </div>
         </div>
       </div>
 
@@ -244,7 +246,7 @@ export default function LoginPage() {
                   <input
                     id="identifier"
                     type="text"
-                    placeholder="e.g. priya.sharma@medhavi.ac.in"
+                    placeholder="e.g. priya.sharma@demouniversity.in"
                     disabled={isSubmitting}
                     className={`w-full h-10 px-3.5 text-xs sm:text-sm rounded-lg bg-surface border border-rule text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand-600 transition-colors ${
                       errors.identifier ? 'ring-2 ring-danger' : ''
@@ -364,8 +366,8 @@ export default function LoginPage() {
                         expiresIn: 86400,
                         user: {
                           id: 'std-2023-042',
-                          instituteId: selectedInstitute?.id || 'msu-sikkim',
-                          email: 'priya.sharma@medhavi.ac.in',
+                          instituteId: selectedInstitute?.id || 'demo-univ',
+                          email: 'priya.sharma@demouniversity.in',
                           firstName: 'Priya',
                           lastName: 'Sharma',
                           displayName: 'Priya Sharma',
@@ -393,8 +395,8 @@ export default function LoginPage() {
                         expiresIn: 86400,
                         user: {
                           id: 'fac-101',
-                          instituteId: selectedInstitute?.id || 'msu-sikkim',
-                          email: 'arun.sharma@medhavi.ac.in',
+                          instituteId: selectedInstitute?.id || 'demo-univ',
+                          email: 'arun.sharma@demouniversity.in',
                           firstName: 'Dr. Arun',
                           lastName: 'Sharma',
                           displayName: 'Dr. Arun Sharma',
@@ -422,8 +424,8 @@ export default function LoginPage() {
                         expiresIn: 86400,
                         user: {
                           id: 'hod-001',
-                          instituteId: selectedInstitute?.id || 'msu-sikkim',
-                          email: 'rajesh.verma@medhavi.ac.in',
+                          instituteId: selectedInstitute?.id || 'demo-univ',
+                          email: 'rajesh.verma@demouniversity.in',
                           firstName: 'Prof. Rajesh',
                           lastName: 'Verma',
                           displayName: 'Prof. Rajesh Verma',
@@ -451,8 +453,8 @@ export default function LoginPage() {
                         expiresIn: 86400,
                         user: {
                           id: 'dean-001',
-                          instituteId: selectedInstitute?.id || 'msu-sikkim',
-                          email: 'k.menon@medhavi.ac.in',
+                          instituteId: selectedInstitute?.id || 'demo-univ',
+                          email: 'k.menon@demouniversity.in',
                           firstName: 'Dr. K.',
                           lastName: 'Menon',
                           displayName: 'Dr. K. Menon',
@@ -481,8 +483,8 @@ export default function LoginPage() {
                       expiresIn: 86400,
                       user: {
                         id: 'usr-admin-demo',
-                        instituteId: selectedInstitute?.id || 'msu-sikkim',
-                        email: 'admin@coachup.dev',
+                        instituteId: selectedInstitute?.id || 'demo-univ',
+                        email: 'admin@demouniversity.in',
                         firstName: 'University',
                         lastName: 'Registrar',
                         displayName: 'University Registrar',
@@ -596,34 +598,30 @@ export default function LoginPage() {
             </p>
 
             <div className="space-y-3">
-              {/* WhatsApp Direct */}
-              <a
-                href="https://wa.me/917763030866?text=Hello%20Sahil%2C%20I%20need%20assistance%20with%20Medhavi%20Skills%20University%20ERP%20portal"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full flex items-center justify-between p-3.5 rounded-lg bg-surface hover:bg-subtle border border-rule text-ink transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+              {/* University Support Helpline */}
+              <div
+                className="w-full flex items-center justify-between p-3.5 rounded-lg bg-surface border border-rule text-ink"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="h-8 w-8 rounded-lg bg-success text-white flex items-center justify-center flex-shrink-0">
-                    <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.974.551 1.954.819 2.802.819l.006-.002c3.178 0 5.763-2.587 5.764-5.766.001-3.183-2.583-5.804-5.776-5.804zm8.799 5.767c-.002 4.839-3.938 8.775-8.778 8.775-1.503 0-2.973-.393-4.269-1.134l-4.783 1.254 1.277-4.66c-.812-1.348-1.242-2.909-1.244-4.237 0-4.839 3.936-8.775 8.775-8.775 4.842.001 8.822 3.935 8.822 8.777z"/>
+                  <div className="h-8 w-8 rounded-lg bg-brand-600 text-white flex items-center justify-center flex-shrink-0">
+                    <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
                   <div>
-                    <div className="text-xs font-semibold text-ink group-hover:text-brand-600">
-                      Chat on WhatsApp
+                    <div className="text-xs font-semibold text-ink">
+                      Campus IT Helpline
                     </div>
-                    <div className="text-xs text-muted font-mono">
-                      +91 77630 30866
+                    <div className="text-xs text-muted tabular-nums">
+                      Toll-free 1800 200 8899 (Mon–Sat, 9 AM – 5 PM)
                     </div>
                   </div>
                 </div>
-                <span className="text-xs font-medium text-brand-600">Open</span>
-              </a>
+              </div>
 
               {/* Email Direct */}
               <a
-                href="mailto:sahilsaurav99@gmail.com?subject=Medhavi%20ERP%20Support%20Request"
+                href="mailto:support@demouniversity.in?subject=Demo%20University%20ERP%20Support%20Request"
                 className="w-full flex items-center justify-between p-3.5 rounded-lg bg-surface hover:bg-subtle border border-rule text-ink transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
               >
                 <div className="flex items-center space-x-3">
@@ -636,12 +634,12 @@ export default function LoginPage() {
                     <div className="text-xs font-semibold text-ink group-hover:text-brand-600">
                       Email Helpdesk
                     </div>
-                    <div className="text-xs text-muted font-mono">
-                      sahilsaurav99@gmail.com
+                    <div className="text-xs text-muted">
+                      support@demouniversity.in
                     </div>
                   </div>
                 </div>
-                <span className="text-xs font-medium text-brand-600">Send</span>
+                <span className="text-xs font-medium text-brand-600">Send email</span>
               </a>
             </div>
 
