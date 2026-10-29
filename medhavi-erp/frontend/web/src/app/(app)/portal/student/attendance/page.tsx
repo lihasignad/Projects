@@ -54,7 +54,7 @@ export default function StudentAttendancePage() {
               Semester Attendance Records: {studentProfile.fullName}
             </h1>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Minimum 75% aggregate attendance required per subject under Medhavi Academic Regulations Section 4.2.
+              Minimum 75% aggregate attendance required per subject under Demo Academic Regulations Section 4.2.
             </p>
           </div>
 
