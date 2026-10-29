@@ -24,24 +24,17 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
       <footer className="relative z-10 py-3 px-4 text-center text-xs text-slate-800 dark:text-white font-semibold drop-shadow-md">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 text-[11px]">
-          <span>&copy; {new Date().getFullYear()} Higher Education & Skills ERP Portal. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} Demo University ERP Portal. All rights reserved.</span>
           <span className="flex items-center space-x-2">
             <span>Helpdesk:</span>
             <a
-              href="https://wa.me/917763030866"
-              target="_blank"
-              rel="noreferrer"
-              className="text-emerald-700 dark:text-emerald-300 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded px-1"
-            >
-              WhatsApp +91 77630 30866
-            </a>
-            <span aria-hidden="true">/</span>
-            <a
-              href="mailto:sahilsaurav99@gmail.com"
+              href="mailto:support@demouniversity.in"
               className="text-sky-700 dark:text-sky-300 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded px-1"
             >
-              sahilsaurav99@gmail.com
+              support@demouniversity.in
             </a>
+            <span aria-hidden="true">/</span>
+            <span className="text-ink-muted">Toll-free 1800 200 8899</span>
           </span>
         </div>
       </footer>
