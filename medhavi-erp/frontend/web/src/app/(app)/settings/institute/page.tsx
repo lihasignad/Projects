@@ -8,15 +8,15 @@ export default function InstituteSettingsPage() {
   const setSelectedInstitute = useAuthStore((state) => state.setSelectedInstitute);
 
   // Institutional Details
-  const [instName, setInstName] = useState(selectedInstitute?.name || 'Medhavi Skills University');
-  const [instCode, setInstCode] = useState(selectedInstitute?.code || 'MSU-SKM');
-  const [address, setAddress] = useState('Bermiok Campus, Gyalshing District, West Sikkim, 737113');
-  const [stateName, setStateName] = useState(selectedInstitute?.state || 'Sikkim');
-  const [actNo, setActNo] = useState('Sikkim State Act No. 13 of 2021 (UGC Section 2(f))');
+  const [instName, setInstName] = useState(selectedInstitute?.name || 'Demo University');
+  const [instCode, setInstCode] = useState(selectedInstitute?.code || 'DEMO-UNIV');
+  const [address, setAddress] = useState('Main Campus, University Enclave, Demo District, 110001');
+  const [stateName, setStateName] = useState(selectedInstitute?.state || 'Demo State');
+  const [actNo, setActNo] = useState('Higher Education Act No. 42 of 2020 (UGC Section 2(f))');
   const [viceChancellor, setViceChancellor] = useState('Prof. (Dr.) A. K. Rai');
   const [registrar, setRegistrar] = useState('Dr. S. K. Sharma');
-  const [email, setEmail] = useState('contact@msu.edu.in');
-  const [phone, setPhone] = useState('+91 77630 30866');
+  const [email, setEmail] = useState('contact@demouniversity.in');
+  const [phone, setPhone] = useState('+91 1800 200 8899');
 
   // Academic Policy
   const [attendanceCutoff, setAttendanceCutoff] = useState(75);
@@ -314,20 +314,20 @@ export default function InstituteSettingsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
-              <div className="font-bold text-xs text-slate-900 dark:text-slate-100">Bermiok Main Campus</div>
-              <div className="text-[11px] text-slate-500 mt-0.5">West Sikkim • Headquarters</div>
+              <div className="font-bold text-xs text-slate-900 dark:text-slate-100">Main Demo Campus</div>
+              <div className="text-[11px] text-slate-500 mt-0.5">Central Academic Enclave • Headquarters</div>
               <div className="mt-2 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">● Primary Host</div>
             </div>
 
             <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
-              <div className="font-bold text-xs text-slate-900 dark:text-slate-100">Singtam Campus Node</div>
-              <div className="text-[11px] text-slate-500 mt-0.5">East Sikkim • Skill Center</div>
+              <div className="font-bold text-xs text-slate-900 dark:text-slate-100">North Campus Node</div>
+              <div className="text-[11px] text-slate-500 mt-0.5">North District • Skill Center</div>
               <div className="mt-2 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">● Active Sync</div>
             </div>
 
             <div className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
-              <div className="font-bold text-xs text-slate-900 dark:text-slate-100">Assam Regional Centre</div>
-              <div className="text-[11px] text-slate-500 mt-0.5">Guwahati • Industry Hub</div>
+              <div className="font-bold text-xs text-slate-900 dark:text-slate-100">South Regional Centre</div>
+              <div className="text-[11px] text-slate-500 mt-0.5">South Zone • Innovation Hub</div>
               <div className="mt-2 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">● Active Sync</div>
             </div>
           </div>

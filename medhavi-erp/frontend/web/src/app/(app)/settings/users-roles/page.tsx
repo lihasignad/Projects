@@ -15,8 +15,8 @@ interface SystemUser {
 const INITIAL_USERS: SystemUser[] = [
   {
     id: 'usr-1',
-    name: 'Sahil Saurav (System Architect)',
-    email: 'sahilsaurav99@gmail.com',
+    name: 'System Administrator',
+    email: 'admin@demouniversity.in',
     role: 'SUPER_ADMIN',
     status: 'ACTIVE',
     lastLogin: 'Just now',
@@ -24,7 +24,7 @@ const INITIAL_USERS: SystemUser[] = [
   {
     id: 'usr-2',
     name: 'Dr. Ramesh Sharma',
-    email: 'ramesh.sharma@msu.edu.in',
+    email: 'ramesh.sharma@demouniversity.in',
     role: 'DEAN',
     status: 'ACTIVE',
     lastLogin: 'Today, 09:15 AM',
@@ -32,7 +32,7 @@ const INITIAL_USERS: SystemUser[] = [
   {
     id: 'usr-3',
     name: 'Prof. Sonam Bhutia',
-    email: 'sonam.bhutia@msu.edu.in',
+    email: 'sonam.bhutia@demouniversity.in',
     role: 'FACULTY',
     status: 'ACTIVE',
     lastLogin: 'Today, 10:45 AM',
@@ -40,7 +40,7 @@ const INITIAL_USERS: SystemUser[] = [
   {
     id: 'usr-4',
     name: 'Prem K. Subba',
-    email: 'accounts@msu.edu.in',
+    email: 'accounts@demouniversity.in',
     role: 'ACCOUNTS_OFFICER',
     status: 'ACTIVE',
     lastLogin: 'Today, 11:30 AM',
@@ -48,7 +48,7 @@ const INITIAL_USERS: SystemUser[] = [
   {
     id: 'usr-5',
     name: 'Karma Dorjee',
-    email: 'registrar@msu.edu.in',
+    email: 'registrar@demouniversity.in',
     role: 'REGISTRAR',
     status: 'ACTIVE',
     lastLogin: 'Yesterday, 04:20 PM',
@@ -56,7 +56,7 @@ const INITIAL_USERS: SystemUser[] = [
   {
     id: 'usr-6',
     name: 'Aarav Sharma (Student Rep)',
-    email: 'aarav.sharma@msu.edu.in',
+    email: 'aarav.sharma@demouniversity.in',
     role: 'STUDENT',
     status: 'ACTIVE',
     lastLogin: 'Yesterday, 08:12 PM',
@@ -262,7 +262,7 @@ export default function UsersAndRolesPage() {
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Institutional user accounts, role definitions, and access control policies for {selectedInstitute?.name || 'Medhavi Skills University'}
+            Institutional user accounts, role definitions, and access control policies for {selectedInstitute?.name || 'Demo University'}
           </p>
         </div>
 
@@ -555,7 +555,7 @@ export default function UsersAndRolesPage() {
                   required
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
-                  placeholder="kavita.rai@msu.edu.in"
+                  placeholder="kavita.rai@demouniversity.in"
                   className="w-full h-9 px-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
               </div>
