@@ -114,7 +114,7 @@ export default function FacultyCoursesPage() {
               {/* Progress Bar */}
               <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
                 <div
-                  className="bg-brand-600 h-2 rounded-full transition-all duration-500"
+                  className="bg-brand-600 h-2 rounded-full"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
