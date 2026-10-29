@@ -200,7 +200,7 @@ export default function ExaminationResultsPage() {
       {/* Metric Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm">
-          <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Total Evaluated</div>
+          <div className="text-xs font-semibold text-slate-500 normal-case">Total Evaluated</div>
           <div className="text-2xl font-bold font-mono text-slate-900 dark:text-slate-100 mt-1">
             {stats.total}
           </div>
@@ -208,7 +208,7 @@ export default function ExaminationResultsPage() {
         </div>
 
         <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm">
-          <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Pass Percentage</div>
+          <div className="text-xs font-semibold text-slate-500 normal-case">Pass Percentage</div>
           <div className="text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">
             {stats.passPct}%
           </div>
@@ -216,7 +216,7 @@ export default function ExaminationResultsPage() {
         </div>
 
         <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm">
-          <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Batch Average SGPA</div>
+          <div className="text-xs font-semibold text-slate-500 normal-case">Batch Average SGPA</div>
           <div className="text-2xl font-bold font-mono text-brand-600 dark:text-brand-400 mt-1">
             {stats.avgSgpa}
           </div>
@@ -224,7 +224,7 @@ export default function ExaminationResultsPage() {
         </div>
 
         <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm">
-          <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Distinctions</div>
+          <div className="text-xs font-semibold text-slate-500 normal-case">Distinctions</div>
           <div className="text-2xl font-bold font-mono text-indigo-600 dark:text-indigo-400 mt-1">
             {stats.distinctions}
           </div>
@@ -274,7 +274,7 @@ export default function ExaminationResultsPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 text-[11px] font-bold uppercase text-slate-400">
+              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 text-xs font-semibold normal-case text-slate-500">
                 <th className="py-3 px-4">Roll No & Student</th>
                 <th className="py-3 px-4">Program & Sem</th>
                 <th className="py-3 px-4 text-center">Marks (Total)</th>
@@ -357,18 +357,15 @@ export default function ExaminationResultsPage() {
 
       {/* Grade Card Modal */}
       {selectedResult && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60">
           <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 max-w-xl w-full p-6 shadow-2xl space-y-4">
             <div className="flex justify-between items-start border-b border-slate-100 dark:border-slate-800 pb-4">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 font-mono">
-                  Official Statement of Marks
-                </span>
-                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-0.5">
-                  {selectedResult.studentName}
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                  {selectedResult.studentName}: Official Statement of Marks
                 </h3>
-                <p className="text-xs text-slate-500 font-mono">
-                  Roll: {selectedResult.rollNumber} • {selectedResult.session}
+                <p className="text-xs text-slate-500 font-mono mt-0.5">
+                  Roll: {selectedResult.rollNumber}, {selectedResult.session}
                 </p>
               </div>
               <button
@@ -382,19 +379,19 @@ export default function ExaminationResultsPage() {
 
             <div className="grid grid-cols-3 gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-xs">
               <div>
-                <div className="text-slate-400 text-[10px] uppercase font-semibold">Semester GPA</div>
+                <div className="text-slate-500 text-xs normal-case font-semibold">Semester GPA</div>
                 <div className="font-mono font-bold text-base text-brand-600 dark:text-brand-400 mt-0.5">
                   {selectedResult.sgpa}
                 </div>
               </div>
               <div>
-                <div className="text-slate-400 text-[10px] uppercase font-semibold">Cumulative GPA</div>
+                <div className="text-slate-500 text-xs normal-case font-semibold">Cumulative GPA</div>
                 <div className="font-mono font-bold text-base text-slate-800 dark:text-slate-200 mt-0.5">
                   {selectedResult.cgpa}
                 </div>
               </div>
               <div>
-                <div className="text-slate-400 text-[10px] uppercase font-semibold">Classification</div>
+                <div className="text-slate-500 text-xs normal-case font-semibold">Classification</div>
                 <div className="font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
                   {selectedResult.status}
                 </div>
