@@ -15,7 +15,7 @@ interface AttendanceStudent {
 const INITIAL_ROSTER: AttendanceStudent[] = [
   {
     id: 'att-1',
-    rollNumber: 'MSU/2024/BCSE042',
+    rollNumber: 'DEMO/2024/BCSE042',
     name: 'Aarav Sharma',
     historicalAttendance: 86,
     status: 'PRESENT',
@@ -23,7 +23,7 @@ const INITIAL_ROSTER: AttendanceStudent[] = [
   },
   {
     id: 'att-2',
-    rollNumber: 'MSU/2024/BCSE048',
+    rollNumber: 'DEMO/2024/BCSE048',
     name: 'Priya Bhutia',
     historicalAttendance: 71,
     status: 'ABSENT',
@@ -31,7 +31,7 @@ const INITIAL_ROSTER: AttendanceStudent[] = [
   },
   {
     id: 'att-3',
-    rollNumber: 'MSU/2024/BCSE051',
+    rollNumber: 'DEMO/2024/BCSE051',
     name: 'Tashi Namgyal',
     historicalAttendance: 92,
     status: 'PRESENT',
@@ -39,7 +39,7 @@ const INITIAL_ROSTER: AttendanceStudent[] = [
   },
   {
     id: 'att-4',
-    rollNumber: 'MSU/2024/BCSE055',
+    rollNumber: 'DEMO/2024/BCSE055',
     name: 'Rohan Verma',
     historicalAttendance: 62,
     status: 'LATE',
@@ -47,7 +47,7 @@ const INITIAL_ROSTER: AttendanceStudent[] = [
   },
   {
     id: 'att-5',
-    rollNumber: 'MSU/2024/BCSE060',
+    rollNumber: 'DEMO/2024/BCSE060',
     name: 'Ananya Chetri',
     historicalAttendance: 88,
     status: 'PRESENT',
@@ -55,7 +55,7 @@ const INITIAL_ROSTER: AttendanceStudent[] = [
   },
   {
     id: 'att-6',
-    rollNumber: 'MSU/2024/BCSE064',
+    rollNumber: 'DEMO/2024/BCSE064',
     name: 'Karan Subba',
     historicalAttendance: 64,
     status: 'ABSENT',
@@ -63,7 +63,7 @@ const INITIAL_ROSTER: AttendanceStudent[] = [
   },
   {
     id: 'att-7',
-    rollNumber: 'MSU/2024/BCSE070',
+    rollNumber: 'DEMO/2024/BCSE070',
     name: 'Sonam Lepcha',
     historicalAttendance: 95,
     status: 'PRESENT',
@@ -71,7 +71,7 @@ const INITIAL_ROSTER: AttendanceStudent[] = [
   },
   {
     id: 'att-8',
-    rollNumber: 'MSU/2024/BCSE075',
+    rollNumber: 'DEMO/2024/BCSE075',
     name: 'Bikram Gurung',
     historicalAttendance: 78,
     status: 'PRESENT',
@@ -169,7 +169,7 @@ export default function DailyAttendancePage() {
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Record classroom presence and automated defaulter alerts for {selectedInstitute?.name || 'Medhavi Skills University'}
+            Record classroom presence and automated defaulter alerts for {selectedInstitute?.name || 'Demo University'}
           </p>
         </div>
 
