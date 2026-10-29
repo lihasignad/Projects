@@ -15,8 +15,8 @@ export const MOCK_STUDENT: StudentProfile = {
   rollNo: '2023CSE042',
   enrollmentNo: 'EN202388412',
   fullName: 'Priya Sharma',
-  email: 'priya.sharma@msu.edu.in',
-  phone: '+91 98452 11094',
+  email: 'priya.sharma@demouniversity.in',
+  phone: '+91 98765 00042',
   program: 'Bachelor of Technology (Computer Science & Engineering)',
   department: 'Department of Computer Science & Engineering',
   school: 'School of Engineering & Technology',
@@ -28,11 +28,11 @@ export const MOCK_STUDENT: StudentProfile = {
   totalCredits: 160,
   attendancePercentage: 84.6,
   advisorName: 'Dr. Arvind Rao',
-  advisorEmail: 'arvind.rao@msu.edu.in',
+  advisorEmail: 'arvind.rao@demouniversity.in',
   bloodGroup: 'B+',
   category: 'General',
   guardianName: 'Ramesh Sharma',
-  guardianPhone: '+91 94120 54321',
+  guardianPhone: '+91 98765 00043',
   address: 'Plot 44, Hill View Colony, Tadong, Gangtok, Sikkim - 737102',
 };
 
@@ -429,7 +429,7 @@ export const MOCK_SEMESTER_RESULTS: SemesterResult[] = [
 export const MOCK_INVOICES: StudentInvoice[] = [
   {
     id: 'inv-2025-0501',
-    invoiceNumber: 'MSU/INV/2025/0842',
+    invoiceNumber: 'DEMO/INV/2025/0842',
     description: 'B.Tech CSE Semester 5 Tuition & Academic Fee',
     amount: 54000,
     paidAmount: 54000,
@@ -442,7 +442,7 @@ export const MOCK_INVOICES: StudentInvoice[] = [
   },
   {
     id: 'inv-2025-0502',
-    invoiceNumber: 'MSU/INV/2025/1109',
+    invoiceNumber: 'DEMO/INV/2025/1109',
     description: 'Hostel & Mess Charges (Autumn 2025 Session)',
     amount: 32000,
     paidAmount: 32000,
@@ -455,7 +455,7 @@ export const MOCK_INVOICES: StudentInvoice[] = [
   },
   {
     id: 'inv-2025-0503',
-    invoiceNumber: 'MSU/INV/2025/3401',
+    invoiceNumber: 'DEMO/INV/2025/3401',
     description: 'End-Semester Examination Fee (Nov-Dec 2025)',
     amount: 2500,
     paidAmount: 0,
