@@ -2,176 +2,332 @@
 
 import Link from 'next/link';
 import { useAuthStore } from '@/shared/stores/auth-store';
+import { usePortalStore } from '@/features/portals/portal-store';
 import { Can } from '@/shared/ui/rbac-guard';
 
 export default function DashboardPage() {
   const user = useAuthStore((state) => state.user);
   const roles = useAuthStore((state) => state.roles);
 
-  const roleTitle = roles.map((r) => r.name).join(', ') || 'Administrator';
+  const classes = usePortalStore((state) => state.classes);
+  const studentRoster = usePortalStore((state) => state.studentRoster);
+  const invoices = usePortalStore((state) => state.invoices);
+  const deanApprovals = usePortalStore((state) => state.deanApprovals);
+
+  const roleTitle = roles.map((r) => r.name).join(', ') || 'System Administrator';
+
+  // Real operational aggregations
+  const completedClasses = classes.filter((c) => c.attendanceMarked).length;
+  const pendingClasses = classes.filter((c) => !c.attendanceMarked);
+  const defaulters = studentRoster.filter((s) => s.currentAttendance < 75);
+  const overdueInvoices = invoices.filter((inv) => inv.status === 'OVERDUE');
+  const overdueTotal = overdueInvoices.reduce((sum, inv) => sum + inv.amount, 0);
+  const pendingApprovals = deanApprovals.filter((a) => a.status === 'PENDING');
 
   return (
     <div className="space-y-6">
-      {/* Page Title & Operational Context */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+      {/* Header with operational status & primary actions */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-rule pb-4">
         <div>
-          <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">
+          <div className="flex items-center space-x-2">
+            <span className="text-xs font-semibold px-2 py-0.5 rounded bg-brand-50 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300">
+              Campus Operations
+            </span>
+            <span className="text-xs text-ink-muted">
+              Autumn 2026 Regular Term
+            </span>
+          </div>
+          <h1 className="text-xl font-bold tracking-tight text-ink mt-1">
             Operational Dashboard
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Signed in as <span className="font-medium text-slate-700 dark:text-slate-300">{user?.displayName || user?.email}</span> ({roleTitle})
+          <p className="text-xs text-ink-muted mt-0.5">
+            Signed in as <strong className="text-ink font-medium">{user?.displayName || user?.email}</strong> ({roleTitle})
           </p>
         </div>
 
-        {/* Primary Operational Action Shortcuts */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2">
           <Can permission="attendance:write">
             <Link
-              href="/attendance"
-              className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+              href="/portal/faculty/attendance"
+              className="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-md bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
             >
-              <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
               Mark Attendance
             </Link>
           </Can>
-
           <Can permission="students:create">
             <Link
               href="/students/admissions"
-              className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+              className="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-md border border-rule bg-paper text-ink hover:bg-paper-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
             >
-              <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-              </svg>
               New Admission
             </Link>
           </Can>
         </div>
       </div>
 
-      {/* Operational Information Matrix */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Academic Session Card */}
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 normal-case">
-            Academic Status
+      {/* 4 Real Actionable Metric Panels */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Classes Scheduled & Pending */}
+        <div className="bg-paper border border-rule rounded-lg p-4">
+          <div className="text-xs font-medium text-ink-muted">
+            Lectures &amp; Labs Today
           </div>
-          <div className="text-sm font-bold text-slate-900 dark:text-slate-100">
-            2025-2026 Regular Term
+          <div className="text-2xl font-bold tabular-nums text-ink mt-1">
+            {completedClasses} / {classes.length}
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Current teaching cycle active. Timetable schedules are in regular operational rotation.
-          </p>
+          <div className="text-xs text-warning mt-1 font-medium">
+            {pendingClasses.length} pending roll call
+          </div>
         </div>
 
-        {/* Institute Context Card */}
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 normal-case">
-            Registered Campus
+        {/* Attendance Deficits */}
+        <div className="bg-paper border border-rule rounded-lg p-4">
+          <div className="text-xs font-medium text-ink-muted">
+            Attendance Deficits
           </div>
-          <div className="text-sm font-bold text-slate-900 dark:text-slate-100">
-            Main Campus (Headquarters)
+          <div className="text-2xl font-bold tabular-nums text-danger mt-1">
+            {defaulters.length} Students
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Affiliated campus unit and academic departments.
-          </p>
+          <div className="text-xs text-ink-muted mt-1">
+            Below 75% exam eligibility
+          </div>
         </div>
 
-        {/* Security / Session Card */}
-        <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 normal-case">
-            Security & Compliance
+        {/* Overdue Receivables */}
+        <div className="bg-paper border border-rule rounded-lg p-4">
+          <div className="text-xs font-medium text-ink-muted">
+            Overdue Fee Receivables
           </div>
-          <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400 flex items-center space-x-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
-            <span>Session Secured</span>
+          <div className="text-2xl font-bold tabular-nums text-danger mt-1">
+            ₹{overdueTotal.toLocaleString('en-IN')}
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Compliant with institutional security standards and session controls.
-          </p>
+          <div className="text-xs text-ink-muted mt-1">
+            Across {overdueInvoices.length} pending student invoices
+          </div>
+        </div>
+
+        {/* Pending Sanctions & Approvals */}
+        <div className="bg-paper border border-rule rounded-lg p-4">
+          <div className="text-xs font-medium text-ink-muted">
+            Governance Sign-offs
+          </div>
+          <div className="text-2xl font-bold tabular-nums text-brand-600 mt-1">
+            {pendingApprovals.length} Requests
+          </div>
+          <div className="text-xs text-ink-muted mt-1">
+            Awaiting administrative approval
+          </div>
         </div>
       </div>
 
-      {/* Domain Quick Launch Table */}
-      <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
-        <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-          <h2 className="text-xs font-bold text-slate-700 dark:text-slate-300 normal-case">
-            Direct Operational Modules
-          </h2>
-          <span className="text-xs text-slate-500 dark:text-slate-400">
-            Permission-scoped access
-          </span>
+      {/* Two Column Layout: Urgent Operational Queues */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left 2 Cols: Real Action Queue */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Pending Attendance Sessions */}
+          <div className="bg-paper border border-rule rounded-lg p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-sm font-bold text-ink">
+                  Classes Pending Roll Call ({pendingClasses.length})
+                </h2>
+                <p className="text-xs text-ink-muted">
+                  Faculty roll calls required for today&apos;s scheduled lecture hours
+                </p>
+              </div>
+              <Link
+                href="/portal/faculty"
+                className="text-xs font-semibold text-brand-600 hover:underline"
+              >
+                Open faculty console
+              </Link>
+            </div>
+
+            {pendingClasses.length === 0 ? (
+              <div className="p-4 rounded-md border border-rule bg-paper-2 text-center text-xs text-ink-muted">
+                All scheduled lectures and labs for today have attendance verified and locked.
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {pendingClasses.map((cls) => (
+                  <div
+                    key={cls.id}
+                    className="p-3.5 rounded-md border border-rule bg-paper dark:bg-paper-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  >
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-warning-soft text-warning dark:bg-amber-950/40 dark:text-amber-300">
+                          Pending
+                        </span>
+                        <span className="text-xs font-semibold text-ink">
+                          {cls.subjectCode} - {cls.subjectName}
+                        </span>
+                      </div>
+                      <div className="text-xs text-ink-muted mt-1">
+                        Faculty: <strong className="text-ink font-medium">{cls.facultyName}</strong>, Room: {cls.room}, Batch: {cls.batch}
+                      </div>
+                    </div>
+                    <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center">
+                      <div className="tabular-nums text-xs font-bold text-ink">
+                        {cls.startTime} - {cls.endTime}
+                      </div>
+                      <Link
+                        href={`/portal/faculty/attendance?classId=${cls.id}&subjectCode=${cls.subjectCode}`}
+                        className="mt-1 px-3 py-1 rounded bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+                      >
+                        Submit Roll Call
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Pending Governance Approvals */}
+          <div className="bg-paper border border-rule rounded-lg p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-sm font-bold text-ink">
+                  Priority Administrative Approvals ({pendingApprovals.length})
+                </h2>
+                <p className="text-xs text-ink-muted">
+                  Dean and HOD requisitions requiring institutional authorization
+                </p>
+              </div>
+              <Link
+                href="/portal/dean/approvals"
+                className="text-xs font-semibold text-brand-600 hover:underline"
+              >
+                View all requests
+              </Link>
+            </div>
+
+            <div className="space-y-3">
+              {pendingApprovals.map((req) => (
+                <div
+                  key={req.id}
+                  className="p-3.5 rounded-md border border-rule bg-paper dark:bg-paper-2 space-y-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-danger-soft text-danger dark:bg-red-950/40 dark:text-red-400 capitalize">
+                      {req.urgency} priority, {req.category}
+                    </span>
+                    <span className="text-xs text-ink-muted tabular-nums">
+                      {req.submittedDate}
+                    </span>
+                  </div>
+                  <div className="text-xs font-semibold text-ink">
+                    {req.title}
+                  </div>
+                  <p className="text-xs text-ink-muted leading-relaxed">
+                    {req.details}
+                  </p>
+                  <div className="pt-2 border-t border-rule flex items-center justify-between text-xs">
+                    <span className="text-ink-muted">
+                      Initiator: <strong className="text-ink font-medium">{req.submittedBy}</strong>
+                    </span>
+                    <Link
+                      href="/portal/dean/approvals"
+                      className="text-brand-600 font-semibold hover:underline"
+                    >
+                      Process Sign-off
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="divide-y divide-slate-100 dark:divide-slate-800/60">
-          <div className="p-3 sm:px-4 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-            <div>
-              <div className="text-xs font-semibold text-slate-900 dark:text-slate-100">
-                Student Directory & Roster
+        {/* Right 1 Col: Defaulter Watchlist & Fee Outstanding */}
+        <div className="space-y-6">
+          {/* Defaulter Alert Feed */}
+          <div className="bg-paper border border-rule rounded-lg p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-xs font-bold text-ink">
+                  Attendance Defaulter Watchlist
+                </h3>
+                <p className="text-xs text-ink-muted">&lt; 75% examination threshold</p>
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
-                Search, inspect profiles, manage enrollments, batches and parent contact details.
-              </div>
+              <Link
+                href="/portal/hod/attendance-audit"
+                className="text-xs font-semibold text-brand-600 hover:underline"
+              >
+                Audit
+              </Link>
             </div>
-            <Link
-              href="/students"
-              className="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 focus-visible:outline-none focus-visible:underline"
-            >
-              Open directory
-            </Link>
+
+            <div className="space-y-2.5">
+              {defaulters.map((s) => (
+                <div
+                  key={s.id}
+                  className="p-3 rounded-md border border-red-200 dark:border-red-900/40 bg-danger-soft flex items-center justify-between"
+                >
+                  <div>
+                    <div className="text-xs font-semibold text-ink">
+                      {s.name}
+                    </div>
+                    <div className="text-xs font-mono text-ink-muted">
+                      {s.rollNo}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs tabular-nums font-bold text-danger">
+                      {s.currentAttendance}%
+                    </div>
+                    <span className="text-[11px] font-semibold text-danger">
+                      Notice Required
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="p-3 sm:px-4 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-            <div>
-              <div className="text-xs font-semibold text-slate-900 dark:text-slate-100">
-                Daily Attendance Register
+          {/* Overdue Invoices Snapshot */}
+          <div className="bg-paper border border-rule rounded-lg p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-xs font-bold text-ink">
+                  Overdue Fee Invoices
+                </h3>
+                <p className="text-xs text-ink-muted">Past scheduled payment milestone</p>
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
-                Classroom session attendance marking, defaulter alerts and monthly percentage sheets.
-              </div>
+              <Link
+                href="/finance/invoices"
+                className="text-xs font-semibold text-brand-600 hover:underline"
+              >
+                Invoices
+              </Link>
             </div>
-            <Link
-              href="/attendance"
-              className="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 focus-visible:outline-none focus-visible:underline"
-            >
-              Open register
-            </Link>
-          </div>
 
-          <div className="p-3 sm:px-4 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-            <div>
-              <div className="text-xs font-semibold text-slate-900 dark:text-slate-100">
-                Academic Programs & Timetables
-              </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
-                Degree curricula, subject offerings, batch divisions and weekly classroom schedules.
-              </div>
+            <div className="space-y-2.5">
+              {overdueInvoices.map((inv) => (
+                <div
+                  key={inv.id}
+                  className="p-3 rounded-md border border-rule bg-paper dark:bg-paper-2 flex items-center justify-between"
+                >
+                  <div>
+                    <div className="text-xs font-semibold text-ink">
+                      {inv.description}
+                    </div>
+                    <div className="text-xs text-ink-muted">
+                      Due: <span className="tabular-nums">{inv.dueDate}</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs tabular-nums font-bold text-danger">
+                      ₹{inv.amount.toLocaleString('en-IN')}
+                    </div>
+                    <span className="text-[11px] font-semibold text-danger bg-red-100 dark:bg-red-950/60 px-1.5 py-0.5 rounded capitalize">
+                      Overdue
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
-            <Link
-              href="/academics"
-              className="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 focus-visible:outline-none focus-visible:underline"
-            >
-              Open schedules
-            </Link>
-          </div>
-
-          <div className="p-3 sm:px-4 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-            <div>
-              <div className="text-xs font-semibold text-slate-900 dark:text-slate-100">
-                Fee Collection & Invoicing
-              </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
-                Installment schedules, offline fee collection counter, receipts and outstanding dues.
-              </div>
-            </div>
-            <Link
-              href="/finance/invoices"
-              className="text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 focus-visible:outline-none focus-visible:underline"
-            >
-              Open invoices
-            </Link>
           </div>
         </div>
       </div>
