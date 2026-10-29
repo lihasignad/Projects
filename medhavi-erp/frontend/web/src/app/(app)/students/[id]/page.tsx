@@ -218,15 +218,15 @@ export default function StudentProfilePage() {
                 <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
                   {student.rollNumber}
                 </span>
-                <span className="text-xs text-slate-500 font-mono">
-                  Enrollment: {student.enrollmentNo}
+                <span className="text-xs text-slate-500">
+                  Enrollment: <strong className="font-mono font-normal">{student.enrollmentNo}</strong>
                 </span>
               </div>
               <div className="text-sm font-medium text-slate-800 dark:text-slate-200">
                 {student.program}
               </div>
               <div className="text-xs text-slate-500 dark:text-slate-400">
-                Semester {student.currentSemester} • Batch {student.batch} • {student.department}
+                Semester {student.currentSemester}, Batch {student.batch}, {student.department}
               </div>
             </div>
           </div>
@@ -234,14 +234,14 @@ export default function StudentProfilePage() {
           {/* Quick Metrics Badges */}
           <div className="grid grid-cols-3 gap-4 border-t md:border-t-0 md:border-l border-slate-200 dark:border-slate-800 pt-4 md:pt-0 md:pl-6 w-full md:w-auto">
             <div className="text-center">
-              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">CGPA</div>
+              <div className="text-xs font-semibold text-slate-500 normal-case">CGPA</div>
               <div className="text-xl font-bold font-mono text-brand-600 dark:text-brand-400 mt-0.5">
                 {student.cgpa}
               </div>
               <div className="text-[10px] text-slate-400">Scale of 10.0</div>
             </div>
             <div className="text-center">
-              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Attendance</div>
+              <div className="text-xs font-semibold text-slate-500 normal-case">Attendance</div>
               <div className={`text-xl font-bold font-mono mt-0.5 ${
                 student.overallAttendance >= 75 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
               }`}>
@@ -250,7 +250,7 @@ export default function StudentProfilePage() {
               <div className="text-[10px] text-slate-400">Min 75% req</div>
             </div>
             <div className="text-center">
-              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Fee Status</div>
+              <div className="text-xs font-semibold text-slate-500 normal-case">Fee Status</div>
               <div className="text-xl font-bold font-mono text-slate-800 dark:text-slate-200 mt-0.5">
                 {student.feeDueAmount === 0 ? 'Clear' : `₹${student.feeDueAmount.toLocaleString('en-IN')}`}
               </div>
@@ -387,21 +387,21 @@ export default function StudentProfilePage() {
           <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
             <div>
               <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                Current Semester Course Registrations & Internal Marks
+                Current Semester Course Registrations &amp; Internal Marks
               </h2>
               <p className="text-xs text-slate-500">
-                Semester 3 • Academic Year {student.academicYear} • Credits: 17
+                Semester 3, Academic Year {student.academicYear}, Credits: 17
               </p>
             </div>
-            <span className="font-mono text-xs px-2.5 py-1 rounded bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 font-bold">
-              SGPA: {student.sgpa}
+            <span className="text-xs px-2.5 py-1 rounded bg-brand-50 text-brand-600 font-semibold">
+              SGPA: <strong className="font-mono">{student.sgpa}</strong>
             </span>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold uppercase text-slate-400">
+                <tr className="border-b border-slate-200 dark:border-slate-800 text-xs font-semibold normal-case text-slate-600 dark:text-slate-400">
                   <th className="py-2.5">Code</th>
                   <th className="py-2.5">Subject Name</th>
                   <th className="py-2.5 text-center">Credits</th>
@@ -467,8 +467,8 @@ export default function StudentProfilePage() {
                     <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{item.subjectName}</span>
                   </div>
                   <div className="flex items-center space-x-3 text-xs">
-                    <span className="text-slate-500 font-mono">
-                      {item.attended} / {item.total} lectures
+                    <span className="text-slate-500">
+                      <span className="font-mono">{item.attended} / {item.total}</span> lectures
                     </span>
                     <span className={`font-mono font-bold ${
                       item.percentage >= 75 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
@@ -515,7 +515,7 @@ export default function StudentProfilePage() {
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold uppercase text-slate-400">
+                <tr className="border-b border-slate-200 dark:border-slate-800 text-xs font-semibold normal-case text-slate-600 dark:text-slate-400">
                   <th className="py-2.5">Invoice #</th>
                   <th className="py-2.5">Description</th>
                   <th className="py-2.5">Billing Date</th>
@@ -534,8 +534,8 @@ export default function StudentProfilePage() {
                       ₹{fee.amount.toLocaleString('en-IN')}
                     </td>
                     <td className="py-3 text-center">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
-                        {fee.status}
+                      <span className="px-2 py-0.5 rounded text-xs font-semibold capitalize bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                        {fee.status.toLowerCase()}
                       </span>
                     </td>
                     <td className="py-3 text-right">
@@ -557,7 +557,7 @@ export default function StudentProfilePage() {
 
       {/* Quick Edit Modal */}
       {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50">
           <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 max-w-lg w-full p-6 shadow-xl space-y-4">
             <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
               <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
