@@ -166,7 +166,7 @@ export default function StudentAttendancePage() {
 
               {/* Recent Class Audit Trail for This Course */}
               <div className="p-4 bg-slate-50/50 dark:bg-slate-950/40">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                <div className="text-xs font-semibold text-slate-500 normal-case mb-2">
                   Recent Session Roll Call Audit
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs">
@@ -180,7 +180,7 @@ export default function StudentAttendancePage() {
                           {session.date}
                         </span>
                         <span
-                          className={`px-1.5 py-0.2 rounded text-[10px] font-bold uppercase font-mono ${
+                          className={`px-1.5 py-0.5 rounded text-xs font-medium capitalize ${
                             session.status === 'present'
                               ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
                               : session.status === 'duty_leave'
