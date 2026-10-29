@@ -11,7 +11,7 @@ export interface UserAccountCredential {
 
 export const REGISTERED_ACCOUNTS: UserAccountCredential[] = [
   {
-    email: 'priya.sharma@medhavi.ac.in',
+    email: 'priya.sharma@demouniversity.in',
     name: 'Priya Sharma',
     role: 'student',
     roleTitle: 'Student (2023CSE042)',
@@ -19,7 +19,7 @@ export const REGISTERED_ACCOUNTS: UserAccountCredential[] = [
     targetPath: '/portal/student',
   },
   {
-    email: 'priya.sharma@msu.edu.in',
+    email: 'priya.sharma@demouniversity.edu.in',
     name: 'Priya Sharma',
     role: 'student',
     roleTitle: 'Student (2023CSE042)',
@@ -27,7 +27,7 @@ export const REGISTERED_ACCOUNTS: UserAccountCredential[] = [
     targetPath: '/portal/student',
   },
   {
-    email: 'arun.sharma@medhavi.ac.in',
+    email: 'arun.sharma@demouniversity.in',
     name: 'Dr. Arun Sharma',
     role: 'faculty',
     roleTitle: 'Associate Professor',
@@ -35,7 +35,7 @@ export const REGISTERED_ACCOUNTS: UserAccountCredential[] = [
     targetPath: '/portal/faculty',
   },
   {
-    email: 'arvind.rao@msu.edu.in',
+    email: 'arvind.rao@demouniversity.in',
     name: 'Dr. Arvind Rao',
     role: 'faculty',
     roleTitle: 'Associate Professor',
@@ -43,7 +43,7 @@ export const REGISTERED_ACCOUNTS: UserAccountCredential[] = [
     targetPath: '/portal/faculty',
   },
   {
-    email: 'rajesh.verma@medhavi.ac.in',
+    email: 'rajesh.verma@demouniversity.in',
     name: 'Prof. Rajesh Verma',
     role: 'hod',
     roleTitle: 'Head of Department (CSE)',
@@ -51,7 +51,7 @@ export const REGISTERED_ACCOUNTS: UserAccountCredential[] = [
     targetPath: '/portal/hod',
   },
   {
-    email: 'hod.cse@msu.edu.in',
+    email: 'hod.cse@demouniversity.in',
     name: 'Dr. Meenakshi Sundaram',
     role: 'hod',
     roleTitle: 'Head of Department (CSE)',
@@ -59,7 +59,7 @@ export const REGISTERED_ACCOUNTS: UserAccountCredential[] = [
     targetPath: '/portal/hod',
   },
   {
-    email: 'k.menon@medhavi.ac.in',
+    email: 'k.menon@demouniversity.in',
     name: 'Dr. K. Menon',
     role: 'dean',
     roleTitle: 'Dean of Faculty',
@@ -67,7 +67,7 @@ export const REGISTERED_ACCOUNTS: UserAccountCredential[] = [
     targetPath: '/portal/dean',
   },
   {
-    email: 'dean.soe@msu.edu.in',
+    email: 'dean.soe@demouniversity.in',
     name: 'Prof. Rajeshwar Kulkarni',
     role: 'dean',
     roleTitle: 'Dean of Faculty',
@@ -75,7 +75,15 @@ export const REGISTERED_ACCOUNTS: UserAccountCredential[] = [
     targetPath: '/portal/dean',
   },
   {
-    email: 'admin@coachup.dev',
+    email: 'admin@demouniversity.in',
+    name: 'University Registrar',
+    role: 'admin',
+    roleTitle: 'Super Administrator',
+    department: 'Central Administration',
+    targetPath: '/dashboard',
+  },
+  {
+    email: 'admin@demouniversity.local',
     name: 'University Registrar',
     role: 'admin',
     roleTitle: 'Super Administrator',

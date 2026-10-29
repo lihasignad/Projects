@@ -38,11 +38,11 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       activeTenantId: null,
       selectedInstitute: {
-        id: 'msu-sikkim',
-        name: 'Medhavi Skills University',
-        code: 'MSU-SKM',
-        location: 'Bermiok, West Sikkim',
-        state: 'Sikkim',
+        id: 'demo-univ',
+        name: 'Demo University',
+        code: 'DEMO-UNIV',
+        location: 'Demo Campus',
+        state: 'Demo State',
       },
       setAuth: (payload) =>
         set({
@@ -78,8 +78,19 @@ export const useAuthStore = create<AuthState>()(
       },
     }),
     {
-      name: 'coachup-auth-storage',
+      name: 'demo-univ-auth-storage-v2',
       storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        if (state?.selectedInstitute?.name?.includes('Medhavi')) {
+          state.selectedInstitute = {
+            id: 'demo-univ',
+            name: 'Demo University',
+            code: 'DEMO-UNIV',
+            location: 'Demo Campus',
+            state: 'Demo State',
+          };
+        }
+      },
       partialize: (state) => ({
         user: state.user,
         roles: state.roles,
