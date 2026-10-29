@@ -16,7 +16,7 @@ interface StudentExamRecord {
 const INITIAL_EXAM_ROSTER: StudentExamRecord[] = [
   {
     id: 'ex-1',
-    rollNumber: 'MSU/2024/BCSE042',
+    rollNumber: 'DEMO/2024/BCSE042',
     name: 'Aarav Sharma',
     internalMarks: 36,
     externalMarks: 52,
@@ -25,7 +25,7 @@ const INITIAL_EXAM_ROSTER: StudentExamRecord[] = [
   },
   {
     id: 'ex-2',
-    rollNumber: 'MSU/2024/BCSE048',
+    rollNumber: 'DEMO/2024/BCSE048',
     name: 'Priya Bhutia',
     internalMarks: 28,
     externalMarks: 39,
@@ -34,7 +34,7 @@ const INITIAL_EXAM_ROSTER: StudentExamRecord[] = [
   },
   {
     id: 'ex-3',
-    rollNumber: 'MSU/2024/BCSE051',
+    rollNumber: 'DEMO/2024/BCSE051',
     name: 'Tashi Namgyal',
     internalMarks: 38,
     externalMarks: 56,
@@ -43,7 +43,7 @@ const INITIAL_EXAM_ROSTER: StudentExamRecord[] = [
   },
   {
     id: 'ex-4',
-    rollNumber: 'MSU/2024/BCSE055',
+    rollNumber: 'DEMO/2024/BCSE055',
     name: 'Rohan Verma',
     internalMarks: 22,
     externalMarks: 31,
@@ -52,7 +52,7 @@ const INITIAL_EXAM_ROSTER: StudentExamRecord[] = [
   },
   {
     id: 'ex-5',
-    rollNumber: 'MSU/2024/BCSE060',
+    rollNumber: 'DEMO/2024/BCSE060',
     name: 'Ananya Chetri',
     internalMarks: 35,
     externalMarks: 48,
@@ -61,7 +61,7 @@ const INITIAL_EXAM_ROSTER: StudentExamRecord[] = [
   },
   {
     id: 'ex-6',
-    rollNumber: 'MSU/2024/BCSE064',
+    rollNumber: 'DEMO/2024/BCSE064',
     name: 'Karan Subba',
     internalMarks: 18,
     externalMarks: 24,
@@ -70,7 +70,7 @@ const INITIAL_EXAM_ROSTER: StudentExamRecord[] = [
   },
   {
     id: 'ex-7',
-    rollNumber: 'MSU/2024/BCSE070',
+    rollNumber: 'DEMO/2024/BCSE070',
     name: 'Sonam Lepcha',
     internalMarks: 39,
     externalMarks: 58,
@@ -181,7 +181,7 @@ export default function MarksEntryPage() {
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Internal assessment entry, external paper scores, and Board of Examiners moderation for {selectedInstitute?.name || 'Medhavi Skills University'}
+            Internal assessment entry, external paper scores, and Board of Examiners moderation for {selectedInstitute?.name || 'Demo University'}
           </p>
         </div>
 

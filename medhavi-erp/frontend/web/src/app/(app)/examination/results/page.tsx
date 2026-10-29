@@ -26,7 +26,7 @@ const SAMPLE_RESULTS: StudentExamResult[] = [
   {
     id: 'res-001',
     studentId: 'std-001',
-    rollNumber: 'MSU/2024/BCSE042',
+    rollNumber: 'DEMO/2024/BCSE042',
     studentName: 'Aarav Sharma',
     program: 'B.Tech Computer Science & Engineering',
     semester: 3,
@@ -44,7 +44,7 @@ const SAMPLE_RESULTS: StudentExamResult[] = [
   {
     id: 'res-002',
     studentId: 'std-002',
-    rollNumber: 'MSU/2024/BCSE048',
+    rollNumber: 'DEMO/2024/BCSE048',
     studentName: 'Priya Bhutia',
     program: 'B.Tech Computer Science & Engineering',
     semester: 3,
@@ -62,7 +62,7 @@ const SAMPLE_RESULTS: StudentExamResult[] = [
   {
     id: 'res-003',
     studentId: 'std-003',
-    rollNumber: 'MSU/2023/BDES015',
+    rollNumber: 'DEMO/2023/BDES015',
     studentName: 'Tashi Namgyal',
     program: 'B.Des Product & Industrial Design',
     semester: 5,
@@ -80,7 +80,7 @@ const SAMPLE_RESULTS: StudentExamResult[] = [
   {
     id: 'res-004',
     studentId: 'std-004',
-    rollNumber: 'MSU/2023/BDES022',
+    rollNumber: 'DEMO/2023/BDES022',
     studentName: 'Rohan Verma',
     program: 'B.Des Product & Industrial Design',
     semester: 5,
@@ -98,7 +98,7 @@ const SAMPLE_RESULTS: StudentExamResult[] = [
   {
     id: 'res-005',
     studentId: 'std-005',
-    rollNumber: 'MSU/2024/MBA009',
+    rollNumber: 'DEMO/2024/MBA009',
     studentName: 'Ananya Chetri',
     program: 'MBA Vocational & Entrepreneurship',
     semester: 1,
