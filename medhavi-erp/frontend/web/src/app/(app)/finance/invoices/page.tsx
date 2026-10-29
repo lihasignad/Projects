@@ -22,7 +22,7 @@ const INITIAL_INVOICES: FeeInvoice[] = [
   {
     id: 'inv-1',
     invoiceNo: 'INV-2025-0101',
-    studentRoll: 'MSU/2024/BCSE042',
+    studentRoll: 'DEMO/2024/BCSE042',
     studentName: 'Aarav Sharma',
     program: 'B.Tech CSE',
     semester: 3,
@@ -35,7 +35,7 @@ const INITIAL_INVOICES: FeeInvoice[] = [
   {
     id: 'inv-2',
     invoiceNo: 'INV-2025-0102',
-    studentRoll: 'MSU/2024/BCSE048',
+    studentRoll: 'DEMO/2024/BCSE048',
     studentName: 'Priya Bhutia',
     program: 'B.Tech CSE',
     semester: 3,
@@ -48,7 +48,7 @@ const INITIAL_INVOICES: FeeInvoice[] = [
   {
     id: 'inv-3',
     invoiceNo: 'INV-2025-0103',
-    studentRoll: 'MSU/2023/BDES015',
+    studentRoll: 'DEMO/2023/BDES015',
     studentName: 'Tashi Namgyal',
     program: 'B.Des Product Design',
     semester: 5,
@@ -61,7 +61,7 @@ const INITIAL_INVOICES: FeeInvoice[] = [
   {
     id: 'inv-4',
     invoiceNo: 'INV-2025-0104',
-    studentRoll: 'MSU/2023/BDES022',
+    studentRoll: 'DEMO/2023/BDES022',
     studentName: 'Rohan Verma',
     program: 'B.Des Product Design',
     semester: 5,
@@ -74,7 +74,7 @@ const INITIAL_INVOICES: FeeInvoice[] = [
   {
     id: 'inv-5',
     invoiceNo: 'INV-2025-0105',
-    studentRoll: 'MSU/2024/MBA009',
+    studentRoll: 'DEMO/2024/MBA009',
     studentName: 'Ananya Chetri',
     program: 'MBA Vocational',
     semester: 1,
@@ -87,7 +87,7 @@ const INITIAL_INVOICES: FeeInvoice[] = [
   {
     id: 'inv-6',
     invoiceNo: 'INV-2025-0106',
-    studentRoll: 'MSU/2024/DIP031',
+    studentRoll: 'DEMO/2024/DIP031',
     studentName: 'Karan Subba',
     program: 'Diploma Hospitality',
     semester: 1,
@@ -154,7 +154,7 @@ export default function FeeInvoicesPage() {
     const newInvoice: FeeInvoice = {
       id: `inv-${Date.now()}`,
       invoiceNo: `INV-2025-${Math.floor(1000 + Math.random() * 9000)}`,
-      studentRoll: 'MSU/2024/BCSE099',
+      studentRoll: 'DEMO/2024/BCSE099',
       studentName: 'New Cohort Batch Invoicing',
       program: batchProgram,
       semester: Number(batchSemester),
@@ -202,7 +202,7 @@ export default function FeeInvoicesPage() {
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Student fee dues, automated installment invoicing, and ledger accounts for {selectedInstitute?.name || 'Medhavi Skills University'}
+            Student fee dues, automated installment invoicing, and ledger accounts for {selectedInstitute?.name || 'Demo University'}
           </p>
         </div>
 
@@ -453,7 +453,7 @@ export default function FeeInvoicesPage() {
               <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
                 Official Invoice Voucher: {inspectedInvoice.invoiceNo}
               </h3>
-              <p className="text-xs text-slate-500 mt-0.5">{selectedInstitute?.name || 'Medhavi Skills University'}</p>
+              <p className="text-xs text-slate-500 mt-0.5">{selectedInstitute?.name || 'Demo University'}</p>
             </div>
 
             <div className="space-y-3 text-xs">

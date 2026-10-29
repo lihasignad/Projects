@@ -23,7 +23,7 @@ const INITIAL_RECEIPTS: PaymentReceipt[] = [
     id: 'rec-1',
     receiptNo: 'REC-2025-0842',
     timestamp: 'Today, 11:42 AM',
-    studentRoll: 'MSU/2024/BCSE042',
+    studentRoll: 'DEMO/2024/BCSE042',
     studentName: 'Aarav Sharma',
     program: 'B.Tech CSE',
     amount: 65000,
@@ -36,7 +36,7 @@ const INITIAL_RECEIPTS: PaymentReceipt[] = [
     id: 'rec-2',
     receiptNo: 'REC-2025-0841',
     timestamp: 'Today, 10:15 AM',
-    studentRoll: 'MSU/2024/BCSE048',
+    studentRoll: 'DEMO/2024/BCSE048',
     studentName: 'Priya Bhutia',
     program: 'B.Tech CSE',
     amount: 36500,
@@ -49,7 +49,7 @@ const INITIAL_RECEIPTS: PaymentReceipt[] = [
     id: 'rec-3',
     receiptNo: 'REC-2025-0840',
     timestamp: 'Yesterday, 03:20 PM',
-    studentRoll: 'MSU/2023/BDES015',
+    studentRoll: 'DEMO/2023/BDES015',
     studentName: 'Tashi Namgyal',
     program: 'B.Des Product Design',
     amount: 55000,
@@ -62,7 +62,7 @@ const INITIAL_RECEIPTS: PaymentReceipt[] = [
     id: 'rec-4',
     receiptNo: 'REC-2025-0839',
     timestamp: 'Yesterday, 01:10 PM',
-    studentRoll: 'MSU/2024/MBA009',
+    studentRoll: 'DEMO/2024/MBA009',
     studentName: 'Ananya Chetri',
     program: 'MBA Vocational',
     amount: 75000,
@@ -80,7 +80,7 @@ export default function FeePaymentsPage() {
   const [selectedReceipt, setSelectedReceipt] = useState<PaymentReceipt | null>(null);
 
   // POS Form States
-  const [studentRoll, setStudentRoll] = useState('MSU/2024/BCSE048');
+  const [studentRoll, setStudentRoll] = useState('DEMO/2024/BCSE048');
   const [studentName, setStudentName] = useState('Priya Bhutia');
   const [collectAmount, setCollectAmount] = useState(28500);
   const [payMode, setPayMode] = useState<'UPI_QR' | 'CASH' | 'NEFT_RTGS' | 'CARD' | 'CHEQUE'>('UPI_QR');
@@ -133,7 +133,7 @@ export default function FeePaymentsPage() {
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Cashier fee collection terminal, electronic receipts, and transaction reconciliation for {selectedInstitute?.name || 'Medhavi Skills University'}
+            Cashier fee collection terminal, electronic receipts, and transaction reconciliation for {selectedInstitute?.name || 'Demo University'}
           </p>
         </div>
 
@@ -175,7 +175,7 @@ export default function FeePaymentsPage() {
                   required
                   value={studentRoll}
                   onChange={(e) => setStudentRoll(e.target.value)}
-                  placeholder="e.g. MSU/2024/BCSE048"
+                  placeholder="e.g. DEMO/2024/BCSE048"
                   className="w-full h-9 px-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 uppercase font-mono font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
               </div>
@@ -389,13 +389,13 @@ export default function FeePaymentsPage() {
                 {/* Receipt Header */}
                 <div className="text-center border-b border-slate-200 dark:border-slate-800 pb-4 mb-4">
                   <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
-                    {selectedInstitute?.name || 'Medhavi Skills University'}
+                    {selectedInstitute?.name || 'Demo University'}
                   </h3>
                   <div className="text-xs font-semibold text-brand-600 dark:text-brand-400 mt-0.5 normal-case">
                     Official Fee Payment Receipt
                   </div>
                   <div className="text-[11px] text-slate-500 mt-1">
-                    {selectedInstitute?.location || 'Bermiok, West Sikkim'}, Govt. Recognized University
+                    {selectedInstitute?.location || 'Main Campus, Demo District'}, Govt. Recognized University
                   </div>
                   <div className="font-mono text-xs font-bold text-slate-700 dark:text-slate-300 mt-2">
                     {r.receiptNo}
