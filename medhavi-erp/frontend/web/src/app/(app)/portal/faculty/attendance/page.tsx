@@ -90,14 +90,14 @@ function AttendanceMarkerContent() {
               </Link>
               <span className="text-slate-300 dark:text-slate-700">|</span>
               <span className="text-xs font-mono text-slate-500">
-                {selectedClass?.date || 'Today'} · {selectedClass?.startTime} - {selectedClass?.endTime}
+                {selectedClass?.date || 'Today'}, {selectedClass?.startTime} - {selectedClass?.endTime}
               </span>
             </div>
             <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1">
               Mark Class Attendance: {selectedClass?.subjectCode} {selectedClass?.subjectName}
             </h1>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Batch: {selectedClass?.batch} · Room: {selectedClass?.room} · Type: {selectedClass?.type}
+              Batch: {selectedClass?.batch}, Room: {selectedClass?.room}, Type: {selectedClass?.type}
             </p>
           </div>
 
@@ -106,7 +106,7 @@ function AttendanceMarkerContent() {
               type="button"
               onClick={handleSaveAttendance}
               disabled={isSaved}
-              className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 active:scale-[0.99]"
+              className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
             >
               {isSaved ? 'Synchronizing Attendance...' : 'Save & Lock Attendance'}
             </button>
@@ -140,7 +140,7 @@ function AttendanceMarkerContent() {
               type="text"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs font-medium text-slate-900 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
+              className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs font-medium text-slate-900 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             />
           </div>
         </div>
@@ -151,7 +151,7 @@ function AttendanceMarkerContent() {
         <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 text-xs space-y-2 shadow-sm">
           <div className="flex items-center justify-between font-bold">
             <div className="flex items-center space-x-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-600 animate-ping"></span>
+              <span className="h-2 w-2 rounded-full bg-emerald-600"></span>
               <span>Attendance Synchronized Across All Portals</span>
             </div>
             <button
@@ -166,11 +166,11 @@ function AttendanceMarkerContent() {
           </p>
           <div className="pt-1 flex items-center space-x-3 text-[11px] font-semibold">
             <Link href="/portal/student/attendance" className="underline text-brand-700 dark:text-brand-300">
-              View Student Attendance Tracker &rarr;
+              View Student Attendance Tracker
             </Link>
-            <span>·</span>
+            <span className="text-slate-400">|</span>
             <Link href="/portal/hod/attendance-audit" className="underline text-brand-700 dark:text-brand-300">
-              View HOD Attendance Audit &rarr;
+              View HOD Attendance Audit
             </Link>
           </div>
         </div>
@@ -268,7 +268,7 @@ function AttendanceMarkerContent() {
                         <button
                           type="button"
                           onClick={() => handleSetStatus(student.id, 'present')}
-                          className={`px-3 py-1 rounded text-xs font-bold transition-all ${
+                          className={`px-3 py-1 rounded text-xs font-bold transition-colors ${
                             student.status === 'present'
                               ? 'bg-emerald-600 text-white shadow-sm'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
@@ -280,7 +280,7 @@ function AttendanceMarkerContent() {
                         <button
                           type="button"
                           onClick={() => handleSetStatus(student.id, 'absent')}
-                          className={`px-3 py-1 rounded text-xs font-bold transition-all ${
+                          className={`px-3 py-1 rounded text-xs font-bold transition-colors ${
                             student.status === 'absent'
                               ? 'bg-rose-600 text-white shadow-sm'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
@@ -292,7 +292,7 @@ function AttendanceMarkerContent() {
                         <button
                           type="button"
                           onClick={() => handleSetStatus(student.id, 'duty_leave')}
-                          className={`px-3 py-1 rounded text-xs font-bold transition-all ${
+                          className={`px-3 py-1 rounded text-xs font-bold transition-colors ${
                             student.status === 'duty_leave'
                               ? 'bg-blue-600 text-white shadow-sm'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
