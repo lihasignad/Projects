@@ -4,16 +4,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePortalStore } from '@/features/portals/portal-store';
 import { useAuthStore } from '@/shared/stores/auth-store';
-import type { Quiz } from '@/features/portals/types';
-
-/**
- * DESIGN BRIEF: Faculty Quiz Management & Question Bank Workbench
- * - Who uses: Faculty members creating chapter quizzes, setting deadlines, and monitoring class score distributions.
- * - Single most important thing: Fast question authoring with immediate feedback on correct options and passing criteria.
- * - Visual direction: Clean assessment workbench with responsive authoring form and class performance tables.
- * - Palette: Slate (`#0F172A`, `#334155`, `#F8FAFC`), Brand Ink (`#2563EB`), Emerald (`#059669`).
- * - Spacing & radius: 4px/8px grid, rounded-xl containers with subtle 1px border.
- */
 
 export default function FacultyQuizManagerPage() {
   const user = useAuthStore((state) => state.user);
@@ -95,25 +85,25 @@ export default function FacultyQuizManagerPage() {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+      <div className="bg-paper border border-rule rounded-lg p-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2">
               <Link
                 href="/portal/faculty"
-                className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline"
+                className="text-xs font-semibold text-brand-600 hover:underline"
               >
                 Faculty Desk
               </Link>
-              <span className="text-slate-300 dark:text-slate-700">|</span>
-              <span className="text-xs text-slate-500 font-mono">
+              <span className="text-ink-muted">|</span>
+              <span className="text-xs text-ink-muted">
                 Department of Computer Science
               </span>
             </div>
-            <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1">
+            <h1 className="text-xl font-bold text-ink mt-1.5">
               Quiz &amp; Question Bank Creator
             </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs text-ink-muted mt-0.5">
               Design, publish, and evaluate internal chapter tests, mid-term evaluations, and surprise quizzes.
             </p>
           </div>
@@ -122,13 +112,13 @@ export default function FacultyQuizManagerPage() {
             <button
               type="button"
               onClick={() => setShowCreateModal(true)}
-              className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
+              className="px-4 py-2 rounded-md bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 whitespace-nowrap"
             >
               + Create New Assessment
             </button>
             <Link
               href="/portal/faculty/assignments"
-              className="px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
+              className="px-3.5 py-2 rounded-md border border-rule bg-paper hover:bg-paper-2 dark:bg-paper-2 text-ink text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 whitespace-nowrap"
             >
               Submissions Workbench ({quizSubmissions.length})
             </Link>
@@ -138,37 +128,37 @@ export default function FacultyQuizManagerPage() {
 
       {/* Success Notification Banner */}
       {successBanner && (
-        <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 text-xs space-y-1.5 shadow-sm">
+        <div className="p-4 rounded-lg bg-success-soft dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/40 dark:border-emerald-900/40 text-success text-xs space-y-1.5">
           <div className="flex items-center justify-between font-bold">
             <div className="flex items-center space-x-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-600 animate-ping"></span>
+              <span className="h-2 w-2 rounded-full bg-emerald-700"></span>
               <span>New Quiz Published &amp; Synchronized</span>
             </div>
             <button
               onClick={() => setSuccessBanner(null)}
-              className="text-emerald-700 dark:text-emerald-300 hover:underline text-[11px]"
+              className="text-success hover:underline text-xs font-semibold"
             >
               Dismiss
             </button>
           </div>
-          <p className="text-[11px] text-emerald-800 dark:text-emerald-300">
+          <p className="text-xs text-success">
             {successBanner}
           </p>
           <div className="pt-1">
-            <Link href="/portal/student/quizzes" className="underline text-brand-700 dark:text-brand-300 font-semibold text-[11px]">
-              Switch to Student Quizzes Portal to view or take this test &rarr;
+            <Link href="/portal/student/quizzes" className="underline text-brand-600 dark:text-brand-300 font-semibold text-xs">
+              Switch to student quizzes portal to take test
             </Link>
           </div>
         </div>
       )}
 
       {/* Quizzes Management Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
-        <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-          <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+      <div className="bg-paper border border-rule rounded-lg overflow-hidden">
+        <div className="p-4 border-b border-rule flex items-center justify-between">
+          <h2 className="text-sm font-bold text-ink">
             Active &amp; Historical Department Assessments ({quizzes.length})
           </h2>
-          <span className="text-xs font-mono text-slate-500">
+          <span className="text-xs text-ink-muted">
             Auto-graded upon student submission
           </span>
         </div>
@@ -176,7 +166,7 @@ export default function FacultyQuizManagerPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 text-[11px] font-medium text-slate-500 font-semibold">
+              <tr className="bg-paper border-b border-rule text-xs font-semibold text-ink-muted normal-case">
                 <th className="px-4 py-3">Assessment Title</th>
                 <th className="px-4 py-3">Course &amp; Batch</th>
                 <th className="px-4 py-3 text-right">Duration</th>
@@ -186,52 +176,52 @@ export default function FacultyQuizManagerPage() {
                 <th className="px-4 py-3 text-right">Submissions / Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-rule">
               {quizzes.map((quiz) => {
                 const subsForQuiz = quizSubmissions.filter((s) => s.quizId === quiz.id);
                 return (
-                  <tr key={quiz.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors">
-                    <td className="px-4 py-3 font-medium text-slate-900 dark:text-slate-100">
+                  <tr key={quiz.id} className="hover:bg-paper-2 transition-colors">
+                    <td className="px-4 py-3 font-medium text-ink">
                       <div className="font-bold">{quiz.title}</div>
-                      <div className="text-[11px] text-slate-500">Faculty: {quiz.facultyName}</div>
+                      <div className="text-xs text-ink-muted">Faculty: {quiz.facultyName}</div>
                     </td>
                     <td className="px-4 py-3">
-                      <div className="font-mono font-bold text-brand-600 dark:text-brand-400">
+                      <div className="font-mono font-bold text-brand-600">
                         {quiz.subjectCode}
                       </div>
-                      <div className="text-slate-500 text-[11px]">{quiz.batch}</div>
+                      <div className="text-ink-muted text-xs">{quiz.batch}</div>
                     </td>
-                    <td className="px-4 py-3 text-right font-mono text-slate-700 dark:text-slate-300">
+                    <td className="px-4 py-3 text-right font-mono text-ink">
                       {quiz.durationMinutes} mins
                     </td>
-                    <td className="px-4 py-3 text-right font-mono font-semibold text-slate-900 dark:text-slate-100">
+                    <td className="px-4 py-3 text-right font-mono font-semibold text-ink">
                       {quiz.totalMarks}
                     </td>
-                    <td className="px-4 py-3 text-right font-mono text-slate-700 dark:text-slate-300">
+                    <td className="px-4 py-3 text-right font-mono text-ink">
                       {quiz.questionsCount || quiz.questions.length}
                     </td>
                     <td className="px-4 py-3 text-center">
                       <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-bold font-medium ${
+                        className={`px-2 py-0.5 rounded text-xs font-semibold capitalize ${
                           quiz.status === 'active'
-                            ? 'bg-rose-50 text-rose-700 dark:bg-rose-950 dark:text-rose-300 border border-rose-200 dark:border-rose-800 animate-pulse motion-reduce:animate-none'
+                            ? 'bg-danger-soft text-danger border border-red-200 dark:border-red-900/40'
                             : quiz.status === 'upcoming'
-                            ? 'bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
-                            : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                            ? 'bg-warning-soft text-warning border border-amber-200 dark:border-amber-900/40'
+                            : 'bg-success-soft text-success border border-emerald-200 dark:border-emerald-900/40'
                         }`}
                       >
                         {quiz.status}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <div className="text-xs font-semibold text-slate-900 dark:text-slate-100 font-mono">
+                      <div className="text-xs font-semibold text-ink font-mono">
                         {subsForQuiz.length} Submissions
                       </div>
                       <Link
                         href="/portal/faculty/assignments"
-                        className="text-brand-600 dark:text-brand-400 font-semibold hover:underline text-[11px]"
+                        className="text-brand-600 font-semibold hover:underline text-xs"
                       >
-                        Inspect Submissions &rarr;
+                        Inspect submissions
                       </Link>
                     </td>
                   </tr>
@@ -244,166 +234,170 @@ export default function FacultyQuizManagerPage() {
 
       {/* Create Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm" role="dialog" aria-modal="true">
-          <div className="bg-white dark:bg-slate-900 rounded-xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40" role="dialog" aria-modal="true">
+          <div className="bg-paper rounded-lg max-w-xl w-full p-6 shadow-2xl border border-rule space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-rule pb-3">
               <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
-                  Author &amp; Publish Assessment
+                <h3 className="text-base font-bold text-ink">
+                  Publish New Course Assessment
                 </h3>
-                <p className="text-xs text-slate-500">
-                  Published quizzes appear instantaneously on student portals for immediate testing.
+                <p className="text-xs text-ink-muted">
+                  Instant sync across the Student Portal with automated evaluation.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setShowCreateModal(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                className="text-ink-muted hover:text-ink p-1"
+                aria-label="Close dialog"
               >
                 ✕
               </button>
             </div>
 
             <form onSubmit={handleCreateQuiz} className="space-y-4 text-xs">
-              <div>
-                <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
-                  Assessment Title
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Unit 3 Quiz: Indexing & Query Optimization"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
-                />
-              </div>
-
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
-                    Subject Code
+                  <label className="block font-medium text-ink mb-1">
+                    Course Code
                   </label>
                   <select
                     value={subjectCode}
                     onChange={(e) => setSubjectCode(e.target.value)}
-                    className="w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-mono"
+                    className="w-full p-2.5 rounded-md border border-rule bg-paper text-ink font-mono"
                   >
-                    <option value="CS501">CS501 DBMS</option>
-                    <option value="CS502">CS502 OS</option>
-                    <option value="CS702">CS702 Cloud</option>
+                    <option value="CS501">CS501 - Database Management Systems</option>
+                    <option value="CS502">CS502 - Operating Systems</option>
+                    <option value="CS702">CS702 - Cloud Architecture</option>
                   </select>
                 </div>
+
                 <div>
-                  <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-medium text-ink mb-1">
+                    Assessment Title
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Unit Test 2: B-Trees & Index Profiling"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="w-full p-2.5 rounded-md border border-rule bg-paper text-ink"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-medium text-ink mb-1">
                     Duration (Minutes)
                   </label>
                   <input
                     type="number"
-                    min="5"
-                    max="180"
+                    min={5}
+                    max={180}
                     value={duration}
                     onChange={(e) => setDuration(Number(e.target.value))}
-                    className="w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-mono"
+                    className="w-full p-2 rounded-md border border-rule bg-paper text-ink font-mono"
                   />
                 </div>
+
                 <div>
-                  <label className="block font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-medium text-ink mb-1">
                     Total Marks
                   </label>
                   <input
                     type="number"
-                    min="5"
-                    max="100"
+                    min={5}
+                    max={100}
                     value={totalMarks}
                     onChange={(e) => setTotalMarks(Number(e.target.value))}
-                    className="w-full p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-mono"
+                    className="w-full p-2 rounded-md border border-rule bg-paper text-ink font-mono"
                   />
                 </div>
               </div>
 
-              {/* Sample Question Authoring */}
-              <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3">
-                <div className="font-bold text-slate-800 dark:text-slate-200">
-                  Question 1 Definition
+              <div className="pt-2 border-t border-rule space-y-3">
+                <div className="font-semibold text-xs text-ink">
+                  Primary Question Prompt
                 </div>
-                <div>
-                  <label className="block text-[11px] text-slate-500 mb-0.5">Prompt</label>
-                  <input
-                    type="text"
-                    value={questionPrompt}
-                    onChange={(e) => setQuestionPrompt(e.target.value)}
-                    className="w-full p-2 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
-                  />
-                </div>
+                <textarea
+                  rows={2}
+                  required
+                  value={questionPrompt}
+                  onChange={(e) => setQuestionPrompt(e.target.value)}
+                  className="w-full p-2 rounded-md border border-rule bg-paper text-ink"
+                />
 
-                <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="text-slate-500">Option A (opt1)</label>
+                    <label className="text-[11px] text-ink-muted">Option A</label>
                     <input
                       type="text"
                       value={optA}
                       onChange={(e) => setOptA(e.target.value)}
-                      className="w-full p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+                      className="w-full p-2 rounded-md border border-rule bg-paper text-ink"
                     />
                   </div>
                   <div>
-                    <label className="text-slate-500">Option B (opt2)</label>
+                    <label className="text-[11px] text-ink-muted">Option B</label>
                     <input
                       type="text"
                       value={optB}
                       onChange={(e) => setOptB(e.target.value)}
-                      className="w-full p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+                      className="w-full p-2 rounded-md border border-rule bg-paper text-ink"
                     />
                   </div>
                   <div>
-                    <label className="text-slate-500">Option C (opt3)</label>
+                    <label className="text-[11px] text-ink-muted">Option C</label>
                     <input
                       type="text"
                       value={optC}
                       onChange={(e) => setOptC(e.target.value)}
-                      className="w-full p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+                      className="w-full p-2 rounded-md border border-rule bg-paper text-ink"
                     />
                   </div>
                   <div>
-                    <label className="text-slate-500">Option D (opt4)</label>
+                    <label className="text-[11px] text-ink-muted">Option D</label>
                     <input
                       type="text"
                       value={optD}
                       onChange={(e) => setOptD(e.target.value)}
-                      className="w-full p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+                      className="w-full p-2 rounded-md border border-rule bg-paper text-ink"
                     />
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2 pt-1">
-                  <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">Correct Answer:</span>
+                <div>
+                  <label className="block font-medium text-ink mb-1">
+                    Designated Correct Option
+                  </label>
                   <select
                     value={correctOpt}
                     onChange={(e) => setCorrectOpt(e.target.value)}
-                    className="p-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 font-mono"
+                    className="w-full p-2 rounded-md border border-rule bg-paper text-ink font-semibold"
                   >
-                    <option value="opt1">Option A</option>
-                    <option value="opt2">Option B</option>
-                    <option value="opt3">Option C</option>
-                    <option value="opt4">Option D</option>
+                    <option value="opt1">Option A (Correct Key)</option>
+                    <option value="opt2">Option B (Correct Key)</option>
+                    <option value="opt3">Option C (Correct Key)</option>
+                    <option value="opt4">Option D (Correct Key)</option>
                   </select>
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-3 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex justify-end space-x-3 pt-3 border-t border-rule">
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
+                  className="px-4 py-2 rounded-md border border-rule text-ink hover:bg-paper whitespace-nowrap"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 active:scale-[0.99]"
+                  className="px-4 py-2 rounded-md bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 whitespace-nowrap"
                 >
-                  Publish to Student Portals
+                  Publish &amp; Activate on Student Portal
                 </button>
               </div>
             </form>
