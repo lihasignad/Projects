@@ -106,7 +106,7 @@ export default function StudentResultsPage() {
             key={res.semester}
             type="button"
             onClick={() => setSelectedSem(res.semester)}
-            className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+            className={`px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${
               selectedSem === res.semester
                 ? 'bg-brand-600 text-white shadow-sm'
                 : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50'
