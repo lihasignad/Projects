@@ -1,10 +1,86 @@
+/* Hallmark · academic-erp · P5 H5 E5 S5 R5 V5 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+:root {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Natural Academic Paper & Ink Palette */
+  --color-paper: #fcfbf9;
+  --color-paper-2: #f7f5f0;
+  --color-paper-3: #efece5;
+  --color-ink: #181a1c;
+  --color-ink-2: #36393f;
+  --color-muted: #666971;
+  --color-rule: #e5e2da;
+  --color-rule-subtle: #eeece5;
+
+  /* Natural Academic University Accent: Oxford Navy */
+  --color-accent: #174268;
+  --color-accent-hover: #113453;
+  --color-accent-soft: #edf4fa;
+  --color-accent-ink: #0d2840;
+
+  /* Natural Semantics */
+  --color-success: #1e5239;
+  --color-success-soft: #edf7f1;
+  --color-warning: #92400e;
+  --color-warning-soft: #fef7ec;
+  --color-danger: #991b1b;
+  --color-danger-soft: #fdf2f2;
+}
+
+[data-theme="dark"] {
+  --color-paper: #121316;
+  --color-paper-2: #191b1f;
+  --color-paper-3: #22242a;
+  --color-ink: #f2f3f5;
+  --color-ink-2: #d4d6db;
+  --color-muted: #8e929b;
+  --color-rule: #2a2d34;
+  --color-rule-subtle: #212328;
+
+  --color-accent: #5b96c8;
+  --color-accent-hover: #75a7d3;
+  --color-accent-soft: #172737;
+  --color-accent-ink: #d0e4f5;
+
+  --color-success: #34d399;
+  --color-success-soft: #062817;
+  --color-warning: #fbbf24;
+  --color-warning-soft: #2e1d05;
+  --color-danger: #f87171;
+  --color-danger-soft: #2d0c0c;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular figures for all numbers and tables */
+table, .tabular, [data-tabular] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hallmark Floor rules */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
