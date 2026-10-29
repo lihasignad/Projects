@@ -44,7 +44,7 @@ export function DataTable<T>({
                 <th
                   key={col.key}
                   scope="col"
-                  className={`px-3.5 py-3 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[11px] select-none ${
+                  className={`px-3.5 py-3 font-semibold text-slate-700 dark:text-slate-300 normal-case text-xs select-none ${
                     col.align === 'right'
                       ? 'text-right'
                       : col.align === 'center'
@@ -62,7 +62,7 @@ export function DataTable<T>({
             {isLoading ? (
               // Loading Skeleton
               Array.from({ length: 5 }).map((_, rIdx) => (
-                <tr key={`skeleton-${rIdx}`} className="animate-pulse">
+                <tr key={`skeleton-${rIdx}`} className="motion-safe:animate-pulse">
                   {columns.map((col) => (
                     <td key={col.key} className="px-3.5 py-3">
                       <div className="h-3.5 bg-slate-200 dark:bg-slate-800 rounded w-4/5" />
@@ -80,6 +80,7 @@ export function DataTable<T>({
                   <div className="flex flex-col items-center justify-center space-y-1.5">
                     <svg
                       className="w-8 h-8 text-slate-400 dark:text-slate-600 mb-1"
+                      aria-hidden="true"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -144,7 +145,7 @@ export function DataTable<T>({
               type="button"
               disabled={currentPage <= 1 || isLoading}
               onClick={() => onPageChange?.(currentPage - 1)}
-              className="px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-[11px]"
+              className="px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-[11px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
             >
               Previous
             </button>
@@ -153,7 +154,7 @@ export function DataTable<T>({
               type="button"
               disabled={currentPage >= totalPages || isLoading}
               onClick={() => onPageChange?.(currentPage + 1)}
-              className="px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-[11px]"
+              className="px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-medium text-[11px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
             >
               Next
             </button>
