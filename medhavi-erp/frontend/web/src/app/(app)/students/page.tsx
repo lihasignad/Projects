@@ -8,11 +8,11 @@ import { useAuthStore } from '@/shared/stores/auth-store';
 const SAMPLE_STUDENTS: StudentRecord[] = [
   {
     id: 'std-001',
-    rollNumber: 'MSU/2024/BCSE042',
+    rollNumber: 'DEMO/2024/BCSE042',
     firstName: 'Aarav',
     lastName: 'Sharma',
-    email: 'aarav.sharma@msu.edu.in',
-    phone: '9876543210',
+    email: 'aarav.sharma@demouniversity.in',
+    phone: '9876500001',
     program: 'B.Tech Computer Science & Engineering',
     branch: 'CSE',
     semester: 3,
@@ -22,15 +22,15 @@ const SAMPLE_STUDENTS: StudentRecord[] = [
     feeDueAmount: 0,
     status: 'ACTIVE',
     guardianName: 'Rajesh Sharma',
-    guardianPhone: '9876500001',
+    guardianPhone: '9876500011',
   },
   {
     id: 'std-002',
-    rollNumber: 'MSU/2024/BCSE048',
+    rollNumber: 'DEMO/2024/BCSE048',
     firstName: 'Priya',
     lastName: 'Bhutia',
-    email: 'priya.bhutia@msu.edu.in',
-    phone: '9845123456',
+    email: 'priya.bhutia@demouniversity.in',
+    phone: '9876500002',
     program: 'B.Tech Computer Science & Engineering',
     branch: 'CSE',
     semester: 3,
@@ -40,15 +40,15 @@ const SAMPLE_STUDENTS: StudentRecord[] = [
     feeDueAmount: 28500,
     status: 'ACTIVE',
     guardianName: 'Karma Bhutia',
-    guardianPhone: '9845100002',
+    guardianPhone: '9876500012',
   },
   {
     id: 'std-003',
-    rollNumber: 'MSU/2023/BDES015',
+    rollNumber: 'DEMO/2023/BDES015',
     firstName: 'Tashi',
     lastName: 'Namgyal',
-    email: 'tashi.namgyal@msu.edu.in',
-    phone: '9734098765',
+    email: 'tashi.namgyal@demouniversity.in',
+    phone: '9876500003',
     program: 'B.Des Product & Industrial Design',
     branch: 'Industrial Design',
     semester: 5,
@@ -58,15 +58,15 @@ const SAMPLE_STUDENTS: StudentRecord[] = [
     feeDueAmount: 0,
     status: 'ACTIVE',
     guardianName: 'Dorjee Namgyal',
-    guardianPhone: '9734000003',
+    guardianPhone: '9876500013',
   },
   {
     id: 'std-004',
-    rollNumber: 'MSU/2023/BDES022',
+    rollNumber: 'DEMO/2023/BDES022',
     firstName: 'Rohan',
     lastName: 'Verma',
-    email: 'rohan.verma@msu.edu.in',
-    phone: '9123456780',
+    email: 'rohan.verma@demouniversity.in',
+    phone: '9876500004',
     program: 'B.Des Product & Industrial Design',
     branch: 'Industrial Design',
     semester: 5,
@@ -76,15 +76,15 @@ const SAMPLE_STUDENTS: StudentRecord[] = [
     feeDueAmount: 45000,
     status: 'ACTIVE',
     guardianName: 'Sanjay Verma',
-    guardianPhone: '9123400004',
+    guardianPhone: '9876500014',
   },
   {
     id: 'std-005',
-    rollNumber: 'MSU/2024/MBA009',
+    rollNumber: 'DEMO/2024/MBA009',
     firstName: 'Ananya',
     lastName: 'Chetri',
-    email: 'ananya.chetri@msu.edu.in',
-    phone: '9898765432',
+    email: 'ananya.chetri@demouniversity.in',
+    phone: '9876500005',
     program: 'MBA Vocational & Entrepreneurship',
     branch: 'Vocational Mgmt',
     semester: 1,
@@ -94,15 +94,15 @@ const SAMPLE_STUDENTS: StudentRecord[] = [
     feeDueAmount: 0,
     status: 'ACTIVE',
     guardianName: 'Bikash Chetri',
-    guardianPhone: '9898700005',
+    guardianPhone: '9876500015',
   },
   {
     id: 'std-006',
-    rollNumber: 'MSU/2024/DIP031',
+    rollNumber: 'DEMO/2024/DIP031',
     firstName: 'Karan',
     lastName: 'Subba',
-    email: 'karan.subba@msu.edu.in',
-    phone: '9765432109',
+    email: 'karan.subba@demouniversity.in',
+    phone: '9876500006',
     program: 'Diploma in Applied Hospitality',
     branch: 'Hospitality',
     semester: 1,
@@ -112,7 +112,7 @@ const SAMPLE_STUDENTS: StudentRecord[] = [
     feeDueAmount: 18000,
     status: 'ACTIVE',
     guardianName: 'Prem Subba',
-    guardianPhone: '9765400006',
+    guardianPhone: '9876500016',
   },
 ];
 
@@ -233,7 +233,7 @@ export default function StudentsDirectoryPage() {
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Institutional cohort directory for {selectedInstitute?.name || 'Medhavi Skills University'}
+            Institutional cohort directory for {selectedInstitute?.name || 'Demo University'}
           </p>
         </div>
 
@@ -500,7 +500,7 @@ export default function StudentsDirectoryPage() {
                   required
                   value={newRollNo}
                   onChange={(e) => setNewRollNo(e.target.value)}
-                  placeholder="e.g. MSU/2024/BCSE050"
+                  placeholder="e.g. DEMO/2024/BCSE050"
                   className="w-full h-9 px-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 uppercase font-mono focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
               </div>
@@ -515,7 +515,7 @@ export default function StudentsDirectoryPage() {
                     required
                     value={newEmail}
                     onChange={(e) => setNewEmail(e.target.value)}
-                    placeholder="suman.rai@msu.edu.in"
+                    placeholder="suman.rai@demouniversity.in"
                     className="w-full h-9 px-3 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-brand-500"
                   />
                 </div>
