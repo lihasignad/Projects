@@ -17,11 +17,11 @@ interface DefaulterItem {
 }
 
 const INITIAL_DEFAULTERS: DefaulterItem[] = [
-  { id: 'def-1', rollNo: '2023CSE011', name: 'Aarav Singhania', batch: 'B.Tech CSE Sem 5 Sec A', attendancePercent: 68.4, missedClasses: 39, guardianName: 'Sanjay Singhania', guardianPhone: '+91 98110 44210', status: 'WARNING_1', noticeSent: false },
-  { id: 'def-2', rollNo: '2023CSE018', name: 'Devendra Joshi', batch: 'B.Tech CSE Sem 5 Sec A', attendancePercent: 71.0, missedClasses: 36, guardianName: 'Harish Joshi', guardianPhone: '+91 94120 88711', status: 'WARNING_1', noticeSent: false },
-  { id: 'def-3', rollNo: '2023CSE048', name: 'Rohan Kulkarni', batch: 'B.Tech CSE Sem 5 Sec B', attendancePercent: 69.8, missedClasses: 38, guardianName: 'Pradeep Kulkarni', guardianPhone: '+91 98450 12099', status: 'WARNING_1', noticeSent: false },
-  { id: 'def-4', rollNo: '2022CSE029', name: 'Vikramaditya Rathore', batch: 'B.Tech CSE Sem 7 Sec A', attendancePercent: 58.2, missedClasses: 52, guardianName: 'Col. K.S. Rathore', guardianPhone: '+91 97120 33441', status: 'WARNING_2', noticeSent: true },
-  { id: 'def-5', rollNo: '2022CSE074', name: 'Neha Chawla', batch: 'B.Tech CSE Sem 7 Sec B', attendancePercent: 63.5, missedClasses: 46, guardianName: 'Ashok Chawla', guardianPhone: '+91 98101 22904', status: 'WARNING_2', noticeSent: false },
+  { id: 'def-1', rollNo: '2023CSE011', name: 'Aarav Singhania', batch: 'B.Tech CSE Sem 5 Sec A', attendancePercent: 68.4, missedClasses: 39, guardianName: 'Sanjay Singhania', guardianPhone: '+91 98765 00011', status: 'WARNING_1', noticeSent: false },
+  { id: 'def-2', rollNo: '2023CSE018', name: 'Devendra Joshi', batch: 'B.Tech CSE Sem 5 Sec A', attendancePercent: 71.0, missedClasses: 36, guardianName: 'Harish Joshi', guardianPhone: '+91 98765 00018', status: 'WARNING_1', noticeSent: false },
+  { id: 'def-3', rollNo: '2023CSE048', name: 'Rohan Kulkarni', batch: 'B.Tech CSE Sem 5 Sec B', attendancePercent: 69.8, missedClasses: 38, guardianName: 'Pradeep Kulkarni', guardianPhone: '+91 98765 00048', status: 'WARNING_1', noticeSent: false },
+  { id: 'def-4', rollNo: '2022CSE029', name: 'Vikramaditya Rathore', batch: 'B.Tech CSE Sem 7 Sec A', attendancePercent: 58.2, missedClasses: 52, guardianName: 'Col. K.S. Rathore', guardianPhone: '+91 98765 00029', status: 'WARNING_2', noticeSent: true },
+  { id: 'def-5', rollNo: '2022CSE074', name: 'Neha Chawla', batch: 'B.Tech CSE Sem 7 Sec B', attendancePercent: 63.5, missedClasses: 46, guardianName: 'Ashok Chawla', guardianPhone: '+91 98765 00074', status: 'WARNING_2', noticeSent: false },
 ];
 
 /**
