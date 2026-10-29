@@ -190,9 +190,9 @@ export default function MarksEntryPage() {
           <button
             type="button"
             onClick={handleExportCSV}
-            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
-            <svg className="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             Export Grade Sheet
@@ -202,9 +202,9 @@ export default function MarksEntryPage() {
             <button
               type="button"
               onClick={() => setIsPublishModalOpen(true)}
-              className="inline-flex items-center px-4 py-2 text-xs font-semibold rounded bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-colors"
+              className="inline-flex items-center px-4 py-2 text-xs font-semibold rounded bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
             >
-              <svg className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg aria-hidden="true" className="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Publish Official Results
@@ -219,7 +219,7 @@ export default function MarksEntryPage() {
           role="alert"
           className="rounded-lg bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 p-3 text-xs flex items-center space-x-2"
         >
-          <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <svg aria-hidden="true" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
           </svg>
           <span className="font-semibold">{notificationMsg}</span>
@@ -296,25 +296,25 @@ export default function MarksEntryPage() {
       {/* Cohort Examination Analytics */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Evaluated</div>
+          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">Total Evaluated</div>
           <div className="text-xl font-bold font-mono text-slate-900 dark:text-slate-100 mt-1">{analytics.totalCount} Candidates</div>
           <div className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">100% evaluated</div>
         </div>
 
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Class Average Score</div>
+          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">Class Average Score</div>
           <div className="text-xl font-bold font-mono text-brand-600 dark:text-brand-400 mt-1">{analytics.avg} / 100</div>
           <div className="text-[11px] text-slate-500 mt-0.5">Standard Bell Curve</div>
         </div>
 
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Highest Score</div>
+          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">Highest Score</div>
           <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">{analytics.highest} / 100</div>
           <div className="text-[11px] text-slate-500 mt-0.5">Grade O (Outstanding)</div>
         </div>
 
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Pass Percentage</div>
+          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 normal-case">Pass Percentage</div>
           <div className="text-xl font-bold font-mono text-slate-900 dark:text-slate-100 mt-1">{analytics.passRate}%</div>
           <div className="text-[11px] text-slate-500 mt-0.5">&ge; 40 Marks threshold</div>
         </div>
@@ -324,7 +324,7 @@ export default function MarksEntryPage() {
       <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 normal-case">
               <tr>
                 <th className="py-2.5 px-3 sm:px-4">Roll Number</th>
                 <th className="py-2.5 px-3 sm:px-4">Candidate Name</th>
@@ -400,7 +400,7 @@ export default function MarksEntryPage() {
                       </span>
                     </td>
                     <td className="py-3 px-3 sm:px-4 text-[11px] text-slate-500">
-                      {r.remarks || <span className="opacity-40">&mdash;</span>}
+                      {r.remarks || <span className="opacity-40">None</span>}
                     </td>
                   </tr>
                 );
@@ -413,7 +413,7 @@ export default function MarksEntryPage() {
       {/* Modal: Publish Confirmation */}
       {isPublishModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
           role="dialog"
           aria-modal="true"
         >
@@ -429,14 +429,14 @@ export default function MarksEntryPage() {
               <button
                 type="button"
                 onClick={() => setIsPublishModalOpen(false)}
-                className="px-3 py-2 rounded border border-slate-300 dark:border-slate-700 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800"
+                className="px-3 py-2 rounded border border-slate-300 dark:border-slate-700 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handlePublishResults}
-                className="px-4 py-2 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow"
+                className="px-4 py-2 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
               >
                 Confirm & Publish
               </button>
