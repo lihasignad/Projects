@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -99,15 +100,12 @@ export default function RegisterPage() {
   return (
     <div className="w-full max-w-2xl mx-auto flex flex-col items-center">
       {/* University Title Header */}
-      <div className="w-full text-left mb-6 px-2">
-        <div className="text-amber-500 font-extrabold uppercase tracking-wider text-xs sm:text-sm drop-shadow-sm">
-          {selectedInstitute?.name || 'MEDHAVI SKILLS UNIVERSITY'}
-        </div>
-        <h1 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#0284c7] drop-shadow-sm leading-tight">
+      <div className="w-full text-center sm:text-left mb-6 px-2">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
           Create Your Academic Account
         </h1>
-        <p className="text-slate-800 dark:text-slate-200 text-xs sm:text-sm mt-1 font-medium">
-          Register with your institute enrollment or employee credentials to access courses, fees, and marks.
+        <p className="text-ink-muted text-xs sm:text-sm mt-1.5 font-medium">
+          Register with your institute enrollment or employee credentials for {selectedInstitute?.name || 'Medhavi Skills University'}.
         </p>
       </div>
 
@@ -115,27 +113,27 @@ export default function RegisterPage() {
         <div
           role="alert"
           aria-live="polite"
-          className="w-full mb-4 rounded-lg bg-rose-900/90 border border-rose-500 text-white p-3 text-xs flex items-center space-x-2 backdrop-blur-md"
+          className="w-full mb-4 rounded-lg bg-danger-soft border border-red-300 dark:border-red-900/60 text-danger p-3 text-xs flex items-center space-x-2"
         >
           <span>{serverError}</span>
         </div>
       )}
 
       {/* Registration Card */}
-      <div className="w-full bg-[#374151]/95 dark:bg-[#1f2937]/95 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/10 text-white">
+      <div className="w-full bg-paper border border-rule rounded-xl p-6 sm:p-8 shadow-sm text-ink">
         {/* Role Toggle Tabs */}
         <div className="mb-5">
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-            Registering As
+          <label className="block text-xs font-semibold text-ink-muted mb-2 normal-case">
+            Registering as
           </label>
-          <div className="grid grid-cols-2 gap-2 bg-white/10 p-1 rounded-xl">
+          <div className="grid grid-cols-2 gap-2 border border-rule bg-paper-2 p-1 rounded-lg">
             <button
               type="button"
               onClick={() => setValue('role', 'STUDENT')}
-              className={`py-2 text-xs font-bold rounded-lg transition-all ${
+              className={`py-2 text-xs font-semibold rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
                 selectedRole === 'STUDENT'
-                  ? 'bg-[#0284c7] text-white shadow'
-                  : 'text-slate-300 hover:text-white'
+                  ? 'bg-brand-600 text-white shadow-sm'
+                  : 'text-ink-muted hover:text-ink'
               }`}
             >
               Enrolled Student
@@ -143,10 +141,10 @@ export default function RegisterPage() {
             <button
               type="button"
               onClick={() => setValue('role', 'FACULTY')}
-              className={`py-2 text-xs font-bold rounded-lg transition-all ${
+              className={`py-2 text-xs font-semibold rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
                 selectedRole === 'FACULTY'
-                  ? 'bg-[#0284c7] text-white shadow'
-                  : 'text-slate-300 hover:text-white'
+                  ? 'bg-brand-600 text-white shadow-sm'
+                  : 'text-ink-muted hover:text-ink'
               }`}
             >
               Faculty / Staff
@@ -158,24 +156,24 @@ export default function RegisterPage() {
           {/* Name Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label htmlFor="firstName" className="block text-xs font-semibold text-slate-200 mb-1">
-                First Name <span className="text-rose-400">*</span>
+              <label htmlFor="firstName" className="block text-xs font-semibold text-ink mb-1.5 normal-case">
+                First Name <span className="text-danger">*</span>
               </label>
               <input
                 id="firstName"
                 type="text"
                 placeholder="First name"
                 disabled={isSubmitting}
-                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-600"
                 {...register('firstName')}
               />
               {errors.firstName && (
-                <p className="mt-1 text-[11px] text-rose-300 font-medium">{errors.firstName.message}</p>
+                <p className="mt-1 text-xs text-danger font-medium">{errors.firstName.message}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="lastName" className="block text-xs font-semibold text-slate-200 mb-1">
+              <label htmlFor="lastName" className="block text-xs font-semibold text-ink mb-1.5 normal-case">
                 Last Name
               </label>
               <input
@@ -183,7 +181,7 @@ export default function RegisterPage() {
                 type="text"
                 placeholder="Last name"
                 disabled={isSubmitting}
-                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-600"
                 {...register('lastName')}
               />
             </div>
@@ -191,59 +189,59 @@ export default function RegisterPage() {
 
           {/* Identifier (Roll No / Employee ID) */}
           <div>
-            <label htmlFor="identifier" className="block text-xs font-semibold text-slate-200 mb-1">
-              {selectedRole === 'STUDENT' ? 'Student Roll No / Enrollment ID' : 'Employee ID'} <span className="text-rose-400">*</span>
+            <label htmlFor="identifier" className="block text-xs font-semibold text-ink mb-1.5 normal-case">
+              {selectedRole === 'STUDENT' ? 'Student Roll No or Enrollment ID' : 'Employee ID'} <span className="text-danger">*</span>
             </label>
             <input
               id="identifier"
               type="text"
               placeholder={selectedRole === 'STUDENT' ? 'e.g. MSU/2024/BCSE042' : 'e.g. FAC-CSE-108'}
               disabled={isSubmitting}
-              className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+              className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted uppercase font-mono focus:outline-none focus:ring-2 focus:ring-brand-600"
               {...register('identifier')}
             />
             {errors.identifier && (
-              <p className="mt-1 text-[11px] text-rose-300 font-medium">{errors.identifier.message}</p>
+              <p className="mt-1 text-xs text-danger font-medium">{errors.identifier.message}</p>
             )}
           </div>
 
           {/* Contact Row (Email & Indian Phone) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label htmlFor="email" className="block text-xs font-semibold text-slate-200 mb-1">
-                Email Address <span className="text-rose-400">*</span>
+              <label htmlFor="email" className="block text-xs font-semibold text-ink mb-1.5 normal-case">
+                Email Address <span className="text-danger">*</span>
               </label>
               <input
                 id="email"
                 type="email"
                 placeholder="name@msu.edu.in"
                 disabled={isSubmitting}
-                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-600"
                 {...register('email')}
               />
               {errors.email && (
-                <p className="mt-1 text-[11px] text-rose-300 font-medium">{errors.email.message}</p>
+                <p className="mt-1 text-xs text-danger font-medium">{errors.email.message}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-xs font-semibold text-slate-200 mb-1">
-                Mobile Number <span className="text-rose-400">*</span>
+              <label htmlFor="phone" className="block text-xs font-semibold text-ink mb-1.5 normal-case">
+                Mobile Number <span className="text-danger">*</span>
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-3 text-xs font-medium text-slate-500">+91</span>
+                <span className="absolute left-3.5 top-3 text-xs font-medium text-ink-muted">+91</span>
                 <input
                   id="phone"
                   type="tel"
                   maxLength={10}
                   placeholder="9876543210"
                   disabled={isSubmitting}
-                  className="w-full h-11 pl-12 pr-3.5 text-xs sm:text-sm rounded-lg bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+                  className="w-full h-11 pl-12 pr-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-600"
                   {...register('phone')}
                 />
               </div>
               {errors.phone && (
-                <p className="mt-1 text-[11px] text-rose-300 font-medium">{errors.phone.message}</p>
+                <p className="mt-1 text-xs text-danger font-medium">{errors.phone.message}</p>
               )}
             </div>
           </div>
@@ -251,36 +249,36 @@ export default function RegisterPage() {
           {/* Password & Confirm Password */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label htmlFor="password" className="block text-xs font-semibold text-slate-200 mb-1">
-                Password <span className="text-rose-400">*</span>
+              <label htmlFor="password" className="block text-xs font-semibold text-ink mb-1.5 normal-case">
+                Password <span className="text-danger">*</span>
               </label>
               <input
                 id="password"
                 type="password"
                 placeholder="At least 6 characters"
                 disabled={isSubmitting}
-                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-600"
                 {...register('password')}
               />
               {errors.password && (
-                <p className="mt-1 text-[11px] text-rose-300 font-medium">{errors.password.message}</p>
+                <p className="mt-1 text-xs text-danger font-medium">{errors.password.message}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-xs font-semibold text-slate-200 mb-1">
-                Confirm Password <span className="text-rose-400">*</span>
+              <label htmlFor="confirmPassword" className="block text-xs font-semibold text-ink mb-1.5 normal-case">
+                Confirm Password <span className="text-danger">*</span>
               </label>
               <input
                 id="confirmPassword"
                 type="password"
                 placeholder="Re-type password"
                 disabled={isSubmitting}
-                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0284c7]"
+                className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-600"
                 {...register('confirmPassword')}
               />
               {errors.confirmPassword && (
-                <p className="mt-1 text-[11px] text-rose-300 font-medium">{errors.confirmPassword.message}</p>
+                <p className="mt-1 text-xs text-danger font-medium">{errors.confirmPassword.message}</p>
               )}
             </div>
           </div>
@@ -290,7 +288,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-11 rounded-lg bg-[#ff4d4f] hover:bg-[#ff3b3e] active:scale-[0.99] text-white font-medium text-sm transition-all shadow-md flex items-center justify-center space-x-2 disabled:opacity-75"
+              className="w-full h-11 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm transition-colors shadow-sm flex items-center justify-center space-x-2 disabled:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
             >
               {isSubmitting ? (
                 <span>Creating Account...</span>
@@ -302,11 +300,11 @@ export default function RegisterPage() {
         </form>
 
         {/* Back to Login Link */}
-        <div className="mt-5 pt-4 border-t border-white/10 text-center text-xs text-white/90">
+        <div className="mt-5 pt-4 border-t border-rule text-center text-xs text-ink-muted">
           Already have an account?{' '}
-          <a href="/login" className="font-bold text-amber-400 hover:underline">
+          <Link href="/login" className="font-semibold text-brand-600 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-600 rounded">
             Sign in here
-          </a>
+          </Link>
         </div>
       </div>
     </div>
