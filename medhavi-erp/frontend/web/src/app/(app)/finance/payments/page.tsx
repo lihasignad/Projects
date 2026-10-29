@@ -141,9 +141,9 @@ export default function FeePaymentsPage() {
         <div className="flex items-center space-x-2">
           <Link
             href="/finance/invoices"
-            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center px-3 py-2 text-xs font-semibold rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
           >
-            &larr; View Invoices & Dues
+            View Invoices & Dues
           </Link>
         </div>
       </div>
@@ -257,9 +257,9 @@ export default function FeePaymentsPage() {
             <div className="pt-2 flex justify-end">
               <button
                 type="submit"
-                className="w-full sm:w-auto px-5 py-2.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow transition-all flex items-center justify-center space-x-2"
+                className="w-full sm:w-auto px-5 py-2.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow transition-colors flex items-center justify-center space-x-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Process Payment & Issue Official Receipt</span>
@@ -271,7 +271,7 @@ export default function FeePaymentsPage() {
         {/* Right: Cashier Shift Summary */}
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm space-y-4 flex flex-col justify-between">
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 normal-case">
               Today's Session Balance
             </div>
             <div className="text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400">
@@ -296,7 +296,7 @@ export default function FeePaymentsPage() {
           </div>
 
           <div className="p-3 rounded bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400">
-            🔒 Counter transactions are cryptographically signed and archived for audit compliance.
+            Counter transactions are cryptographically signed and archived for audit compliance.
           </div>
         </div>
       </div>
@@ -304,17 +304,17 @@ export default function FeePaymentsPage() {
       {/* Real-Time Payment Receipts Ledger */}
       <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
         <div className="p-3 sm:px-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+          <h2 className="text-xs font-bold text-slate-700 dark:text-slate-300 normal-case">
             Recent Fee Collections Ledger
           </h2>
-          <span className="text-[11px] text-slate-500">
+          <span className="text-xs text-slate-500">
             {receipts.length} Transactions Recorded
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 normal-case">
               <tr>
                 <th className="py-2.5 px-3 sm:px-4">Receipt #</th>
                 <th className="py-2.5 px-3 sm:px-4">Time</th>
@@ -364,7 +364,7 @@ export default function FeePaymentsPage() {
       {/* Modal: Official Printable Receipt */}
       {(selectedReceipt || receiptSuccess) && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
           role="dialog"
           aria-modal="true"
         >
@@ -378,24 +378,24 @@ export default function FeePaymentsPage() {
                     setSelectedReceipt(null);
                     setReceiptSuccess(null);
                   }}
-                  className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1"
+                  className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
                   aria-label="Close receipt dialog"
                 >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg aria-hidden="true" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
 
                 {/* Receipt Header */}
                 <div className="text-center border-b border-slate-200 dark:border-slate-800 pb-4 mb-4">
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-brand-600 dark:text-brand-400">
-                    OFFICIAL FEE PAYMENT RECEIPT
-                  </div>
-                  <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100 mt-0.5">
-                    {selectedInstitute?.name || 'MEDHAVI SKILLS UNIVERSITY'}
+                  <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
+                    {selectedInstitute?.name || 'Medhavi Skills University'}
                   </h3>
-                  <div className="text-[11px] text-slate-500">
-                    {selectedInstitute?.location || 'Bermiok, West Sikkim'} • Govt. Recognized University
+                  <div className="text-xs font-semibold text-brand-600 dark:text-brand-400 mt-0.5 normal-case">
+                    Official Fee Payment Receipt
+                  </div>
+                  <div className="text-[11px] text-slate-500 mt-1">
+                    {selectedInstitute?.location || 'Bermiok, West Sikkim'}, Govt. Recognized University
                   </div>
                   <div className="font-mono text-xs font-bold text-slate-700 dark:text-slate-300 mt-2">
                     {r.receiptNo}
@@ -436,7 +436,7 @@ export default function FeePaymentsPage() {
 
                   {/* Amount Block */}
                   <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-between text-emerald-900 dark:text-emerald-100 font-mono mt-3">
-                    <span className="font-bold uppercase text-[11px]">Total Paid:</span>
+                    <span className="font-semibold text-xs normal-case">Total Paid:</span>
                     <span className="text-lg font-black">₹{r.amount.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
@@ -449,16 +449,16 @@ export default function FeePaymentsPage() {
                       setSelectedReceipt(null);
                       setReceiptSuccess(null);
                     }}
-                    className="px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800"
+                    className="px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
                   >
                     Close
                   </button>
                   <button
                     type="button"
                     onClick={handlePrint}
-                    className="px-4 py-1.5 rounded bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow flex items-center space-x-1"
+                    className="px-4 py-1.5 rounded bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow flex items-center space-x-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
                   >
-                    <span>🖨️ Print Receipt</span>
+                    <span>Print Receipt</span>
                   </button>
                 </div>
               </div>
