@@ -27,22 +27,12 @@ const BASE_CSE_SLOTS: TimetableSlot[] = [
   { day: 'Friday', time: '11:30 - 12:30', courseCode: 'CS501', courseName: 'Database Systems', batch: 'CSE-5A', room: 'LT-2', faculty: 'Dr. Arun Sharma' },
 ];
 
-/**
- * DESIGN BRIEF: HOD Department Timetables & Lab Allocation
- * - Who uses: Head of Department verifying room assignments, lab occupancy, and faculty scheduling conflicts.
- * - Single most important thing: Clash-free lab and lecture hall allocation across academic batches synchronized with teacher activity.
- * - Visual direction: Clear weekly timetable matrix with prominent room tags and batch pills.
- * - Palette: Slate (`#0F172A`, `#334155`, `#F8FAFC`), Brand Ink (`#2563EB`), Emerald (`#059669`).
- * - Spacing & radius: 4px/8px rhythm, rounded-xl containers with subtle 1px border.
- */
-
 export default function HodTimetablesPage() {
   const classes = usePortalStore((state) => state.classes);
   const [selectedDay, setSelectedDay] = useState<string>('All');
 
-  // Convert newly created classes to timetable slots
   const liveClassSlots: TimetableSlot[] = classes.map((c) => ({
-    day: 'Wednesday', // Current active session day
+    day: 'Wednesday',
     time: `${c.startTime} - ${c.endTime}`,
     courseCode: c.subjectCode,
     courseName: `${c.subjectName} (${c.topic})`,
@@ -61,39 +51,39 @@ export default function HodTimetablesPage() {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+      <div className="bg-paper border border-rule rounded-lg p-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2">
               <Link
                 href="/portal/hod"
-                className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline"
+                className="text-xs font-semibold text-brand-600 hover:underline"
               >
                 HOD Desk
               </Link>
-              <span className="text-slate-300 dark:text-slate-700">|</span>
-              <span className="text-xs text-slate-500 font-mono">
+              <span className="text-ink-muted">|</span>
+              <span className="text-xs text-ink-muted">
                 Department of Computer Science
               </span>
             </div>
-            <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1">
+            <h1 className="text-xl font-bold text-ink mt-1.5">
               Department Master Timetables &amp; Lab Allocations
             </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs text-ink-muted mt-0.5">
               Lecture halls, smart classrooms, and computing lab schedules for Autumn 2025-26.
             </p>
           </div>
 
-          <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+          <div className="flex items-center space-x-1 bg-paper-2 p-1 rounded-md border border-rule">
             {(['All', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const).map((day) => (
               <button
                 key={day}
                 type="button"
                 onClick={() => setSelectedDay(day)}
-                className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${
+                className={`px-3 py-1 rounded text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 ${
                   selectedDay === day
-                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm font-semibold'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                    ? 'bg-paper text-ink shadow-sm font-semibold'
+                    : 'text-ink-muted hover:text-ink'
                 }`}
               >
                 {day}
@@ -103,12 +93,21 @@ export default function HodTimetablesPage() {
         </div>
       </div>
 
-      {/* Timetable Ledger */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      {/* Timetable Matrix Table */}
+      <div className="bg-paper border border-rule rounded-lg overflow-hidden">
+        <div className="p-4 border-b border-rule flex items-center justify-between">
+          <h2 className="text-sm font-bold text-ink">
+            Weekly Time Table Grid ({filteredSlots.length} Slots Displayed)
+          </h2>
+          <span className="text-xs text-ink-muted">
+            Showing scheduled classes for: <strong className="text-ink">{selectedDay}</strong>
+          </span>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 text-[11px] font-medium text-slate-500 font-semibold">
+              <tr className="bg-paper-2 border-b border-rule text-xs font-semibold text-ink-muted normal-case">
                 <th className="px-4 py-3">Day &amp; Time Slot</th>
                 <th className="px-4 py-3">Course Code &amp; Title</th>
                 <th className="px-4 py-3">Batch</th>
@@ -117,37 +116,37 @@ export default function HodTimetablesPage() {
                 <th className="px-4 py-3 text-center">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-rule">
               {filteredSlots.map((slot, idx) => (
-                <tr key={idx} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors">
-                  <td className="px-4 py-3 font-mono font-semibold text-slate-900 dark:text-slate-100">
+                <tr key={idx} className="hover:bg-paper-2 transition-colors">
+                  <td className="px-4 py-3 font-semibold text-ink">
                     <div>{slot.day}</div>
-                    <div className="text-[11px] text-slate-400 font-normal">{slot.time}</div>
+                    <div className="text-xs text-ink-muted font-normal font-mono">{slot.time}</div>
                   </td>
                   <td className="px-4 py-3">
-                    <span className="font-mono font-bold text-brand-600 dark:text-brand-400">
+                    <span className="font-mono font-bold text-brand-600">
                       {slot.courseCode}
                     </span>
-                    <span className="ml-1.5 font-medium text-slate-800 dark:text-slate-200">
+                    <span className="ml-1.5 font-medium text-ink">
                       {slot.courseName}
                     </span>
                   </td>
-                  <td className="px-4 py-3 font-mono text-slate-600 dark:text-slate-400">
+                  <td className="px-4 py-3 font-mono text-ink-muted">
                     {slot.batch}
                   </td>
-                  <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
+                  <td className="px-4 py-3 font-semibold text-ink">
                     {slot.room}
                   </td>
-                  <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
+                  <td className="px-4 py-3 text-ink-2">
                     {slot.faculty}
                   </td>
                   <td className="px-4 py-3 text-center">
                     {slot.isLiveSession ? (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-mono uppercase">
-                        Live Podium
+                      <span className="px-2 py-0.5 rounded text-xs font-semibold bg-success-soft text-success border border-emerald-200 dark:border-emerald-900/40 capitalize">
+                        Live podium
                       </span>
                     ) : (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                      <span className="px-2 py-0.5 rounded text-xs font-medium bg-paper-3 text-ink-muted">
                         Regular
                       </span>
                     )}
