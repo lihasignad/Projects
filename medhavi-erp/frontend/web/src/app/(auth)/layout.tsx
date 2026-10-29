@@ -31,14 +31,14 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
               href="https://wa.me/917763030866"
               target="_blank"
               rel="noreferrer"
-              className="text-emerald-700 dark:text-emerald-300 hover:underline"
+              className="text-emerald-700 dark:text-emerald-300 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded px-1"
             >
               WhatsApp +91 77630 30866
             </a>
-            <span>•</span>
+            <span aria-hidden="true">/</span>
             <a
               href="mailto:sahilsaurav99@gmail.com"
-              className="text-sky-700 dark:text-sky-300 hover:underline"
+              className="text-sky-700 dark:text-sky-300 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded px-1"
             >
               sahilsaurav99@gmail.com
             </a>
