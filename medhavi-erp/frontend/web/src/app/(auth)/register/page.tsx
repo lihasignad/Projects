@@ -63,7 +63,7 @@ export default function RegisterPage() {
       // Create user session and authenticate
       const mockAuthUser = {
         id: `user-${Date.now()}`,
-        instituteId: selectedInstitute?.id || 'msu-sikkim',
+        instituteId: selectedInstitute?.id || 'demo-univ',
         email: data.email,
         firstName: data.firstName,
         lastName: data.lastName || null,
@@ -99,14 +99,19 @@ export default function RegisterPage() {
 
   return (
     <div className="w-full max-w-2xl mx-auto flex flex-col items-center">
-      {/* University Title Header */}
-      <div className="w-full text-center sm:text-left mb-6 px-2">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-          Create Your Academic Account
-        </h1>
-        <p className="text-ink-muted text-xs sm:text-sm mt-1.5 font-medium">
-          Register with your institute enrollment or employee credentials for {selectedInstitute?.name || 'Medhavi Skills University'}.
-        </p>
+      {/* University Title Header with Logo */}
+      <div className="w-full mb-6 px-2 flex items-center space-x-3.5">
+        <div className="h-11 w-11 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg shadow-sm flex-shrink-0">
+          D
+        </div>
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+            Create Academic Account
+          </h1>
+          <p className="text-ink-muted text-xs mt-0.5 font-medium">
+            Enrollment and identity registration for {selectedInstitute?.name || 'Demo University'}
+          </p>
+        </div>
       </div>
 
       {serverError && (
@@ -195,7 +200,7 @@ export default function RegisterPage() {
             <input
               id="identifier"
               type="text"
-              placeholder={selectedRole === 'STUDENT' ? 'e.g. MSU/2024/BCSE042' : 'e.g. FAC-CSE-108'}
+              placeholder={selectedRole === 'STUDENT' ? 'e.g. DEMO/2024/BCSE042' : 'e.g. FAC-CSE-108'}
               disabled={isSubmitting}
               className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted uppercase font-mono focus:outline-none focus:ring-2 focus:ring-brand-600"
               {...register('identifier')}
@@ -214,7 +219,7 @@ export default function RegisterPage() {
               <input
                 id="email"
                 type="email"
-                placeholder="name@msu.edu.in"
+                placeholder="name@demouniversity.in"
                 disabled={isSubmitting}
                 className="w-full h-11 px-3.5 text-xs sm:text-sm rounded-lg border border-rule bg-paper text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-600"
                 {...register('email')}
